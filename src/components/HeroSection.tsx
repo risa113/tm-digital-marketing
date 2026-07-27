@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Sparkles, ArrowRight, Play, CheckCircle2, Zap } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, Play, CheckCircle2, Zap } from 'lucide-react';
 import Hero3DCanvas from './Hero3DCanvas';
 import { STATS } from '../data/marketingData';
 
@@ -65,7 +66,7 @@ export default function HeroSection({ onOpenConsultation }: HeroSectionProps) {
               <span>#1 Digital Marketing Agency in Tirunelveli</span>
             </div>
 
-            {/* Sora ExtraBold Heading - Step 6: Single H1 tag */}
+            {/* Sora ExtraBold Heading */}
             <h1 className="font-heading font-extrabold text-3xl sm:text-5xl lg:text-6xl xl:text-7xl text-[#111827] dark:text-white tracking-tight leading-[1.1]">
               Grow Your Business with <br className="hidden sm:block" />
               <span className="gradient-text">TM Digital Marketing</span>
@@ -86,13 +87,13 @@ export default function HeroSection({ onOpenConsultation }: HeroSectionProps) {
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
 
-              <a
-                href="#portfolio"
+              <Link
+                to="/deliverables"
                 className="font-btn font-semibold text-sm sm:text-base rounded-2xl glass-card text-[#111827] dark:text-white px-6 sm:px-8 py-3.5 sm:py-4 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all flex items-center justify-center gap-2.5 border border-slate-200 dark:border-slate-800"
               >
                 <span>Deliverables</span>
                 <Play className="w-4 h-4 text-[#2563EB] fill-[#2563EB]" />
-              </a>
+              </Link>
             </div>
 
             {/* Trust highlights */}
