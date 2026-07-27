@@ -50,21 +50,13 @@ export default function ContactSection({ preselectedService }: ContactSectionPro
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.6 }
-    });
-
-    // Save lead to database & generate instant WhatsApp alert URL
+    
+    // 1. Save lead directly to Neon Cloud Database via HTTPS API
     const res = await submitLeadToDatabase(formData);
+    
+    // 2. Open WhatsApp immediately after Neon Cloud insertion completes!
     if (res && res.whatsappUrl) {
-      setWhatsappUrl(res.whatsappUrl);
-      // Automatically launch WhatsApp to Mohamed Thariq (+91 86087 24931) immediately!
-      setTimeout(() => {
-        window.open(res.whatsappUrl, '_blank');
-      }, 500);
+      window.location.href = res.whatsappUrl;
     }
   };
 

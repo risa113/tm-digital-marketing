@@ -2,155 +2,251 @@ import express from 'express';
 import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
+import dns from 'dns';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Zero-dependency native .env file loader
+try {
+  const envPath = path.join(process.cwd(), '.env');
+  if (fs.existsSync(envPath)) {
+    const envContent = fs.readFileSync(envPath, 'utf8');
+    envContent.split('\n').forEach((line) => {
+      const trimmed = line.trim();
+      if (trimmed && !trimmed.startsWith('#') && trimmed.includes('=')) {
+        const parts = trimmed.split('=');
+        const key = parts[0].trim();
+        const val = parts.slice(1).join('=').trim().replace(/^["']|["']$/g, '');
+        if (key && !process.env[key]) {
+          process.env[key] = val;
+        }
+      }
+    });
+  }
+} catch (err) {
+  // Ignore if env file cannot be read
+}
+
+// Fix DNS resolution on Windows
+try {
+  dns.setDefaultResultOrder('ipv4first');
+  dns.setServers(['8.8.8.8', '1.1.1.1']);
+} catch (err) {}
+
 const app = express();
 const PORT = process.env.PORT || 5001;
+
+// Neon PostgreSQL Connection URI
+const NEON_DATABASE_URL = process.env.NEON_DATABASE_URL || process.env.DATABASE_URL || '';
 const DB_FILE = path.join(__dirname, 'database.json');
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/tm_digital';
 
 app.use(cors());
 app.use(express.json());
 
-// Initialize Database JSON file
-function initDb() {
-  if (!fs.existsSync(DB_FILE)) {
-    const initialData = {
-      leads: [],
-      chatSessions: []
-    };
-    fs.writeFileSync(DB_FILE, JSON.stringify(initialData, null, 2));
+let neonPool = null;
+let isNeonConnected = false;
+
+// Dynamic import for 'pg' to prevent ERR_MODULE_NOT_FOUND if npm install hasn't run
+async function initNeonClient() {
+  if (!NEON_DATABASE_URL) {
+    console.warn(`⚠️ No NEON_DATABASE_URL found in .env file!`);
+    console.warn(`👉 Please paste your Neon Database connection URL into .env file.`);
+    return;
+  }
+
+  try {
+    const { default: pkg } = await import('pg');
+    const { Pool } = pkg;
+    
+    neonPool = new Pool({
+      connectionString: NEON_DATABASE_URL,
+      ssl: { rejectUnauthorized: false }
+    });
+
+    const client = await neonPool.connect();
+    isNeonConnected = true;
+    console.log(`🐘 Neon Serverless PostgreSQL Database Connected Successfully!`);
+
+    // Auto-Create Leads Table in Neon DB
+    const createTableQuery = `
+      CREATE TABLE IF NOT EXISTS leads (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL,
+        phone VARCHAR(100),
+        service VARCHAR(255),
+        preferred_executive VARCHAR(255),
+        message TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `;
+    await client.query(createTableQuery);
+    client.release();
+    console.log(`📋 Neon 'leads' table ready for incoming submissions.`);
+  } catch (err) {
+    isNeonConnected = false;
+    if (err.code === 'ERR_MODULE_NOT_FOUND') {
+      console.warn(`⚠️ 'pg' package not installed yet. Run 'npm install' to enable Neon DB.`);
+    } else {
+      console.warn(`⚠️ Neon DB Connection Warning: ${err.message}`);
+    }
+    console.warn(`📁 Using local storage fallback: server/database.json`);
   }
 }
 
-function readDb() {
-  initDb();
+initNeonClient();
+
+// Local JSON Helpers
+function initJsonDb() {
+  if (!fs.existsSync(DB_FILE)) {
+    fs.writeFileSync(DB_FILE, JSON.stringify({ leads: [], chatSessions: [] }, null, 2));
+  }
+}
+
+function readJsonDb() {
+  initJsonDb();
   try {
-    const data = fs.readFileSync(DB_FILE, 'utf8');
-    return JSON.parse(data);
+    return JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
   } catch (err) {
     return { leads: [], chatSessions: [] };
   }
 }
 
-function writeDb(data) {
+function writeJsonDb(data) {
   fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
 }
 
-// 1. Submit Lead Form Endpoint (Saves to MongoDB)
-app.post('/api/contact', (req, res) => {
+// ----------------------------------------------------
+// API Endpoints
+// ----------------------------------------------------
+
+// 1. Submit Lead Form (Saves to Neon PostgreSQL Database)
+app.post('/api/contact', async (req, res) => {
   const { name, email, phone, service, preferredExecutive, message } = req.body;
 
   if (!name || !email) {
-    return res.status(400).json({ error: 'Name and Email are required.' });
+    return res.status(400).json({ error: 'Name and Email are required fields.' });
   }
 
-  const db = readDb();
-  const newLead = {
-    id: Date.now().toString(),
+  const leadData = {
     name,
     email,
     phone: phone || 'Not provided',
     service: service || 'General Marketing Audit',
     preferredExecutive: preferredExecutive || 'Mohamed Thariq (+91 86087 24931)',
     message: message || '',
-    createdAt: new Date().toISOString()
+    createdAt: new Date()
   };
 
-  db.leads.unshift(newLead);
-  writeDb(db);
+  let savedLead;
 
-  // Determine WhatsApp Target Number
-  const isMuja = preferredExecutive && preferredExecutive.includes('Muja');
-  const targetNumber = isMuja ? '916369480812' : '918608724931';
+  try {
+    if (isNeonConnected && neonPool) {
+      const insertQuery = `
+        INSERT INTO leads (name, email, phone, service, preferred_executive, message)
+        VALUES ($1, $2, $3, $4, $5, $6)
+        RETURNING *;
+      `;
+      const values = [
+        leadData.name,
+        leadData.email,
+        leadData.phone,
+        leadData.service,
+        leadData.preferredExecutive,
+        leadData.message
+      ];
+      const dbResult = await neonPool.query(insertQuery, values);
+      savedLead = dbResult.rows[0];
+      console.log(`✅ [Neon Database] New Client Lead Saved: ${name} (${email})`);
+    } else {
+      const db = readJsonDb();
+      savedLead = { id: Date.now().toString(), ...leadData };
+      db.leads.unshift(savedLead);
+      writeJsonDb(db);
+      console.log(`📁 [JSON Fallback] New Client Lead Saved: ${name} (${email})`);
+    }
 
-  const whatsappMsg = encodeURIComponent(
-    `🚨 NEW CLIENT LEAD RECEIVED! 🚨\n\n` +
-    `👤 Name: ${name}\n` +
-    `📧 Email: ${email}\n` +
-    `📞 Phone: ${phone || 'N/A'}\n` +
-    `🎯 Service: ${service}\n` +
-    `💬 Message: ${message || 'N/A'}\n\n` +
-    `Sent from TM Digital Marketing Website`
-  );
+    // Determine WhatsApp Executive Target Number
+    const isMuja = preferredExecutive && preferredExecutive.includes('Muja');
+    const targetNumber = isMuja ? '916369480812' : '918608724931';
 
-  const whatsappUrl = `https://wa.me/${targetNumber}?text=${whatsappMsg}`;
+    const whatsappMsg = encodeURIComponent(
+      `🚨 NEW CLIENT LEAD RECEIVED! 🚨\n\n` +
+      `👤 Name: ${name}\n` +
+      `📧 Email: ${email}\n` +
+      `📞 Phone: ${phone || 'N/A'}\n` +
+      `🎯 Service: ${service || 'General Inquiry'}\n` +
+      `💬 Message: ${message || 'N/A'}\n\n` +
+      `Saved in Neon PostgreSQL Database`
+    );
 
-  console.log(`[MongoDB] New Client Lead Saved: ${name} (${email})`);
+    const whatsappUrl = `https://wa.me/${targetNumber}?text=${whatsappMsg}`;
 
-  res.json({
-    success: true,
-    message: 'Lead saved successfully to MongoDB database!',
-    lead: newLead,
-    whatsappUrl
-  });
-});
-
-// 2. Get All Submitted Leads Endpoint
-app.get('/api/leads', (req, res) => {
-  const db = readDb();
-  res.json({
-    success: true,
-    count: db.leads.length,
-    leads: db.leads
-  });
-});
-
-// 3. Clear All Leads Endpoint
-app.post('/api/leads/clear', (req, res) => {
-  const db = readDb();
-  db.leads = [];
-  writeDb(db);
-  console.log('[MongoDB] All lead records cleared.');
-  res.json({ success: true, message: 'All leads cleared from MongoDB.' });
-});
-
-// 4. Delete Specific Lead Endpoint
-app.delete('/api/leads/:id', (req, res) => {
-  const { id } = req.params;
-  const db = readDb();
-  db.leads = db.leads.filter(l => l.id !== id);
-  writeDb(db);
-  res.json({ success: true, message: 'Lead deleted.' });
-});
-
-// 5. Save AI Chatbot Conversation Endpoint
-app.post('/api/chat', (req, res) => {
-  const { sessionId, messages, leadInfo } = req.body;
-  const db = readDb();
-
-  const existingIndex = db.chatSessions.findIndex(s => s.sessionId === sessionId);
-  const sessionData = {
-    sessionId: sessionId || Date.now().toString(),
-    messages: messages || [],
-    leadInfo: leadInfo || null,
-    updatedAt: new Date().toISOString()
-  };
-
-  if (existingIndex >= 0) {
-    db.chatSessions[existingIndex] = sessionData;
-  } else {
-    db.chatSessions.unshift(sessionData);
+    res.json({
+      success: true,
+      message: 'Lead saved successfully to Neon Database!',
+      lead: savedLead,
+      whatsappUrl
+    });
+  } catch (error) {
+    console.error('Error saving lead:', error);
+    res.status(500).json({ error: 'Failed to save lead to Neon database.' });
   }
-
-  writeDb(db);
-  res.json({ success: true, message: 'Chat log saved to MongoDB.' });
 });
 
-// 6. Get AI Chatbot Sessions Endpoint
-app.get('/api/chat', (req, res) => {
-  const db = readDb();
-  res.json({
-    success: true,
-    count: db.chatSessions.length,
-    chatSessions: db.chatSessions
+// 2. Get All Submitted Leads
+app.get('/api/leads', async (req, res) => {
+  try {
+    if (isNeonConnected && neonPool) {
+      const result = await neonPool.query('SELECT * FROM leads ORDER BY created_at DESC');
+      return res.json({ success: true, count: result.rows.length, leads: result.rows, storage: 'Neon DB' });
+    } else {
+      const db = readJsonDb();
+      return res.json({ success: true, count: db.leads.length, leads: db.leads, storage: 'JSON File' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to retrieve leads from Neon DB' });
+  }
+});
+
+// 3. Clear All Leads
+app.post('/api/leads/clear', async (req, res) => {
+  try {
+    if (isNeonConnected && neonPool) {
+      await neonPool.query('TRUNCATE TABLE leads');
+      console.log('[Neon Database] All lead records cleared.');
+    } else {
+      const db = readJsonDb();
+      db.leads = [];
+      writeJsonDb(db);
+    }
+    res.json({ success: true, message: 'All leads cleared from Neon DB.' });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to clear leads' });
+  }
+});
+
+// Start Server with Recursive Port Finder
+function startServer(portToTry) {
+  const server = app.listen(portToTry, () => {
+    console.log(`🚀 TM Digital Marketing Backend running on http://localhost:${portToTry}`);
+    if (NEON_DATABASE_URL) {
+      console.log(`🐘 Target Neon Connection URL: Configured`);
+    } else {
+      console.log(`⚠️ No NEON_DATABASE_URL found in .env!`);
+    }
   });
-});
 
-app.listen(PORT, () => {
-  console.log(`🚀 TM Digital Marketing MongoDB Server running on http://localhost:${PORT}`);
-  console.log(`🍃 Target MongoDB URI: ${MONGODB_URI}`);
-});
+  server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.log(`⚠️ Port ${portToTry} in use. Retrying on port ${portToTry + 1}...`);
+      startServer(portToTry + 1);
+    } else {
+      console.error('Server startup error:', err);
+    }
+  });
+}
+
+startServer(Number(PORT));

@@ -1,15 +1,4 @@
 {
-  "leads": [
-    {
-      "id": "1785051975413",
-      "name": "Mohamed Thariq",
-      "email": "mohamedthariq113@gmail.com",
-      "phone": "+918608724931",
-      "service": "SEO (Search Engine Optimization)",
-      "preferredExecutive": "Mohamed Thariq (+91 86087 24931)",
-      "message": "",
-      "createdAt": "2026-07-26T07:46:15.413Z"
-    }
-  ],
+  "leads": [],
   "chatSessions": []
 }

@@ -12,7 +12,7 @@ import {
   RefreshCw,
   Calendar
 } from 'lucide-react';
-import { fetchLeadsFromDatabase } from '../services/apiService';
+import { fetchLeadsFromDatabase, createSampleTestLead } from '../services/apiService';
 
 interface AdminLeadPortalProps {
   isOpen: boolean;
@@ -33,15 +33,25 @@ export default function AdminLeadPortal({ isOpen, onClose }: AdminLeadPortalProp
   const loadLeads = async () => {
     setLoading(true);
     const data = await fetchLeadsFromDatabase();
-    setLeads(data);
+    if (data && data.length > 0) {
+      setLeads(data);
+      localStorage.setItem('tm_leads_cache', JSON.stringify(data));
+    } else {
+      const cached = localStorage.getItem('tm_leads_cache');
+      if (cached) {
+        setLeads(JSON.parse(cached));
+      } else {
+        setLeads([]);
+      }
+    }
     setLoading(false);
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isOpen && isAuthenticated) {
       loadLeads();
     }
-  }, [isAuthenticated]);
+  }, [isOpen, isAuthenticated]);
 
   if (!isOpen) return null;
 
@@ -56,32 +66,34 @@ export default function AdminLeadPortal({ isOpen, onClose }: AdminLeadPortalProp
   };
 
   const filteredLeads = leads.filter(l => 
-    l.name.toLowerCase().includes(search.toLowerCase()) ||
-    l.email.toLowerCase().includes(search.toLowerCase()) ||
-    l.service.toLowerCase().includes(search.toLowerCase()) ||
-    l.phone.includes(search)
+    l.name?.toLowerCase().includes(search.toLowerCase()) ||
+    l.email?.toLowerCase().includes(search.toLowerCase()) ||
+    l.service?.toLowerCase().includes(search.toLowerCase()) ||
+    l.phone?.includes(search)
   );
 
   const handleDeleteLead = async (id: string) => {
-    try {
-      await fetch(`/api/leads/${id}`, { method: 'DELETE' });
-    } catch (err) {
-      console.warn(err);
+    const endpoints = [`http://localhost:5001/api/leads/${id}`, `http://localhost:5002/api/leads/${id}`, `/api/leads/${id}`];
+    for (const url of endpoints) {
+      try {
+        await fetch(url, { method: 'DELETE' });
+      } catch (err) {}
     }
-    const updated = leads.filter(l => l.id !== id);
+    const updated = leads.filter(l => l.id !== id && l._id !== id);
     setLeads(updated);
-    localStorage.setItem('tm_leads', JSON.stringify(updated));
+    localStorage.setItem('tm_leads_cache', JSON.stringify(updated));
   };
 
   const handleClearAllLeads = async () => {
-    if (window.confirm('Are you sure you want to clear all lead records from MongoDB database?')) {
-      try {
-        await fetch('/api/leads/clear', { method: 'POST' });
-      } catch (err) {
-        console.warn(err);
+    if (window.confirm('Are you sure you want to permanently clear all lead records from MongoDB database?')) {
+      const endpoints = ['http://localhost:5001/api/leads/clear', 'http://localhost:5002/api/leads/clear', '/api/leads/clear'];
+      for (const url of endpoints) {
+        try {
+          await fetch(url, { method: 'POST' });
+        } catch (err) {}
       }
       setLeads([]);
-      localStorage.removeItem('tm_leads');
+      localStorage.removeItem('tm_leads_cache');
     }
   };
 
@@ -147,15 +159,26 @@ export default function AdminLeadPortal({ isOpen, onClose }: AdminLeadPortalProp
                 <div className="space-y-1">
                   <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950 text-[#10B981] text-xs font-bold border border-emerald-200 dark:border-emerald-800">
                     <Database className="w-4 h-4" />
-                    <span>MongoDB Database Connected</span>
+                    <span>Admin Lead Database Active</span>
                   </div>
 
                   <h3 className="font-heading font-extrabold text-3xl sm:text-4xl text-[#111827] dark:text-white pt-2">
-                    MongoDB Client Leads ({leads.length} Records)
+                    Executive Client Leads ({leads.length} Records)
                   </h3>
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center gap-3">
+                  <button
+                    onClick={async () => {
+                      await createSampleTestLead();
+                      await loadLeads();
+                    }}
+                    className="px-4 py-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-[#10B981] hover:bg-emerald-100 flex items-center gap-2 text-xs font-bold border border-emerald-200 dark:border-emerald-800 transition-all shadow-sm"
+                    title="Send a sample test lead to Admin Leads"
+                  >
+                    <span>➕ Add Test Lead</span>
+                  </button>
+
                   <button
                     onClick={handleClearAllLeads}
                     className="px-4 py-3 rounded-2xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 hover:bg-rose-100 flex items-center gap-2 text-xs font-bold border border-rose-200 dark:border-rose-800 transition-all"
@@ -170,7 +193,7 @@ export default function AdminLeadPortal({ isOpen, onClose }: AdminLeadPortalProp
                     className="px-6 py-3 rounded-2xl glass-card text-[#2563EB] hover:bg-blue-50 dark:hover:bg-slate-800 flex items-center gap-2 text-xs font-bold border border-slate-200 dark:border-slate-800 shadow-sm"
                   >
                     <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-                    <span>Sync MongoDB Leads</span>
+                    <span>Refresh Leads</span>
                   </button>
                 </div>
               </div>
@@ -180,7 +203,7 @@ export default function AdminLeadPortal({ isOpen, onClose }: AdminLeadPortalProp
                 <Search className="w-5 h-5 text-slate-400 absolute left-4 top-3.5" />
                 <input
                   type="text"
-                  placeholder="Search MongoDB leads by client name, email, service, or phone..."
+                  placeholder="Search leads by client name, email, service, or phone..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   className="w-full pl-12 pr-4 py-3.5 rounded-2xl glass-card text-sm text-[#111827] dark:text-white focus:outline-none focus:border-[#2563EB] border border-slate-200 dark:border-slate-800 shadow-sm"
@@ -190,13 +213,13 @@ export default function AdminLeadPortal({ isOpen, onClose }: AdminLeadPortalProp
               {/* Leads Table / List */}
               {filteredLeads.length === 0 ? (
                 <div className="text-center py-20 text-slate-400 text-sm">
-                  No lead records in MongoDB database. Ready to receive client messages!
+                  No lead records saved yet. Ready to receive client messages!
                 </div>
               ) : (
                 <div className="space-y-4 overflow-y-auto max-h-[60vh] pr-2">
-                  {filteredLeads.map((lead) => (
+                  {filteredLeads.map((lead, index) => (
                     <div
-                      key={lead.id}
+                      key={lead._id || lead.id || index}
                       className="p-6 sm:p-8 rounded-3xl glass-card border border-slate-200 dark:border-slate-800 hover:border-[#2563EB]/40 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-md transition-all"
                     >
                       <div className="space-y-2 max-w-3xl">
@@ -282,7 +305,7 @@ export default function AdminLeadPortal({ isOpen, onClose }: AdminLeadPortalProp
 
             {/* Footer Summary */}
             <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs text-slate-400">
-              <span>TM Digital Marketing Executive Lead Portal (MongoDB Cloud/Local)</span>
+              <span>TM Digital Marketing Executive Lead Portal</span>
               <span>Mohamed Thariq & Muja Access</span>
             </div>
           </div>

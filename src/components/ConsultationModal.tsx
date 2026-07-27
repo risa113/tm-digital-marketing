@@ -26,19 +26,13 @@ export default function ConsultationModal({ isOpen, onClose, defaultService }: C
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    confetti({
-      particleCount: 120,
-      spread: 80,
-      origin: { y: 0.5 }
-    });
-
+    
+    // 1. Save lead directly to Neon Cloud Database via HTTPS API
     const res = await submitLeadToDatabase(formData);
+    
+    // 2. Open WhatsApp immediately after Neon Cloud insertion completes!
     if (res && res.whatsappUrl) {
-      setWhatsappUrl(res.whatsappUrl);
-      setTimeout(() => {
-        window.open(res.whatsappUrl, '_blank');
-      }, 500);
+      window.location.href = res.whatsappUrl;
     }
   };
 

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>TM Digital Marketing</title>
+    <script type="text/javascript">
+      // GitHub Pages SPA fallback: redirect direct path URLs to HashRouter route
+      (function () {
+        var l = window.location;
+        var pathname = l.pathname;
+        // Normalize repository name subpaths if present
+        var path = pathname;
+        var repoMatch = pathname.match(/^\/([^\/]+)(.*)$/);
+        var repoName = '';
+        if (repoMatch && repoMatch[1].toLowerCase().includes('digital-marketing')) {
+          repoName = '/' + repoMatch[1];
+          path = repoMatch[2] || '/';
+        }
+        var targetUrl = l.protocol + '//' + l.host + repoName + '/#' + path + l.search + l.hash;
+        l.replace(targetUrl);
+      })();
+    </script>
+  </head>
+  <body>
+  </body>
+</html>
