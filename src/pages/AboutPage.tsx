@@ -24,21 +24,21 @@ export default function AboutPage({ onOpenConsultation }: AboutPageProps) {
   const leadership = [
     {
       name: 'Mohamed Thariq',
-      role: 'Co-Founder & Chief Growth Officer',
+      role: 'Co-Founder & Creative Director',
       phone: '+91 86087 24931',
       directTel: '8608724931',
-      bio: 'PPC & Meta Ads specialist with expertise in scaling acquisition funnels, ROAS optimization, and performance copywriting for international and local brands.',
+      bio: 'Brand architect and full-stack web dev wizard specializing in 3D glassmorphic web design, vector brand identities, and high-CTR video editing.',
       image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop',
-      skills: ['Performance PPC', 'Meta Ad Testing', 'Conversion Funnels', 'Founder Strategy']
+      skills: ['3D Web Engineering', 'Brand Systems', 'Motion & Video', 'AI Automation']
     },
     {
       name: 'Muja',
-      role: 'Co-Founder & Creative Director',
+      role: 'Co-Founder & Chief Growth Officer',
       phone: '+91 63694 80812',
       directTel: '6369480812',
-      bio: 'Brand architect and full-stack web dev wizard specializing in 3D glassmorphic web design, vector brand identities, and high-CTR video editing.',
+      bio: 'PPC & Meta Ads specialist with expertise in scaling acquisition funnels, ROAS optimization, and performance copywriting for international and local brands.',
       image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop',
-      skills: ['3D Web Engineering', 'Brand Systems', 'Motion & Video', 'AI Automation']
+      skills: ['Performance PPC', 'Meta Ad Testing', 'Conversion Funnels', 'Founder Strategy']
     }
   ];
 
