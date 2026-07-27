@@ -17,7 +17,6 @@ import ServicesPage from './pages/ServicesPage';
 import ProcessPage from './pages/ProcessPage';
 import DeliverablesPage from './pages/DeliverablesPage';
 import WhyUsPage from './pages/WhyUsPage';
-import TestimonialsPage from './pages/TestimonialsPage';
 import FAQPage from './pages/FAQPage';
 import ContactPage from './pages/ContactPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -134,10 +133,6 @@ export default function App() {
               <Route
                 path="/why-us"
                 element={<WhyUsPage onOpenConsultation={handleOpenConsultation} />}
-              />
-              <Route
-                path="/testimonials"
-                element={<TestimonialsPage onOpenConsultation={handleOpenConsultation} />}
               />
               <Route
                 path="/faq"

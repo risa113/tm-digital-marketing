@@ -46,12 +46,6 @@ const ROUTE_SEO_MAP: Record<string, RouteSEO> = {
     keywords: 'why choose TM digital, agency comparison, direct founder access, marketing ROI guarantee',
     canonical: 'https://tmdigitalmarketing.com/why-us'
   },
-  '/testimonials': {
-    title: 'Client Testimonials & Reviews | TM Digital Marketing',
-    description: 'Read verified client testimonials and success stories from business owners who scaled revenue with TM Digital Marketing.',
-    keywords: 'client reviews, TM digital testimonials, agency ratings, customer success stories',
-    canonical: 'https://tmdigitalmarketing.com/testimonials'
-  },
   '/faq': {
     title: 'Frequently Asked Questions | TM Digital Marketing',
     description: 'Find instant answers to questions about campaign launch timelines, founder access, pricing models, and service deliverables.',

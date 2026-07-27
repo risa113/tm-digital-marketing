@@ -11,7 +11,6 @@ import {
   RefreshCw,
   Layers,
   ShieldCheck,
-  MessageSquare,
   HelpCircle,
   PhoneCall
 } from 'lucide-react';
@@ -52,7 +51,6 @@ export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
     { label: 'Process', path: '/process', icon: RefreshCw },
     { label: 'Deliverables', path: '/deliverables', icon: Layers },
     { label: 'Why Us', path: '/why-us', icon: ShieldCheck },
-    { label: 'Testimonials', path: '/testimonials', icon: MessageSquare },
     { label: 'FAQ', path: '/faq', icon: HelpCircle },
     { label: 'Contact', path: '/contact', icon: PhoneCall }
   ];
