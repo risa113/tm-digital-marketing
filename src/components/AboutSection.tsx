@@ -91,12 +91,12 @@ export default function AboutSection() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-transparent" />
                 
-                <div className="absolute bottom-6 left-6 right-6 glass-card p-4 rounded-2xl border border-white/20 backdrop-blur-md flex items-center justify-between text-white text-left">
+                <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-[#0F172A]/90 backdrop-blur-md border border-slate-700/60 shadow-xl flex items-center justify-between text-white text-left">
                   <div>
-                    <p className="text-xs font-semibold text-blue-300">Quality-Driven Approach</p>
-                    <p className="text-sm font-bold">Polished digital products that perform & inspire.</p>
+                    <p className="text-xs font-bold text-sky-400">Quality-Driven Approach</p>
+                    <p className="text-sm font-bold text-white">Polished digital products that perform & inspire.</p>
                   </div>
-                  <Award className="w-8 h-8 text-[#2563EB] shrink-0" />
+                  <Award className="w-8 h-8 text-[#3B82F6] shrink-0" />
                 </div>
               </div>
 
