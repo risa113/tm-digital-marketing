@@ -1,0 +1,7 @@
+# Allow all search engine bots to crawl the site
+User-agent: *
+Allow: /
+
+# Host & Sitemap specification
+Host: https://tmdigitalmarketing.com
+Sitemap: https://tmdigitalmarketing.com/sitemap.xml
