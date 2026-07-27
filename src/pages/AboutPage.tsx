@@ -38,7 +38,7 @@ export default function AboutPage({ onOpenConsultation }: AboutPageProps) {
       directTel: '6369480812',
       bio: 'PPC & Meta Ads specialist with expertise in scaling acquisition funnels, ROAS optimization, and performance copywriting for international and local brands.',
       image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop',
-      skills: ['Performance PPC', 'Meta Ad Testing', 'Conversion Funnels', 'Founder Strategy']
+      skills: ['Poster Making', 'Meta Ads', 'Video Editing', 'Social Media Management']
     }
   ];
 
