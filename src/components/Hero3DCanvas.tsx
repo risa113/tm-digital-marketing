@@ -6,7 +6,7 @@ import * as THREE from 'three';
 function Laptop3DModel() {
   const laptopGroup = useRef<THREE.Group>(null);
 
-  // Generate a high-resolution CanvasTexture displaying "TM DIGITAL MARKETING"
+  // Generate a high-resolution CanvasTexture displaying "TM DIGITAL MARKETING" on Front Screen
   const screenTexture = useMemo(() => {
     const canvas = document.createElement('canvas');
     canvas.width = 1024;
@@ -109,10 +109,130 @@ function Laptop3DModel() {
     return tex;
   }, []);
 
+  // Backside Texture for Laptop Lid featuring the illuminated TM Blue Logo
+  const lidBackTexture = useMemo(() => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 1024;
+    canvas.height = 680;
+    const ctx = canvas.getContext('2d');
+
+    if (ctx) {
+      // 1. Dark Sleek Metallic Laptop Lid Background
+      const bgGrad = ctx.createLinearGradient(0, 0, 1024, 680);
+      bgGrad.addColorStop(0, '#0B1120');
+      bgGrad.addColorStop(0.5, '#0F172A');
+      bgGrad.addColorStop(1, '#1E293B');
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, 1024, 680);
+
+      // Subtle metallic border frame
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.25)';
+      ctx.lineWidth = 6;
+      ctx.strokeRect(12, 12, 1000, 656);
+
+      // 2. High-Precision Vector Drawing of the TM Blue Logo
+      const cx = 512;
+      const cy = 300;
+
+      // Outer Ambient Glow around the Logo
+      ctx.shadowColor = '#00A3FF';
+      ctx.shadowBlur = 45;
+
+      // Vibrant Blue Gradient for the TM Logo
+      const logoGrad = ctx.createLinearGradient(cx - 200, cy - 150, cx + 200, cy + 180);
+      logoGrad.addColorStop(0, '#00D2FF');
+      logoGrad.addColorStop(0.35, '#0084FF');
+      logoGrad.addColorStop(0.7, '#0055FF');
+      logoGrad.addColorStop(1, '#002699');
+      ctx.fillStyle = logoGrad;
+
+      // Main Outer Chevron / Wings of 'M'
+      ctx.beginPath();
+      ctx.moveTo(cx - 220, cy - 140);
+      ctx.lineTo(cx - 130, cy - 140);
+      ctx.lineTo(cx, cy + 40);
+      ctx.lineTo(cx + 130, cy - 140);
+      ctx.lineTo(cx + 220, cy - 140);
+      ctx.lineTo(cx, cy + 190);
+      ctx.closePath();
+      ctx.fill();
+
+      // Outer Left Vertical Pillar of M
+      ctx.beginPath();
+      ctx.moveTo(cx - 220, cy - 140);
+      ctx.lineTo(cx - 130, cy - 140);
+      ctx.lineTo(cx - 130, cy + 80);
+      ctx.lineTo(cx - 220, cy + 80);
+      ctx.closePath();
+      ctx.fill();
+
+      // Outer Right Vertical Pillar of M
+      ctx.beginPath();
+      ctx.moveTo(cx + 130, cy - 140);
+      ctx.lineTo(cx + 220, cy - 140);
+      ctx.lineTo(cx + 220, cy + 80);
+      ctx.lineTo(cx + 130, cy + 80);
+      ctx.closePath();
+      ctx.fill();
+
+      // Central 'T' Bar at the Top
+      ctx.beginPath();
+      ctx.moveTo(cx - 130, cy - 140);
+      ctx.lineTo(cx + 130, cy - 140);
+      ctx.lineTo(cx + 130, cy - 65);
+      ctx.lineTo(cx - 130, cy - 65);
+      ctx.closePath();
+      ctx.fill();
+
+      // Center Stem of 'T' pointing down into V
+      ctx.beginPath();
+      ctx.moveTo(cx - 40, cy - 65);
+      ctx.lineTo(cx + 40, cy - 65);
+      ctx.lineTo(cx + 40, cy + 30);
+      ctx.lineTo(cx, cy + 75);
+      ctx.lineTo(cx - 40, cy + 30);
+      ctx.closePath();
+      ctx.fill();
+
+      // Crisp Inner Cutouts
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = '#0F172A';
+
+      // Left inner space
+      ctx.beginPath();
+      ctx.moveTo(cx - 125, cy - 55);
+      ctx.lineTo(cx - 50, cy - 55);
+      ctx.lineTo(cx - 125, cy + 25);
+      ctx.closePath();
+      ctx.fill();
+
+      // Right inner space
+      ctx.beginPath();
+      ctx.moveTo(cx + 125, cy - 55);
+      ctx.lineTo(cx + 50, cy - 55);
+      ctx.lineTo(cx + 125, cy + 25);
+      ctx.closePath();
+      ctx.fill();
+
+      // Re-apply glow for Brand Text
+      ctx.shadowColor = '#38BDF8';
+      ctx.shadowBlur = 20;
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '900 36px Sora, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('TM DIGITAL MARKETING', cx, cy + 260);
+    }
+
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.needsUpdate = true;
+    return tex;
+  }, []);
+
   useFrame((state) => {
     if (laptopGroup.current) {
-      laptopGroup.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.4) * 0.15;
-      laptopGroup.current.rotation.x = Math.cos(state.clock.elapsedTime * 0.3) * 0.08;
+      // Smooth 360-degree rotation animation to show off both front screen and back lid TM logo
+      laptopGroup.current.rotation.y = state.clock.elapsedTime * 0.4;
+      laptopGroup.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.3) * 0.08;
     }
   });
 
@@ -136,10 +256,16 @@ function Laptop3DModel() {
           <meshStandardMaterial color="#0F172A" metalness={0.9} roughness={0.1} />
         </RoundedBox>
 
-        {/* Display Screen Rendering TM DIGITAL MARKETING Title */}
+        {/* Display Screen Rendering TM DIGITAL MARKETING Title (Front) */}
         <mesh position={[0, 1.15, 0.05]}>
           <planeGeometry args={[3.2, 2.0]} />
           <meshBasicMaterial map={screenTexture} />
+        </mesh>
+
+        {/* Illuminated Blue TM Logo on Laptop Lid (Backside) */}
+        <mesh position={[0, 1.15, -0.042]} rotation={[0, Math.PI, 0]}>
+          <planeGeometry args={[3.4, 2.2]} />
+          <meshBasicMaterial map={lidBackTexture} />
         </mesh>
       </group>
 
