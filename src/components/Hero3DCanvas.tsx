@@ -1,10 +1,11 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Float, RoundedBox, OrbitControls, Sphere } from '@react-three/drei';
 import * as THREE from 'three';
 
 function Laptop3DModel() {
   const laptopGroup = useRef<THREE.Group>(null);
+  const [lidBackTexture, setLidBackTexture] = useState<THREE.CanvasTexture | null>(null);
 
   // Generate a high-resolution CanvasTexture displaying "TM DIGITAL MARKETING" on Front Screen
   const screenTexture = useMemo(() => {
@@ -109,123 +110,77 @@ function Laptop3DModel() {
     return tex;
   }, []);
 
-  // Backside Texture for Laptop Lid featuring the illuminated TM Blue Logo
-  const lidBackTexture = useMemo(() => {
+  // Process and load the EXACT uploaded logo image onto the laptop lid backside
+  useEffect(() => {
     const canvas = document.createElement('canvas');
     canvas.width = 1024;
     canvas.height = 680;
     const ctx = canvas.getContext('2d');
 
-    if (ctx) {
-      // 1. Dark Sleek Metallic Laptop Lid Background
-      const bgGrad = ctx.createLinearGradient(0, 0, 1024, 680);
-      bgGrad.addColorStop(0, '#0B1120');
-      bgGrad.addColorStop(0.5, '#0F172A');
-      bgGrad.addColorStop(1, '#1E293B');
-      ctx.fillStyle = bgGrad;
-      ctx.fillRect(0, 0, 1024, 680);
+    if (!ctx) return;
 
-      // Subtle metallic border frame
-      ctx.strokeStyle = 'rgba(56, 189, 248, 0.25)';
-      ctx.lineWidth = 6;
-      ctx.strokeRect(12, 12, 1000, 656);
+    // Sleek Dark Metallic Background for Laptop Lid
+    const bgGrad = ctx.createLinearGradient(0, 0, 1024, 680);
+    bgGrad.addColorStop(0, '#090D16');
+    bgGrad.addColorStop(0.5, '#0F172A');
+    bgGrad.addColorStop(1, '#1E293B');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, 1024, 680);
 
-      // 2. High-Precision Vector Drawing of the TM Blue Logo
-      const cx = 512;
-      const cy = 300;
+    // Subtle metallic frame border
+    ctx.strokeStyle = 'rgba(56, 189, 248, 0.3)';
+    ctx.lineWidth = 6;
+    ctx.strokeRect(12, 12, 1000, 656);
 
-      // Outer Ambient Glow around the Logo
-      ctx.shadowColor = '#00A3FF';
-      ctx.shadowBlur = 45;
+    const img = new Image();
+    img.crossOrigin = 'Anonymous';
+    img.src = '/logo.png';
+    img.onload = () => {
+      const tempCanvas = document.createElement('canvas');
+      tempCanvas.width = img.width;
+      tempCanvas.height = img.height;
+      const tempCtx = tempCanvas.getContext('2d');
 
-      // Vibrant Blue Gradient for the TM Logo
-      const logoGrad = ctx.createLinearGradient(cx - 200, cy - 150, cx + 200, cy + 180);
-      logoGrad.addColorStop(0, '#00D2FF');
-      logoGrad.addColorStop(0.35, '#0084FF');
-      logoGrad.addColorStop(0.7, '#0055FF');
-      logoGrad.addColorStop(1, '#002699');
-      ctx.fillStyle = logoGrad;
+      if (tempCtx) {
+        tempCtx.drawImage(img, 0, 0);
+        const imgData = tempCtx.getImageData(0, 0, img.width, img.height);
+        const data = imgData.data;
 
-      // Main Outer Chevron / Wings of 'M'
-      ctx.beginPath();
-      ctx.moveTo(cx - 220, cy - 140);
-      ctx.lineTo(cx - 130, cy - 140);
-      ctx.lineTo(cx, cy + 40);
-      ctx.lineTo(cx + 130, cy - 140);
-      ctx.lineTo(cx + 220, cy - 140);
-      ctx.lineTo(cx, cy + 190);
-      ctx.closePath();
-      ctx.fill();
+        // Remove white background so exact TM logo blends seamlessly
+        for (let i = 0; i < data.length; i += 4) {
+          const r = data[i];
+          const g = data[i + 1];
+          const b = data[i + 2];
+          if (r > 225 && g > 225 && b > 225) {
+            data[i + 3] = 0; // Set Alpha to 0
+          }
+        }
+        tempCtx.putImageData(imgData, 0, 0);
 
-      // Outer Left Vertical Pillar of M
-      ctx.beginPath();
-      ctx.moveTo(cx - 220, cy - 140);
-      ctx.lineTo(cx - 130, cy - 140);
-      ctx.lineTo(cx - 130, cy + 80);
-      ctx.lineTo(cx - 220, cy + 80);
-      ctx.closePath();
-      ctx.fill();
+        // Draw glowing aura behind the exact logo image
+        ctx.shadowColor = '#00A3FF';
+        ctx.shadowBlur = 40;
 
-      // Outer Right Vertical Pillar of M
-      ctx.beginPath();
-      ctx.moveTo(cx + 130, cy - 140);
-      ctx.lineTo(cx + 220, cy - 140);
-      ctx.lineTo(cx + 220, cy + 80);
-      ctx.lineTo(cx + 130, cy + 80);
-      ctx.closePath();
-      ctx.fill();
+        const drawWidth = 520;
+        const drawHeight = (img.height / img.width) * drawWidth;
+        const dx = (1024 - drawWidth) / 2;
+        const dy = (680 - drawHeight) / 2 - 25;
 
-      // Central 'T' Bar at the Top
-      ctx.beginPath();
-      ctx.moveTo(cx - 130, cy - 140);
-      ctx.lineTo(cx + 130, cy - 140);
-      ctx.lineTo(cx + 130, cy - 65);
-      ctx.lineTo(cx - 130, cy - 65);
-      ctx.closePath();
-      ctx.fill();
+        ctx.drawImage(tempCanvas, dx, dy, drawWidth, drawHeight);
 
-      // Center Stem of 'T' pointing down into V
-      ctx.beginPath();
-      ctx.moveTo(cx - 40, cy - 65);
-      ctx.lineTo(cx + 40, cy - 65);
-      ctx.lineTo(cx + 40, cy + 30);
-      ctx.lineTo(cx, cy + 75);
-      ctx.lineTo(cx - 40, cy + 30);
-      ctx.closePath();
-      ctx.fill();
+        // Brand Subtitle under exact logo
+        ctx.shadowColor = '#38BDF8';
+        ctx.shadowBlur = 20;
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = '900 36px Sora, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('TM DIGITAL MARKETING', 512, dy + drawHeight + 50);
 
-      // Crisp Inner Cutouts
-      ctx.shadowBlur = 0;
-      ctx.fillStyle = '#0F172A';
-
-      // Left inner space
-      ctx.beginPath();
-      ctx.moveTo(cx - 125, cy - 55);
-      ctx.lineTo(cx - 50, cy - 55);
-      ctx.lineTo(cx - 125, cy + 25);
-      ctx.closePath();
-      ctx.fill();
-
-      // Right inner space
-      ctx.beginPath();
-      ctx.moveTo(cx + 125, cy - 55);
-      ctx.lineTo(cx + 50, cy - 55);
-      ctx.lineTo(cx + 125, cy + 25);
-      ctx.closePath();
-      ctx.fill();
-
-      // Re-apply glow for Brand Text
-      ctx.shadowColor = '#38BDF8';
-      ctx.shadowBlur = 20;
-      ctx.fillStyle = '#FFFFFF';
-      ctx.font = '900 36px Sora, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('TM DIGITAL MARKETING', cx, cy + 260);
-    }
-
-    const tex = new THREE.CanvasTexture(canvas);
-    tex.needsUpdate = true;
-    return tex;
+        const tex = new THREE.CanvasTexture(canvas);
+        tex.needsUpdate = true;
+        setLidBackTexture(tex);
+      }
+    };
   }, []);
 
   useFrame((state) => {
@@ -262,11 +217,13 @@ function Laptop3DModel() {
           <meshBasicMaterial map={screenTexture} />
         </mesh>
 
-        {/* Illuminated Blue TM Logo on Laptop Lid (Backside) */}
-        <mesh position={[0, 1.15, -0.042]} rotation={[0, Math.PI, 0]}>
-          <planeGeometry args={[3.4, 2.2]} />
-          <meshBasicMaterial map={lidBackTexture} />
-        </mesh>
+        {/* Illuminated Exact TM Logo Image on Laptop Lid (Backside) */}
+        {lidBackTexture && (
+          <mesh position={[0, 1.15, -0.042]} rotation={[0, Math.PI, 0]}>
+            <planeGeometry args={[3.4, 2.2]} />
+            <meshBasicMaterial map={lidBackTexture} />
+          </mesh>
+        )}
       </group>
 
       {/* Floating 3D Marketing Badges around Laptop */}
