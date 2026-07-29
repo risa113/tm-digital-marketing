@@ -4,19 +4,27 @@
     <meta charset="UTF-8" />
     <title>TM Digital Marketing</title>
     <script type="text/javascript">
-      // GitHub Pages SPA fallback: redirect direct path URLs to HashRouter route
+      // GitHub Pages SPA Redirect to HashRouter
       (function () {
         var l = window.location;
         var pathname = l.pathname;
-        // Normalize repository name subpaths if present
-        var path = pathname;
-        var repoMatch = pathname.match(/^\/([^\/]+)(.*)$/);
+        var search = l.search;
+        var hash = l.hash;
+
+        // Auto-correct underscore repository names (tm_digital_marketing -> tm-digital-marketing)
+        var correctedPath = pathname.replace('/tm_digital_marketing', '/tm-digital-marketing');
+
+        var pathSegments = correctedPath.split('/').filter(Boolean);
         var repoName = '';
-        if (repoMatch && repoMatch[1].toLowerCase().includes('digital-marketing')) {
-          repoName = '/' + repoMatch[1];
-          path = repoMatch[2] || '/';
+        if (pathSegments.length > 0 && pathSegments[0].toLowerCase().includes('digital-marketing')) {
+          repoName = '/' + pathSegments[0];
+          pathSegments.shift();
         }
-        var targetUrl = l.protocol + '//' + l.host + repoName + '/#' + path + l.search + l.hash;
+
+        var routePath = '/' + pathSegments.join('/');
+        if (routePath === '/') routePath = '';
+
+        var targetUrl = l.protocol + '//' + l.host + (repoName || '/tm-digital-marketing') + '/#' + routePath + search + hash;
         l.replace(targetUrl);
       })();
     </script>
