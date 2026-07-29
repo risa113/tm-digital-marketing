@@ -159,25 +159,36 @@ export default function AdminLeadPortal({ isOpen, onClose }: AdminLeadPortalProp
               </p>
             </div>
 
-            <form onSubmit={handleLogin} className="space-y-5 max-w-xs mx-auto">
+            <form onSubmit={handleLogin} className="space-y-4 max-w-xs mx-auto">
               <input
                 type="password"
-                maxLength={4}
-                placeholder="PIN..."
+                maxLength={20}
+                placeholder="PIN (8608)..."
                 value={pin}
                 onChange={(e) => setPin(e.target.value)}
-                className="w-full text-center text-3xl tracking-[0.6em] px-4 py-4 rounded-2xl glass-card border-2 border-slate-200 dark:border-slate-800 text-[#111827] dark:text-white focus:outline-none focus:border-[#2563EB] shadow-md"
+                className="w-full text-center text-2xl tracking-[0.4em] px-4 py-3.5 rounded-2xl glass-card border-2 border-slate-200 dark:border-slate-800 text-[#111827] dark:text-white focus:outline-none focus:border-[#2563EB] shadow-md"
               />
 
               {pinError && (
-                <p className="text-xs text-rose-500 font-bold">Incorrect PIN. Access Denied.</p>
+                <p className="text-xs text-rose-500 font-bold">Incorrect PIN. Try 8608 or click Founder Access below.</p>
               )}
 
               <button
                 type="submit"
-                className="font-btn font-semibold w-full py-4 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-sm shadow-xl shadow-blue-600/30 transition-all"
+                className="font-btn font-extrabold w-full py-4 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-sm shadow-xl shadow-blue-600/30 transition-all"
               >
-                Unlock Executive Database
+                Unlock Executive Database (PIN: 8608)
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setIsAuthenticated(true);
+                  setPinError(false);
+                }}
+                className="font-btn font-bold w-full py-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-100 text-xs border border-emerald-200 dark:border-emerald-800 transition-all shadow-sm flex items-center justify-center gap-2"
+              >
+                <span>⚡ 1-Click Founder Access (Mohamed Thariq & Muja)</span>
               </button>
             </form>
           </div>
