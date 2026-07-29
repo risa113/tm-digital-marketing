@@ -132,9 +132,10 @@ function Laptop3DModel() {
     ctx.lineWidth = 6;
     ctx.strokeRect(12, 12, 1000, 656);
 
+    const logoUrl = (import.meta.env.BASE_URL + 'logo.png').replace(/\/+/g, '/');
     const img = new Image();
     img.crossOrigin = 'Anonymous';
-    img.src = '/logo.png';
+    img.src = logoUrl;
     img.onload = () => {
       const tempCanvas = document.createElement('canvas');
       tempCanvas.width = img.width;
@@ -146,35 +147,35 @@ function Laptop3DModel() {
         const imgData = tempCtx.getImageData(0, 0, img.width, img.height);
         const data = imgData.data;
 
-        // Remove white background so exact TM logo blends seamlessly
+        // Remove white background so exact TM logo blends seamlessly onto laptop lid
         for (let i = 0; i < data.length; i += 4) {
           const r = data[i];
           const g = data[i + 1];
           const b = data[i + 2];
           if (r > 225 && g > 225 && b > 225) {
-            data[i + 3] = 0; // Set Alpha to 0
+            data[i + 3] = 0; // Set Alpha to transparent
           }
         }
         tempCtx.putImageData(imgData, 0, 0);
 
-        // Draw glowing aura behind the exact logo image
+        // Draw glowing cyan-blue aura behind the exact TM logo
         ctx.shadowColor = '#00A3FF';
-        ctx.shadowBlur = 40;
+        ctx.shadowBlur = 50;
 
-        const drawWidth = 520;
+        const drawWidth = 540;
         const drawHeight = (img.height / img.width) * drawWidth;
         const dx = (1024 - drawWidth) / 2;
-        const dy = (680 - drawHeight) / 2 - 25;
+        const dy = (680 - drawHeight) / 2 - 20;
 
         ctx.drawImage(tempCanvas, dx, dy, drawWidth, drawHeight);
 
-        // Brand Subtitle under exact logo
+        // Brand Subtitle under exact logo image on laptop lid
         ctx.shadowColor = '#38BDF8';
-        ctx.shadowBlur = 20;
+        ctx.shadowBlur = 25;
         ctx.fillStyle = '#FFFFFF';
-        ctx.font = '900 36px Sora, sans-serif';
+        ctx.font = '900 38px Sora, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('TM DIGITAL MARKETING', 512, dy + drawHeight + 50);
+        ctx.fillText('TM DIGITAL MARKETING', 512, dy + drawHeight + 52);
 
         const tex = new THREE.CanvasTexture(canvas);
         tex.needsUpdate = true;
