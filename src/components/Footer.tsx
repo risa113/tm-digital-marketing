@@ -1,7 +1,10 @@
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mail } from 'lucide-react';
+import { Mail, CheckCircle2, Loader2 } from 'lucide-react';
+import confetti from 'canvas-confetti';
 import Logo from './Logo';
 import { CONTACT_INFO } from '../data/marketingData';
+import { submitLeadToDatabase } from '../services/apiService';
 
 const InstagramIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   <svg
@@ -20,6 +23,37 @@ const InstagramIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
 );
 
 export default function Footer() {
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubscribed, setIsSubscribed] = useState(false);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !email.includes('@')) return;
+
+    setIsSubmitting(true);
+    try {
+      await submitLeadToDatabase({
+        name: 'Newsletter Subscriber',
+        email: email,
+        service: 'Digital Growth Insights Newsletter'
+      });
+
+      confetti({
+        particleCount: 80,
+        spread: 70,
+        origin: { y: 0.8 }
+      });
+
+      setIsSubscribed(true);
+      setEmail('');
+    } catch (err) {
+      console.error('Subscription error:', err);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <footer className="bg-white dark:bg-[#0B101D] text-slate-600 dark:text-slate-400 border-t border-slate-200 dark:border-slate-800 pt-16 pb-12 relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -35,16 +69,45 @@ export default function Footer() {
             </p>
           </div>
 
-          <div className="flex w-full lg:w-auto items-center gap-2">
-            <input
-              type="email"
-              placeholder="Enter your work email..."
-              className="w-full lg:w-72 px-4 py-3 rounded-xl bg-white dark:bg-slate-900 text-[#111827] dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#2563EB] border border-slate-200 dark:border-slate-800"
-            />
-            <button className="font-btn font-semibold px-6 py-3 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs shrink-0 shadow-lg shadow-blue-600/30 transition-all">
-              Subscribe
-            </button>
-          </div>
+          {isSubscribed ? (
+            <div className="flex flex-col sm:flex-row items-center gap-3 px-6 py-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/80 border border-emerald-300 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 text-xs sm:text-sm font-bold animate-fadeIn">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
+                <span>🎉 Subscribed! We'll send insights to your inbox.</span>
+              </div>
+              <button
+                onClick={() => setIsSubscribed(false)}
+                className="text-xs text-emerald-600 dark:text-emerald-400 underline font-semibold hover:opacity-80"
+              >
+                Add another
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={handleSubscribe} className="flex w-full lg:w-auto items-center gap-2">
+              <input
+                type="email"
+                required
+                placeholder="Enter your work email..."
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full lg:w-72 px-4 py-3 rounded-xl bg-white dark:bg-slate-900 text-[#111827] dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#2563EB] border border-slate-200 dark:border-slate-800"
+              />
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="font-btn font-semibold px-6 py-3 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] disabled:opacity-50 text-white text-xs shrink-0 shadow-lg shadow-blue-600/30 transition-all flex items-center justify-center gap-2"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Subscribing...</span>
+                  </>
+                ) : (
+                  <span>Subscribe</span>
+                )}
+              </button>
+            </form>
+          )}
         </div>
 
         {/* Footer Sitemap */}
