@@ -175,75 +175,93 @@ export default function ServicesPage({ onOpenConsultation, onSelectService }: Se
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 sm:gap-8 items-stretch">
-            {WEBSITE_PACKAGES.map((pkg) => (
-              <div
-                key={pkg.id}
-                className={`p-6 sm:p-7 rounded-3xl border transition-all duration-300 flex flex-col justify-between relative ${
-                  pkg.popular
-                    ? 'bg-gradient-to-b from-blue-600/10 via-slate-900 to-slate-900 text-white border-[#2563EB] shadow-2xl scale-[1.02] z-10'
-                    : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white hover:border-[#2563EB]/40'
-                }`}
-              >
-                {pkg.popular && (
-                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3.5 py-1 rounded-full bg-[#2563EB] text-white text-[10px] font-extrabold uppercase tracking-wider shadow-md whitespace-nowrap">
-                    {pkg.popularTag || '⭐ Most Popular'}
-                  </span>
-                )}
-
-                <div className="space-y-5">
-                  <div className="space-y-2">
-                    <h3 className="font-heading font-extrabold text-2xl flex items-center gap-2">
-                      <span>{pkg.icon}</span>
-                      <span>{pkg.name}</span>
-                    </h3>
-                    
-                    <div className="pt-2">
-                      <span className="font-num font-extrabold text-3xl sm:text-4xl text-[#2563EB] dark:text-blue-400 block">
-                        {pkg.price}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 sm:gap-8 items-stretch pt-4">
+            {WEBSITE_PACKAGES.map((pkg) => {
+              const isProf = pkg.id === 'professional' || pkg.popular;
+              return (
+                <div
+                  key={pkg.id}
+                  className={`p-6 sm:p-7 rounded-3xl transition-all duration-300 flex flex-col justify-between relative ${
+                    isProf
+                      ? 'bg-gradient-to-b from-blue-950 via-slate-900 to-indigo-950 text-white border-2 border-blue-500 shadow-[0_10px_40px_rgba(37,99,235,0.4)] xl:-translate-y-3 z-20 scale-[1.03]'
+                      : 'bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white hover:border-[#2563EB]/40'
+                  }`}
+                >
+                  {isProf && (
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-30">
+                      <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-400 via-blue-600 to-indigo-600 text-white text-[11px] font-extrabold uppercase tracking-wider shadow-lg ring-2 ring-amber-300/60 animate-pulse whitespace-nowrap">
+                        <Sparkles className="w-3.5 h-3.5 text-amber-200" />
+                        <span>{pkg.popularTag || '⭐ Most Popular'}</span>
                       </span>
                     </div>
+                  )}
 
-                    <p className={`text-xs leading-relaxed font-medium pt-1 ${pkg.popular ? 'text-slate-300' : 'text-slate-600 dark:text-slate-300'}`}>
-                      {pkg.subtitle}
-                    </p>
-
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-blue-950/60 border border-blue-200/60 dark:border-blue-800 text-[11px] font-bold text-[#2563EB] dark:text-blue-300 mt-2">
-                      <Clock className="w-3.5 h-3.5 shrink-0" />
-                      <span>{pkg.delivery}</span>
-                    </div>
-                  </div>
-
-                  <div className="space-y-2.5 pt-4 border-t border-slate-200 dark:border-slate-800">
-                    <p className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-400">
-                      Includes
-                    </p>
+                  <div className="space-y-5">
                     <div className="space-y-2">
-                      {pkg.features.map((feat) => (
-                        <div key={feat} className="flex items-start gap-2 text-xs font-medium leading-snug">
-                          <CheckCircle2 className={`w-4 h-4 shrink-0 mt-0.5 ${pkg.popular ? 'text-blue-400' : 'text-[#2563EB]'}`} />
-                          <span>{feat}</span>
-                        </div>
-                      ))}
+                      <h3 className="font-heading font-extrabold text-2xl flex items-center gap-2">
+                        <span className={isProf ? 'scale-125 transition-transform' : ''}>{pkg.icon}</span>
+                        <span className={isProf ? 'text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-blue-200' : ''}>
+                          {pkg.name}
+                        </span>
+                      </h3>
+                      
+                      <div className="pt-2">
+                        <span className={`font-num font-black text-3xl sm:text-4xl block ${
+                          isProf
+                            ? 'text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-cyan-200 drop-shadow-[0_2px_10px_rgba(56,189,248,0.3)]'
+                            : 'text-[#2563EB] dark:text-blue-400'
+                        }`}>
+                          {pkg.price}
+                        </span>
+                      </div>
+
+                      <p className={`text-xs leading-relaxed font-medium pt-1 ${isProf ? 'text-blue-100/90' : 'text-slate-600 dark:text-slate-300'}`}>
+                        {pkg.subtitle}
+                      </p>
+
+                      <div className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-bold mt-2 ${
+                        isProf
+                          ? 'bg-blue-500/20 text-cyan-300 border border-blue-400/30'
+                          : 'bg-blue-50 dark:bg-blue-950/60 border border-blue-200/60 dark:border-blue-800 text-[#2563EB] dark:text-blue-300'
+                      }`}>
+                        <Clock className="w-3.5 h-3.5 shrink-0" />
+                        <span>{pkg.delivery}</span>
+                      </div>
+                    </div>
+
+                    <div className={`space-y-2.5 pt-4 border-t ${isProf ? 'border-blue-800/60' : 'border-slate-200 dark:border-slate-800'}`}>
+                      <p className={`text-[11px] font-extrabold uppercase tracking-wider ${isProf ? 'text-blue-300' : 'text-slate-400 dark:text-slate-400'}`}>
+                        Includes
+                      </p>
+                      <div className="space-y-2">
+                        {pkg.features.map((feat) => (
+                          <div key={feat} className="flex items-start gap-2 text-xs font-medium leading-snug">
+                            <CheckCircle2 className={`w-4 h-4 shrink-0 mt-0.5 ${
+                              isProf ? 'text-cyan-400 drop-shadow-[0_0_6px_rgba(34,211,238,0.8)]' : 'text-[#2563EB]'
+                            }`} />
+                            <span className={isProf ? 'text-slate-100 font-semibold' : ''}>{feat}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="pt-6 mt-4">
-                  <button
-                    onClick={onOpenConsultation}
-                    className={`w-full py-3.5 rounded-xl font-btn font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 ${
-                      pkg.popular
-                        ? 'bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-xl shadow-blue-600/40'
-                        : 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:opacity-90'
-                    }`}
-                  >
-                    <span>{pkg.cta}</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
+                  <div className="pt-6 mt-4">
+                    <button
+                      onClick={onOpenConsultation}
+                      className={`w-full py-3.5 rounded-xl font-btn font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 ${
+                        isProf
+                          ? 'bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 hover:from-blue-500 hover:to-indigo-500 text-white shadow-xl shadow-blue-500/50 border border-blue-400/40 hover:scale-[1.02]'
+                          : 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:opacity-90'
+                      }`}
+                    >
+                      <span>{pkg.cta}</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
