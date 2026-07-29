@@ -92,3 +92,14 @@
   background: #2563EB;
   border-radius: 4px;
 }
+
+/* Lenis Scroll Prevention & Modal Scroll Isolation */
+[data-lenis-prevent],
+[data-lenis-prevent-wheel],
+[data-lenis-prevent-touch],
+.modal-scrollable {
+  overflow-y: auto !important;
+  overscroll-behavior: contain !important;
+  touch-action: pan-y !important;
+  -webkit-overflow-scrolling: touch !important;
+}

@@ -33,11 +33,19 @@ export default function App() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Lenis Smooth Scroll Initialization
+  // Lenis Smooth Scroll Initialization with Modal Bypassing
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      prevent: (node: HTMLElement) => {
+        return (
+          node.hasAttribute('data-lenis-prevent') ||
+          node.classList.contains('modal-scrollable') ||
+          node.closest('[data-lenis-prevent]') !== null ||
+          node.closest('.modal-scrollable') !== null
+        );
+      }
     });
 
     function raf(time: number) {

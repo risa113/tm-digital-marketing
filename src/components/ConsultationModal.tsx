@@ -39,10 +39,11 @@ export default function ConsultationModal({ isOpen, onClose, defaultService }: C
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/75 backdrop-blur-md">
       <motion.div
+        data-lenis-prevent="true"
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 20 }}
-        className="glass-card bg-white dark:bg-[#0F172A] border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 max-w-xl w-full relative shadow-2xl overflow-y-auto max-h-[90vh]"
+        className="glass-card bg-white dark:bg-[#0F172A] border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 max-w-xl w-full relative shadow-2xl overflow-y-auto modal-scrollable overscroll-contain touch-pan-y max-h-[90vh]"
       >
         <button
           onClick={onClose}

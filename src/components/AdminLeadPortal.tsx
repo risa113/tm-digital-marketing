@@ -123,10 +123,11 @@ export default function AdminLeadPortal({ isOpen, onClose }: AdminLeadPortalProp
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-xl">
       <motion.div
+        data-lenis-prevent="true"
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.98 }}
-        className="glass-card bg-white dark:bg-[#0F172A] border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-10 w-[96vw] max-w-[1500px] h-[92vh] relative shadow-2xl overflow-y-auto flex flex-col justify-between"
+        className="glass-card bg-white dark:bg-[#0F172A] border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-10 w-[96vw] max-w-[1500px] h-[92vh] relative shadow-2xl overflow-y-auto modal-scrollable overscroll-contain touch-pan-y flex flex-col justify-between"
       >
         <button
           onClick={onClose}
@@ -272,7 +273,10 @@ export default function AdminLeadPortal({ isOpen, onClose }: AdminLeadPortalProp
                     : 'No email subscriptions recorded yet. Ready for newsletter signups!'}
                 </div>
               ) : (
-                <div className="space-y-4 overflow-y-auto max-h-[58vh] pr-2">
+                <div
+                  data-lenis-prevent="true"
+                  className="space-y-4 overflow-y-auto modal-scrollable max-h-[58vh] pr-2 overscroll-contain touch-pan-y"
+                >
                   {filteredLeads.map((lead, index) => {
                     const leadId = lead._id || lead.id || index;
                     const dateStr = lead.createdAt ? new Date(lead.createdAt).toLocaleString() : 'Recent';

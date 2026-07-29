@@ -142,7 +142,10 @@ export default function ChatbotWidget({ onOpenConsultation }: ChatbotWidgetProps
             </div>
 
             {/* Messages Area */}
-            <div className="p-4 overflow-y-auto flex-1 space-y-4 text-xs">
+            <div
+              data-lenis-prevent="true"
+              className="p-4 overflow-y-auto modal-scrollable flex-1 space-y-4 text-xs overscroll-contain touch-pan-y"
+            >
               {messages.map((msg) => (
                 <div key={msg.id} className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}>
                   <div
