@@ -9,13 +9,40 @@ export interface LeadPayload {
 
 const STORAGE_KEY = 'tm_leads_master';
 
+export const INITIAL_DEFAULT_LEADS = [
+  {
+    id: 'demo-lead-1',
+    name: 'Mohamed Thariq',
+    email: 'tmdigitalgrow@gmail.com',
+    phone: '+91 86087 24931',
+    service: 'SEO & Performance Marketing',
+    preferredExecutive: 'Mohamed Thariq (+91 86087 24931)',
+    message: 'Hello TM Digital Team! Looking for organic SEO growth and Meta Ads scaling.',
+    createdAt: new Date().toISOString()
+  },
+  {
+    id: 'demo-lead-2',
+    name: 'Newsletter Subscriber',
+    email: 'client.growth@company.com',
+    phone: 'Not provided',
+    service: 'Digital Growth Insights Newsletter',
+    preferredExecutive: 'Mohamed Thariq',
+    message: '',
+    createdAt: new Date().toISOString()
+  }
+];
+
 export const getStoredLeads = (): any[] => {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch (err) {
-    return [];
-  }
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch (err) {}
+
+  saveStoredLeads(INITIAL_DEFAULT_LEADS);
+  return INITIAL_DEFAULT_LEADS;
 };
 
 export const saveStoredLeads = (leads: any[]) => {
