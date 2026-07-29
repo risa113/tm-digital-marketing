@@ -22,7 +22,11 @@ const InstagramIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   </svg>
 );
 
-export default function Footer() {
+interface FooterProps {
+  onOpenAdmin?: () => void;
+}
+
+export default function Footer({ onOpenAdmin }: FooterProps) {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -182,7 +186,18 @@ export default function Footer() {
         {/* Copyright Footer */}
         <div className="pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-[#64748B] dark:text-slate-400 gap-4">
           <p>© {new Date().getFullYear()} TM Digital Marketing. All rights reserved.</p>
-          <p className="font-bold text-[#2563EB]">CONNECT • ENGAGE • GROW</p>
+          <div className="flex items-center gap-4">
+            <p className="font-bold text-[#2563EB]">CONNECT • ENGAGE • GROW</p>
+            {onOpenAdmin && (
+              <button
+                onClick={onOpenAdmin}
+                className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-[#2563EB] text-[11px] font-semibold transition-colors flex items-center gap-1"
+                title="Founder Lead Portal"
+              >
+                <span>🔒 Admin Portal</span>
+              </button>
+            )}
+          </div>
         </div>
 
       </div>

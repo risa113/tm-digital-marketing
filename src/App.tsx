@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import StickyButtons from './components/StickyButtons';
 import ChatbotWidget from './components/ChatbotWidget';
 import ConsultationModal from './components/ConsultationModal';
+import AdminLeadPortal from './components/AdminLeadPortal';
 
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
@@ -26,6 +27,7 @@ import { ServiceItem } from './data/marketingData';
 export default function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
+  const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [selectedServiceForForm, setSelectedServiceForForm] = useState<string | undefined>();
 
   const location = useLocation();
@@ -148,7 +150,7 @@ export default function App() {
       </main>
 
       {/* Persistent Footer */}
-      <Footer />
+      <Footer onOpenAdmin={() => setIsAdminOpen(true)} />
 
       {/* Floating Action Utilities (WhatsApp, Direct Founder Call, Scroll-to-Top) */}
       <StickyButtons />
@@ -159,6 +161,12 @@ export default function App() {
         isOpen={isConsultationOpen}
         onClose={() => setIsConsultationOpen(false)}
         defaultService={selectedServiceForForm}
+      />
+
+      {/* Founder Admin Lead Portal */}
+      <AdminLeadPortal
+        isOpen={isAdminOpen}
+        onClose={() => setIsAdminOpen(false)}
       />
     </div>
   );
