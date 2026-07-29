@@ -41,6 +41,121 @@ export interface ProcessStep {
   desc: string;
 }
 
+export interface PricingPackage {
+  id: string;
+  icon: string;
+  name: string;
+  price: string;
+  subtitle: string;
+  delivery: string;
+  features: string[];
+  cta: string;
+  popular?: boolean;
+  popularTag?: string;
+}
+
+export const WEBSITE_PACKAGES: PricingPackage[] = [
+  {
+    id: 'starter',
+    icon: '🚀',
+    name: 'Starter',
+    price: '₹7,999',
+    subtitle: 'Perfect for: Personal Brands, Freelancers & Small Businesses',
+    delivery: '3–5 Business Days',
+    features: [
+      '1 Premium Landing Page',
+      'Responsive Design (Mobile, Tablet & Desktop)',
+      'Modern UI/UX Design',
+      'Contact Form',
+      'WhatsApp Integration',
+      'Google Maps Integration',
+      'Basic SEO Optimization',
+      'Speed Optimization',
+      'SSL Setup Assistance',
+      '1 Revision',
+      '1 Month Support'
+    ],
+    cta: 'Get Started',
+    popular: false
+  },
+  {
+    id: 'growth',
+    icon: '⭐',
+    name: 'Growth',
+    price: '₹17,999',
+    subtitle: 'Perfect for: Startups & Growing Businesses',
+    delivery: '5–7 Business Days',
+    features: [
+      'Up to 5 Custom Pages',
+      'Premium Responsive Design',
+      'Professional UI/UX',
+      'Contact Forms',
+      'WhatsApp Chat Integration',
+      'Google Analytics Setup',
+      'Google Search Console Setup',
+      'Basic SEO Optimization',
+      'Performance Optimization',
+      'Image Optimization',
+      'Social Media Integration',
+      '2 Months Support'
+    ],
+    cta: 'Start Your Project',
+    popular: false
+  },
+  {
+    id: 'professional',
+    icon: '💎',
+    name: 'Professional',
+    price: '₹34,999',
+    subtitle: 'Perfect for: Companies & Established Businesses',
+    delivery: '7–12 Business Days',
+    features: [
+      'Up to 8 Premium Pages',
+      'Custom UI/UX Design',
+      'Dynamic Website Features',
+      'Admin Dashboard',
+      'Blog Management',
+      'Gallery Management',
+      'Advanced SEO Optimization',
+      'Google Analytics Setup',
+      'Google Search Console Setup',
+      'Performance Optimization',
+      'Website Security',
+      'Backup Configuration',
+      '3 Months Support'
+    ],
+    cta: 'Choose Professional',
+    popular: true,
+    popularTag: '⭐ Most Popular'
+  },
+  {
+    id: 'enterprise',
+    icon: '👑',
+    name: 'Enterprise',
+    price: 'Starting from ₹79,999',
+    subtitle: 'Perfect for: Large Businesses & Enterprise Solutions',
+    delivery: 'Custom Project Timeline',
+    features: [
+      'Unlimited Pages',
+      'Fully Dynamic Website',
+      'Custom Admin Dashboard',
+      'Database Integration',
+      'API Integration',
+      'Payment Gateway',
+      'Booking & Appointment System',
+      'AI Chatbot Integration',
+      'CRM Integration',
+      'Enterprise SEO Strategy',
+      'Advanced Security',
+      'Automated Backups',
+      'Priority Support',
+      'Custom Feature Development'
+    ],
+    cta: 'Contact Sales',
+    popular: false
+  }
+];
+
 export const CONTACT_INFO = {
   companyName: 'TM Digital Marketing',
   tagline: 'CONNECT • ENGAGE • GROW',
