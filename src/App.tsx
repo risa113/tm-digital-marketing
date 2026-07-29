@@ -69,6 +69,14 @@ export default function App() {
     }
   }, [darkMode]);
 
+  // Auto-open Admin Lead Portal if URL contains /admin or /portal or /leads
+  useEffect(() => {
+    const path = location.pathname.toLowerCase();
+    if (path.includes('/admin') || path.includes('/portal') || path.includes('/leads')) {
+      setIsAdminOpen(true);
+    }
+  }, [location.pathname]);
+
   const handleOpenConsultation = () => {
     setIsConsultationOpen(true);
   };
@@ -98,6 +106,7 @@ export default function App() {
         darkMode={darkMode}
         setDarkMode={setDarkMode}
         onOpenConsultation={handleOpenConsultation}
+        onOpenAdmin={() => setIsAdminOpen(true)}
       />
 
       {/* Animated Route Transitions Content Area */}
@@ -117,6 +126,12 @@ export default function App() {
               <Route path="/dTM-digital-marketing" element={renderHomePage()} />
               <Route path="/tm-digital-marketing/" element={renderHomePage()} />
               <Route path="/dTM-digital-marketing/" element={renderHomePage()} />
+
+              {/* Admin Portal Direct Routes */}
+              <Route path="/admin" element={renderHomePage()} />
+              <Route path="/admin-portal" element={renderHomePage()} />
+              <Route path="/portal" element={renderHomePage()} />
+              <Route path="/leads" element={renderHomePage()} />
 
               {/* Dedicated Navigation Pages */}
               <Route

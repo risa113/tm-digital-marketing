@@ -20,9 +20,10 @@ interface NavbarProps {
   darkMode: boolean;
   setDarkMode: (val: boolean) => void;
   onOpenConsultation: () => void;
+  onOpenAdmin?: () => void;
 }
 
-export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
+export default function Navbar({ darkMode, onOpenConsultation, onOpenAdmin }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
@@ -95,6 +96,16 @@ export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
 
         {/* Right CTA Group (Desktop) */}
         <div className="hidden lg:flex items-center gap-3 pl-4 border-l border-slate-200/60 dark:border-slate-800/60 shrink-0">
+          {onOpenAdmin && (
+            <button
+              onClick={onOpenAdmin}
+              className="font-btn text-xs font-bold rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-blue-950/60 text-slate-700 dark:text-slate-200 hover:text-[#2563EB] px-3 py-2 border border-slate-200 dark:border-slate-700 transition-all flex items-center gap-1.5 whitespace-nowrap"
+              title="Founder Lead Portal"
+            >
+              <span>🔒 Admin</span>
+            </button>
+          )}
+
           <button
             onClick={onOpenConsultation}
             className="font-btn text-xs xl:text-sm font-semibold rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-4 xl:px-5 py-2.5 shadow-lg shadow-blue-600/30 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2 whitespace-nowrap"
@@ -106,6 +117,16 @@ export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
 
         {/* Mobile Controls Group */}
         <div className="flex items-center gap-2 lg:hidden">
+          {onOpenAdmin && (
+            <button
+              onClick={onOpenAdmin}
+              className="px-2.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800"
+              title="Founder Lead Portal"
+            >
+              <span>🔒 Admin</span>
+            </button>
+          )}
+
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 bg-slate-100 dark:bg-slate-800"
@@ -151,6 +172,18 @@ export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
             })}
 
             <div className="pt-3 border-t border-slate-200 dark:border-slate-800 space-y-3 mt-2">
+              {onOpenAdmin && (
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenAdmin();
+                  }}
+                  className="w-full py-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-btn font-bold text-center flex items-center justify-center gap-2 text-xs border border-slate-200 dark:border-slate-700"
+                >
+                  <span>🔒 Founder Lead Portal (PIN: 8608)</span>
+                </button>
+              )}
+
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);

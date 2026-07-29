@@ -121,7 +121,7 @@ export default function AdminLeadPortal({ isOpen, onClose }: AdminLeadPortalProp
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-xl">
+    <div className="fixed inset-0 z-[999999] flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-xl">
       <motion.div
         data-lenis-prevent="true"
         initial={{ opacity: 0, scale: 0.98 }}
