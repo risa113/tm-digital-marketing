@@ -10,7 +10,9 @@ import {
   Lock, 
   Database,
   RefreshCw,
-  Calendar
+  Calendar,
+  Copy,
+  Check
 } from 'lucide-react';
 import { fetchLeadsFromDatabase, createSampleTestLead } from '../services/apiService';
 
@@ -65,11 +67,27 @@ export default function AdminLeadPortal({ isOpen, onClose }: AdminLeadPortalProp
     }
   };
 
-  const filteredLeads = leads.filter(l => 
+  const [activeTab, setActiveTab] = useState<'messages' | 'emails'>('messages');
+  const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
+
+  const messageLeads = leads.filter(l => 
+    l.name !== 'Newsletter Subscriber' && 
+    !l.service?.toLowerCase().includes('newsletter')
+  );
+
+  const emailSubscribers = leads.filter(l => 
+    l.name === 'Newsletter Subscriber' || 
+    l.service?.toLowerCase().includes('newsletter')
+  );
+
+  const currentList = activeTab === 'messages' ? messageLeads : emailSubscribers;
+
+  const filteredLeads = currentList.filter(l => 
     l.name?.toLowerCase().includes(search.toLowerCase()) ||
     l.email?.toLowerCase().includes(search.toLowerCase()) ||
     l.service?.toLowerCase().includes(search.toLowerCase()) ||
-    l.phone?.includes(search)
+    l.phone?.includes(search) ||
+    l.message?.toLowerCase().includes(search.toLowerCase())
   );
 
   const handleDeleteLead = async (id: string) => {
@@ -85,16 +103,21 @@ export default function AdminLeadPortal({ isOpen, onClose }: AdminLeadPortalProp
   };
 
   const handleClearAllLeads = async () => {
-    if (window.confirm('Are you sure you want to permanently clear all lead records from MongoDB database?')) {
-      const endpoints = ['http://localhost:5001/api/leads/clear', 'http://localhost:5002/api/leads/clear', '/api/leads/clear'];
-      for (const url of endpoints) {
-        try {
-          await fetch(url, { method: 'POST' });
-        } catch (err) {}
-      }
-      setLeads([]);
-      localStorage.removeItem('tm_leads_cache');
+    if (window.confirm(`Are you sure you want to permanently clear all ${activeTab === 'messages' ? 'Message Leads' : 'Email Subscriptions'}?`)) {
+      const remainingLeads = leads.filter(l => 
+        activeTab === 'messages' 
+          ? (l.name === 'Newsletter Subscriber' || l.service?.toLowerCase().includes('newsletter'))
+          : (l.name !== 'Newsletter Subscriber' && !l.service?.toLowerCase().includes('newsletter'))
+      );
+      setLeads(remainingLeads);
+      localStorage.setItem('tm_leads_cache', JSON.stringify(remainingLeads));
     }
+  };
+
+  const handleCopyEmail = (emailStr: string) => {
+    navigator.clipboard.writeText(emailStr);
+    setCopiedEmail(emailStr);
+    setTimeout(() => setCopiedEmail(null), 2000);
   };
 
   return (
@@ -152,18 +175,18 @@ export default function AdminLeadPortal({ isOpen, onClose }: AdminLeadPortalProp
           </div>
         ) : (
           /* Full Widescreen Executive Lead Dashboard Page */
-          <div className="space-y-8 h-full flex flex-col justify-between">
+          <div className="space-y-6 h-full flex flex-col justify-between">
             <div>
               {/* Header Status Bar */}
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-slate-200 dark:border-slate-800 pb-6">
                 <div className="space-y-1">
                   <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950 text-[#10B981] text-xs font-bold border border-emerald-200 dark:border-emerald-800">
                     <Database className="w-4 h-4" />
-                    <span>Admin Lead Database Active</span>
+                    <span>Neon PostgreSQL Database Active</span>
                   </div>
 
                   <h3 className="font-heading font-extrabold text-3xl sm:text-4xl text-[#111827] dark:text-white pt-2">
-                    Executive Client Leads ({leads.length} Records)
+                    Executive Database ({leads.length} Total Records)
                   </h3>
                 </div>
 
@@ -182,10 +205,10 @@ export default function AdminLeadPortal({ isOpen, onClose }: AdminLeadPortalProp
                   <button
                     onClick={handleClearAllLeads}
                     className="px-4 py-3 rounded-2xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 hover:bg-rose-100 flex items-center gap-2 text-xs font-bold border border-rose-200 dark:border-rose-800 transition-all"
-                    title="Clear All Lead Records"
+                    title="Clear Current Category Records"
                   >
                     <Trash2 className="w-4 h-4" />
-                    <span>Clear All Leads</span>
+                    <span>Clear {activeTab === 'messages' ? 'Messages' : 'Emails'}</span>
                   </button>
 
                   <button
@@ -193,17 +216,48 @@ export default function AdminLeadPortal({ isOpen, onClose }: AdminLeadPortalProp
                     className="px-6 py-3 rounded-2xl glass-card text-[#2563EB] hover:bg-blue-50 dark:hover:bg-slate-800 flex items-center gap-2 text-xs font-bold border border-slate-200 dark:border-slate-800 shadow-sm"
                   >
                     <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-                    <span>Refresh Leads</span>
+                    <span>Refresh Database</span>
                   </button>
                 </div>
               </div>
 
+              {/* 2-BUTTON CATEGORY TAB TOGGLE PAGE */}
+              <div className="flex flex-wrap items-center gap-3 pt-4">
+                <button
+                  onClick={() => setActiveTab('messages')}
+                  className={`px-6 py-3.5 rounded-2xl font-btn font-extrabold text-xs sm:text-sm transition-all flex items-center gap-2.5 border ${
+                    activeTab === 'messages'
+                      ? 'bg-[#2563EB] text-white border-[#2563EB] shadow-xl shadow-blue-600/30 scale-[1.02]'
+                      : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:border-[#2563EB]'
+                  }`}
+                >
+                  <MessageSquare className="w-4 h-4" />
+                  <span>1. 💬 Message Leads ({messageLeads.length})</span>
+                </button>
+
+                <button
+                  onClick={() => setActiveTab('emails')}
+                  className={`px-6 py-3.5 rounded-2xl font-btn font-extrabold text-xs sm:text-sm transition-all flex items-center gap-2.5 border ${
+                    activeTab === 'emails'
+                      ? 'bg-[#2563EB] text-white border-[#2563EB] shadow-xl shadow-blue-600/30 scale-[1.02]'
+                      : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:border-[#2563EB]'
+                  }`}
+                >
+                  <Mail className="w-4 h-4" />
+                  <span>2. 📧 Email Subscriptions ({emailSubscribers.length})</span>
+                </button>
+              </div>
+
               {/* Search Bar */}
-              <div className="relative max-w-xl my-6">
+              <div className="relative max-w-xl my-5">
                 <Search className="w-5 h-5 text-slate-400 absolute left-4 top-3.5" />
                 <input
                   type="text"
-                  placeholder="Search leads by client name, email, service, or phone..."
+                  placeholder={
+                    activeTab === 'messages'
+                      ? 'Search client name, phone, requested service, or message...'
+                      : 'Search subscribed work emails...'
+                  }
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   className="w-full pl-12 pr-4 py-3.5 rounded-2xl glass-card text-sm text-[#111827] dark:text-white focus:outline-none focus:border-[#2563EB] border border-slate-200 dark:border-slate-800 shadow-sm"
@@ -213,92 +267,173 @@ export default function AdminLeadPortal({ isOpen, onClose }: AdminLeadPortalProp
               {/* Leads Table / List */}
               {filteredLeads.length === 0 ? (
                 <div className="text-center py-20 text-slate-400 text-sm">
-                  No lead records saved yet. Ready to receive client messages!
+                  {activeTab === 'messages'
+                    ? 'No message leads recorded yet. Ready to receive client inquiries!'
+                    : 'No email subscriptions recorded yet. Ready for newsletter signups!'}
                 </div>
               ) : (
-                <div className="space-y-4 overflow-y-auto max-h-[60vh] pr-2">
-                  {filteredLeads.map((lead, index) => (
-                    <div
-                      key={lead._id || lead.id || index}
-                      className="p-6 sm:p-8 rounded-3xl glass-card border border-slate-200 dark:border-slate-800 hover:border-[#2563EB]/40 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-md transition-all"
-                    >
-                      <div className="space-y-2 max-w-3xl">
-                        <div className="flex flex-wrap items-center gap-3">
-                          <h4 className="font-heading font-extrabold text-lg sm:text-xl text-[#111827] dark:text-white">
-                            {lead.name}
-                          </h4>
-                          <span className="text-xs font-bold px-3.5 py-1 rounded-full bg-blue-50 dark:bg-blue-950 text-[#2563EB] border border-blue-200 dark:border-blue-800">
-                            Assigned: {lead.preferredExecutive || 'Mohamed Thariq'}
-                          </span>
+                <div className="space-y-4 overflow-y-auto max-h-[58vh] pr-2">
+                  {filteredLeads.map((lead, index) => {
+                    const leadId = lead._id || lead.id || index;
+                    const dateStr = lead.createdAt ? new Date(lead.createdAt).toLocaleString() : 'Recent';
+
+                    if (activeTab === 'emails') {
+                      return (
+                        <div
+                          key={leadId}
+                          className="p-5 sm:p-6 rounded-3xl glass-card border border-slate-200 dark:border-slate-800 hover:border-[#2563EB]/40 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm transition-all"
+                        >
+                          <div className="space-y-1.5">
+                            <div className="flex items-center gap-3">
+                              <div className="w-10 h-10 rounded-2xl bg-blue-50 dark:bg-blue-950 text-[#2563EB] flex items-center justify-center font-bold shrink-0">
+                                📧
+                              </div>
+                              <div>
+                                <h4 className="font-heading font-extrabold text-base sm:text-lg text-[#111827] dark:text-white">
+                                  {lead.email}
+                                </h4>
+                                <div className="flex items-center gap-3 text-xs text-slate-400">
+                                  <span className="flex items-center gap-1">
+                                    <Calendar className="w-3.5 h-3.5 text-[#2563EB]" />
+                                    <span>Subscribed: {dateStr}</span>
+                                  </span>
+                                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 text-[10px] font-extrabold border border-emerald-200 dark:border-emerald-800">
+                                    Active Subscriber
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Action buttons for email subscriptions */}
+                          <div className="flex items-center gap-3 shrink-0">
+                            <button
+                              onClick={() => handleCopyEmail(lead.email)}
+                              className="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold flex items-center gap-1.5 transition-colors"
+                            >
+                              {copiedEmail === lead.email ? (
+                                <>
+                                  <Check className="w-4 h-4 text-emerald-500" />
+                                  <span className="text-emerald-500">Copied!</span>
+                                </>
+                              ) : (
+                                <>
+                                  <Copy className="w-4 h-4 text-[#2563EB]" />
+                                  <span>Copy Email</span>
+                                </>
+                              )}
+                            </button>
+
+                            <a
+                              href={`mailto:${lead.email}?subject=Exclusive%20Digital%20Growth%20Insights%20from%20TM%20Digital%20Marketing`}
+                              className="px-4 py-2.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all"
+                            >
+                              <Mail className="w-4 h-4" />
+                              <span>Send Email</span>
+                            </a>
+
+                            <button
+                              onClick={() => handleDeleteLead(leadId)}
+                              className="p-2.5 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-100 transition-colors"
+                              title="Delete Record"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
                         </div>
+                      );
+                    }
 
-                        <div className="flex flex-wrap items-center gap-5 text-xs sm:text-sm text-[#64748B] dark:text-slate-300">
-                          <span className="flex items-center gap-1.5 font-medium">
-                            <Mail className="w-4 h-4 text-[#2563EB]" />
-                            {lead.email}
-                          </span>
-                          <span className="flex items-center gap-1.5 font-bold text-[#2563EB]">
-                            <Phone className="w-4 h-4" />
-                            {lead.phone}
-                          </span>
-                          <span className="flex items-center gap-1.5 text-slate-400">
-                            <Calendar className="w-4 h-4" />
-                            {new Date(lead.createdAt).toLocaleString()}
-                          </span>
-                        </div>
+                    /* Active Tab: Message Leads */
+                    return (
+                      <div
+                        key={leadId}
+                        className="p-6 sm:p-8 rounded-3xl glass-card border border-slate-200 dark:border-slate-800 hover:border-[#2563EB]/40 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-md transition-all"
+                      >
+                        <div className="space-y-2 max-w-3xl">
+                          <div className="flex flex-wrap items-center gap-3">
+                            <h4 className="font-heading font-extrabold text-lg sm:text-xl text-[#111827] dark:text-white">
+                              {lead.name}
+                            </h4>
+                            <span className="text-xs font-bold px-3.5 py-1 rounded-full bg-blue-50 dark:bg-blue-950 text-[#2563EB] border border-blue-200 dark:border-blue-800">
+                              Assigned: {lead.preferredExecutive || 'Mohamed Thariq'}
+                            </span>
+                          </div>
 
-                        <p className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-slate-800/60 px-4 py-2 rounded-xl inline-block border border-slate-200 dark:border-slate-700">
-                          Requested Service: <strong className="text-[#2563EB]">{lead.service}</strong>
-                        </p>
+                          <div className="flex flex-wrap items-center gap-5 text-xs sm:text-sm text-[#64748B] dark:text-slate-300">
+                            <span className="flex items-center gap-1.5 font-medium">
+                              <Mail className="w-4 h-4 text-[#2563EB]" />
+                              {lead.email}
+                            </span>
+                            {lead.phone && lead.phone !== 'Not provided' && (
+                              <span className="flex items-center gap-1.5 font-bold text-[#2563EB]">
+                                <Phone className="w-4 h-4" />
+                                {lead.phone}
+                              </span>
+                            )}
+                            <span className="flex items-center gap-1.5 text-slate-400">
+                              <Calendar className="w-4 h-4" />
+                              {dateStr}
+                            </span>
+                          </div>
 
-                        {lead.message && (
-                          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 italic pt-1 leading-relaxed">
-                            "{lead.message}"
+                          <p className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-slate-800/60 px-4 py-2 rounded-xl inline-block border border-slate-200 dark:border-slate-700">
+                            Requested Service: <strong className="text-[#2563EB]">{lead.service}</strong>
                           </p>
-                        )}
+
+                          {lead.message && (
+                            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 italic pt-1 leading-relaxed bg-blue-50/50 dark:bg-blue-950/30 p-3 rounded-xl border border-blue-100 dark:border-blue-900/50">
+                              💬 Client Message: "{lead.message}"
+                            </p>
+                          )}
+                        </div>
+
+                        {/* Action Buttons for Message Leads */}
+                        <div className="flex items-center gap-3 shrink-0 pt-2 md:pt-0">
+                          {lead.phone && lead.phone !== 'Not provided' && (
+                            <>
+                              <a
+                                href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, '')}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-5 py-3 rounded-2xl bg-[#25D366] hover:bg-[#1EBE57] text-white text-xs font-bold flex items-center gap-2 shadow-md transition-all"
+                                title="Chat on WhatsApp"
+                              >
+                                <MessageSquare className="w-4 h-4 fill-white" />
+                                <span>WhatsApp</span>
+                              </a>
+
+                              <a
+                                href={`tel:${lead.phone}`}
+                                className="px-5 py-3 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-bold flex items-center gap-2 shadow-md transition-all"
+                                title="Call Client"
+                              >
+                                <Phone className="w-4 h-4" />
+                                <span>Call</span>
+                              </a>
+                            </>
+                          )}
+
+                          <a
+                            href={`mailto:${lead.email}`}
+                            className="px-4 py-3 rounded-2xl bg-slate-800 dark:bg-slate-700 hover:bg-slate-900 text-white text-xs font-bold flex items-center gap-2 transition-all"
+                            title="Email Client"
+                          >
+                            <Mail className="w-4 h-4" />
+                            <span className="hidden sm:inline">Email</span>
+                          </a>
+
+                          <button
+                            onClick={() => handleDeleteLead(leadId)}
+                            className="p-3 rounded-2xl bg-rose-100 text-rose-600 hover:bg-rose-200 transition-colors"
+                            title="Delete Lead Record"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
                       </div>
-
-                      {/* Action Buttons */}
-                      <div className="flex items-center gap-3 shrink-0 pt-2 md:pt-0">
-                        <a
-                          href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, '')}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="px-5 py-3 rounded-2xl bg-[#25D366] hover:bg-[#1EBE57] text-white text-xs font-bold flex items-center gap-2 shadow-md transition-all"
-                          title="Chat on WhatsApp"
-                        >
-                          <MessageSquare className="w-4 h-4 fill-white" />
-                          <span>WhatsApp</span>
-                        </a>
-
-                        <a
-                          href={`tel:${lead.phone}`}
-                          className="px-5 py-3 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-bold flex items-center gap-2 shadow-md transition-all"
-                          title="Call Client"
-                        >
-                          <Phone className="w-4 h-4" />
-                          <span>Call</span>
-                        </a>
-
-                        <a
-                          href={`mailto:${lead.email}`}
-                          className="px-4 py-3 rounded-2xl bg-slate-800 dark:bg-slate-700 hover:bg-slate-900 text-white text-xs font-bold flex items-center gap-2 transition-all"
-                          title="Email Client"
-                        >
-                          <Mail className="w-4 h-4" />
-                          <span className="hidden sm:inline">Email</span>
-                        </a>
-
-                        <button
-                          onClick={() => handleDeleteLead(lead.id)}
-                          className="p-3 rounded-2xl bg-rose-100 text-rose-600 hover:bg-rose-200 transition-colors"
-                          title="Delete Lead Record"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               )}
             </div>
