@@ -3,5 +3,6 @@ User-agent: *
 Allow: /
 
 # Host & Sitemap specification
-Host: https://tmdigitalmarketing.com
-Sitemap: https://tmdigitalmarketing.com/sitemap.xml
+Host: https://tmdigitalgrow.com
+Sitemap: https://tmdigitalgrow.com/sitemap.xml
+
