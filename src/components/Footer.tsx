@@ -153,7 +153,7 @@ export default function Footer() {
             className="group flex items-center gap-3 px-6 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-300/80 dark:border-slate-700 text-xs font-bold transition-all shadow-sm hover:shadow-md active:scale-[0.98]"
             aria-expanded={isSitemapOpen}
           >
-            <span>{isSitemapOpen ? 'Hide All Website Headings' : 'Show All Website Headings & Sitemap'}</span>
+            <span>{isSitemapOpen ? 'Hide All Website Headings & Footers' : 'Show All Website Headings & Footers'}</span>
             <div className={`p-1 rounded-full bg-[#2563EB] text-white transition-transform duration-300 ${isSitemapOpen ? 'rotate-180' : ''}`}>
               <ChevronDown className="w-4 h-4 stroke-[3]" />
             </div>
