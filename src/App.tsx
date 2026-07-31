@@ -122,13 +122,13 @@ export default function App() {
 
       {/* Animated Route Transitions Content Area */}
       <main className="w-full max-w-[100vw] overflow-x-hidden min-h-[70vh]">
-        <AnimatePresence mode="wait">
+        <AnimatePresence>
           <motion.div
             key={location.pathname}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.12, ease: 'easeOut' }}
           >
             <Suspense fallback={<PageLoader />}>
               <Routes location={location}>

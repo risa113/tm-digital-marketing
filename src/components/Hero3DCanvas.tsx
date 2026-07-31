@@ -292,19 +292,30 @@ function Laptop3DModel() {
 }
 
 export default function Hero3DCanvas() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || ('ontouchstart' in window && window.innerWidth < 1024));
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile, { passive: true });
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
-    <div className="w-full h-full min-h-[350px] sm:min-h-[420px] relative pointer-events-auto">
+    <div className="w-full h-full min-h-[320px] sm:min-h-[420px] relative pointer-events-none md:pointer-events-auto touch-pan-y">
       <Canvas
         camera={{ position: [0, 0, 6.5], fov: 50 }}
         className="w-full h-full"
-        dpr={[1, 1.5]}
-        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+        dpr={isMobile ? [1, 1] : [1, 1.5]}
+        gl={{ antialias: !isMobile, alpha: true, powerPreference: 'high-performance' }}
       >
         <ambientLight intensity={0.8} />
         <directionalLight position={[10, 10, 5]} intensity={1.6} color="#ffffff" />
         <pointLight position={[-10, -10, -5]} intensity={1.2} color="#2563EB" />
         <Laptop3DModel />
-        <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.6} />
+        {!isMobile && <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.6} />}
       </Canvas>
     </div>
   );
