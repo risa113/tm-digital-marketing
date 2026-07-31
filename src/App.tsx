@@ -14,26 +14,19 @@ import ChatbotWidget from './components/ChatbotWidget';
 import ConsultationModal from './components/ConsultationModal';
 
 import HomePage from './pages/HomePage';
-
-const AboutPage = lazy(() => import('./pages/AboutPage'));
-const ServicesPage = lazy(() => import('./pages/ServicesPage'));
-const ProcessPage = lazy(() => import('./pages/ProcessPage'));
-const DeliverablesPage = lazy(() => import('./pages/DeliverablesPage'));
-const WhyUsPage = lazy(() => import('./pages/WhyUsPage'));
-const FAQPage = lazy(() => import('./pages/FAQPage'));
-const ContactPage = lazy(() => import('./pages/ContactPage'));
-const TestimonialsPage = lazy(() => import('./pages/TestimonialsPage'));
-const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
-const TermsPage = lazy(() => import('./pages/TermsPage'));
-const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
+import AboutPage from './pages/AboutPage';
+import ServicesPage from './pages/ServicesPage';
+import ProcessPage from './pages/ProcessPage';
+import DeliverablesPage from './pages/DeliverablesPage';
+import WhyUsPage from './pages/WhyUsPage';
+import FAQPage from './pages/FAQPage';
+import ContactPage from './pages/ContactPage';
+import TestimonialsPage from './pages/TestimonialsPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import TermsPage from './pages/TermsPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 import { ServiceItem } from './data/marketingData';
-
-const PageLoader = () => (
-  <div className="w-full min-h-[60vh] flex items-center justify-center">
-    <div className="w-8 h-8 border-4 border-[#2563EB] border-t-transparent rounded-full animate-spin" />
-  </div>
-);
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -128,61 +121,59 @@ export default function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.12, ease: 'easeOut' }}
+            transition={{ duration: 0.1, ease: 'easeOut' }}
           >
-            <Suspense fallback={<PageLoader />}>
-              <Routes location={location}>
-                {/* Home Page Routes (Handles Root + GitHub Pages Subpaths) */}
-                <Route path="/" element={renderHomePage()} />
-                <Route path="/tm-digital-marketing" element={renderHomePage()} />
-                <Route path="/dTM-digital-marketing" element={renderHomePage()} />
-                <Route path="/tm-digital-marketing/" element={renderHomePage()} />
-                <Route path="/dTM-digital-marketing/" element={renderHomePage()} />
+            <Routes location={location}>
+              {/* Home Page Routes (Handles Root + GitHub Pages Subpaths) */}
+              <Route path="/" element={renderHomePage()} />
+              <Route path="/tm-digital-marketing" element={renderHomePage()} />
+              <Route path="/dTM-digital-marketing" element={renderHomePage()} />
+              <Route path="/tm-digital-marketing/" element={renderHomePage()} />
+              <Route path="/dTM-digital-marketing/" element={renderHomePage()} />
 
-                {/* Dedicated Navigation Pages */}
-                <Route
-                  path="/about"
-                  element={<AboutPage onOpenConsultation={handleOpenConsultation} />}
-                />
-                <Route
-                  path="/services"
-                  element={
-                    <ServicesPage
-                      onOpenConsultation={handleOpenConsultation}
-                      onSelectService={handleSelectService}
-                    />
-                  }
-                />
-                <Route
-                  path="/process"
-                  element={<ProcessPage onOpenConsultation={handleOpenConsultation} />}
-                />
-                <Route
-                  path="/deliverables"
-                  element={<DeliverablesPage onOpenConsultation={handleOpenConsultation} />}
-                />
-                <Route
-                  path="/why-us"
-                  element={<WhyUsPage onOpenConsultation={handleOpenConsultation} />}
-                />
-                <Route
-                  path="/testimonials"
-                  element={<TestimonialsPage onOpenConsultation={handleOpenConsultation} />}
-                />
-                <Route
-                  path="/faq"
-                  element={<FAQPage onOpenConsultation={handleOpenConsultation} />}
-                />
-                <Route path="/contact" element={<ContactPage />} />
-                <Route path="/privacy" element={<PrivacyPolicyPage />} />
-                <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-                <Route path="/terms" element={<TermsPage />} />
-                <Route path="/terms-of-service" element={<TermsPage />} />
+              {/* Dedicated Navigation Pages */}
+              <Route
+                path="/about"
+                element={<AboutPage onOpenConsultation={handleOpenConsultation} />}
+              />
+              <Route
+                path="/services"
+                element={
+                  <ServicesPage
+                    onOpenConsultation={handleOpenConsultation}
+                    onSelectService={handleSelectService}
+                  />
+                }
+              />
+              <Route
+                path="/process"
+                element={<ProcessPage onOpenConsultation={handleOpenConsultation} />}
+              />
+              <Route
+                path="/deliverables"
+                element={<DeliverablesPage onOpenConsultation={handleOpenConsultation} />}
+              />
+              <Route
+                path="/why-us"
+                element={<WhyUsPage onOpenConsultation={handleOpenConsultation} />}
+              />
+              <Route
+                path="/testimonials"
+                element={<TestimonialsPage onOpenConsultation={handleOpenConsultation} />}
+              />
+              <Route
+                path="/faq"
+                element={<FAQPage onOpenConsultation={handleOpenConsultation} />}
+              />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/privacy" element={<PrivacyPolicyPage />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+              <Route path="/terms" element={<TermsPage />} />
+              <Route path="/terms-of-service" element={<TermsPage />} />
 
-                {/* 404 Fallback */}
-                <Route path="*" element={<NotFoundPage />} />
-              </Routes>
-            </Suspense>
+              {/* 404 Fallback */}
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
           </motion.div>
         </AnimatePresence>
       </main>
