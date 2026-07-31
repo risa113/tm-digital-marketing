@@ -58,42 +58,55 @@
     }
     </script>
 
-  <!-- Google Fonts: Sora, Poppins, Inter, Manrope -->
+  <!-- Google Fonts: Sora, Poppins, Inter, Manrope & Image Preconnects -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&display=swap"
     rel="stylesheet">
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LJBCYEDNG7"></script>
+  <!-- Deferred Non-Critical Analytics (GTM & Meta Pixel) to eliminate TBT & Main Thread Blocking -->
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
+    window.addEventListener('load', function() {
+      var requestIdle = window.requestIdleCallback || function(cb) { setTimeout(cb, 1500); };
+      requestIdle(function() {
+        // Load Google Analytics (gtag.js)
+        var gtm = document.createElement('script');
+        gtm.async = true;
+        gtm.src = 'https://www.googletagmanager.com/gtag/js?id=G-LJBCYEDNG7';
+        document.head.appendChild(gtm);
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', 'G-LJBCYEDNG7');
 
-    gtag('config', 'G-LJBCYEDNG7');
+        // Load Meta Pixel Code
+        !function (f, b, e, v, n, t, s) {
+          if (f.fbq) return; n = f.fbq = function () {
+            n.callMethod ?
+            n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+          };
+          if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+          n.queue = []; t = b.createElement(e); t.async = !0;
+          t.src = v; s = b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+        if (window.fbq) {
+          fbq('init', '2999594797059173');
+          fbq('track', 'PageView');
+        }
+      });
+    });
   </script>
-
-  <!-- Meta Pixel Code -->
-  <script>
-    !function (f, b, e, v, n, t, s) {
-      if (f.fbq) return; n = f.fbq = function () {
-        n.callMethod ?
-        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-      };
-      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
-      n.queue = []; t = b.createElement(e); t.async = !0;
-      t.src = v; s = b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t, s)
-    }(window, document, 'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '2999594797059173');
-    fbq('track', 'PageView');
-  </script>
-  <!-- End Meta Pixel Code -->
-  <script type="module" crossorigin src="./assets/index-Df8RH1Ja.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-C-GorJtc.css">
+  <script type="module" crossorigin src="./assets/index-B_pGbyjO.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/rolldown-runtime-CNC7AqOf.js">
+  <link rel="modulepreload" crossorigin href="./assets/vendor-animation-DtY-wT57.js">
+  <link rel="modulepreload" crossorigin href="./assets/vendor-react-C6a0PHqw.js">
+  <link rel="modulepreload" crossorigin href="./assets/vendor-backend-DgyezgU0.js">
+  <link rel="stylesheet" crossorigin href="./assets/index-CBqpqYfe.css">
 </head>
 
 <body
