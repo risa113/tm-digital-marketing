@@ -21,6 +21,8 @@ const WhyUsPage = lazy(() => import('./pages/WhyUsPage'));
 const FAQPage = lazy(() => import('./pages/FAQPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const TestimonialsPage = lazy(() => import('./pages/TestimonialsPage'));
+const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
+const TermsPage = lazy(() => import('./pages/TermsPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
 import { ServiceItem } from './data/marketingData';
@@ -167,6 +169,10 @@ export default function App() {
                   element={<FAQPage onOpenConsultation={handleOpenConsultation} />}
                 />
                 <Route path="/contact" element={<ContactPage />} />
+                <Route path="/privacy" element={<PrivacyPolicyPage />} />
+                <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+                <Route path="/terms" element={<TermsPage />} />
+                <Route path="/terms-of-service" element={<TermsPage />} />
 
                 {/* 404 Fallback */}
                 <Route path="*" element={<NotFoundPage />} />

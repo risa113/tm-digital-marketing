@@ -57,6 +57,18 @@ const ROUTE_SEO_MAP: Record<string, RouteSEO> = {
     description: 'Get in touch with founders Mohamed Thariq (+91 86087 24931) & Muja (+91 63694 80812). Book a free 30-minute growth strategy consultation.',
     keywords: 'contact TM digital marketing, book marketing consultation, Mohamed Thariq, Muja',
     canonical: 'https://tmdigitalgrow.com/contact'
+  },
+  '/privacy': {
+    title: 'Privacy Policy | TM Digital Marketing Agency',
+    description: 'TM Digital Marketing Privacy Policy. Google AdSense compliant details on cookies, DART cookies, user data protection, GDPR rights & founder contacts.',
+    keywords: 'TM digital marketing privacy policy, data privacy, Google AdSense policy, GDPR policy',
+    canonical: 'https://tmdigitalgrow.com/privacy'
+  },
+  '/terms': {
+    title: 'Terms of Service & Original Content Policy | TM Digital Marketing',
+    description: 'TM Digital Marketing Terms of Service, original content guarantee, intellectual property rights, and client agreement terms.',
+    keywords: 'TM digital marketing terms, terms of service, content policy, original content guarantee',
+    canonical: 'https://tmdigitalgrow.com/terms'
   }
 };
 

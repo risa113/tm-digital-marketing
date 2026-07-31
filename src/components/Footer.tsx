@@ -188,6 +188,8 @@ export default function Footer() {
                     <li><Link to="/testimonials" className="hover:text-[#2563EB] transition-colors block py-0.5">Testimonials</Link></li>
                     <li><Link to="/faq" className="hover:text-[#2563EB] transition-colors block py-0.5">FAQ</Link></li>
                     <li><Link to="/contact" className="hover:text-[#2563EB] transition-colors block py-0.5">Contact</Link></li>
+                    <li><Link to="/privacy" className="hover:text-[#2563EB] transition-colors block py-0.5 font-bold text-[#2563EB]">Privacy Policy</Link></li>
+                    <li><Link to="/terms" className="hover:text-[#2563EB] transition-colors block py-0.5 font-bold text-[#2563EB]">Terms &amp; Conditions</Link></li>
                   </ul>
                 </div>
 
@@ -241,6 +243,10 @@ export default function Footer() {
         <div className="pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-[#64748B] dark:text-slate-400 gap-4">
           <p>© {new Date().getFullYear()} TM Digital Marketing. All rights reserved.</p>
           <div className="flex items-center gap-4">
+            <Link to="/privacy" className="hover:text-[#2563EB] transition-colors">Privacy Policy</Link>
+            <span>•</span>
+            <Link to="/terms" className="hover:text-[#2563EB] transition-colors">Terms of Service</Link>
+            <span>•</span>
             <p className="font-bold text-[#2563EB]">CONNECT • ENGAGE • GROW</p>
           </div>
         </div>
