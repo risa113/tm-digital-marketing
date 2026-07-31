@@ -57,7 +57,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-white dark:bg-[#0B101D] text-slate-600 dark:text-slate-400 border-t border-slate-200 dark:border-slate-800 pt-14 pb-10 relative z-10">
+    <footer className="bg-white dark:bg-[#0B101D] text-slate-600 dark:text-slate-400 border-t border-slate-200 dark:border-slate-800 pt-14 pb-32 sm:pb-14 relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Brand & Newsletter Main Card */}
@@ -240,14 +240,24 @@ export default function Footer() {
         </AnimatePresence>
 
         {/* Copyright Footer */}
-        <div className="pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-[#64748B] dark:text-slate-400 gap-4">
+        <div className="pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row items-center justify-between text-xs text-[#64748B] dark:text-slate-400 gap-4 text-center md:text-left">
           <p>© {new Date().getFullYear()} TM Digital Marketing. All rights reserved.</p>
-          <div className="flex items-center gap-4">
-            <Link to="/privacy" className="hover:text-[#2563EB] transition-colors">Privacy Policy</Link>
-            <span>•</span>
-            <Link to="/terms" className="hover:text-[#2563EB] transition-colors">Terms of Service</Link>
-            <span>•</span>
-            <p className="font-bold text-[#2563EB]">CONNECT • ENGAGE • GROW</p>
+          <div className="flex flex-wrap items-center justify-center gap-3 font-semibold">
+            <Link
+              to="/privacy"
+              className="px-3.5 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-950/80 border border-blue-200 dark:border-blue-800 text-[#2563EB] dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors shadow-sm"
+            >
+              Privacy Policy
+            </Link>
+            <span className="text-slate-300 dark:text-slate-700">•</span>
+            <Link
+              to="/terms"
+              className="px-3.5 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-950/80 border border-blue-200 dark:border-blue-800 text-[#2563EB] dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors shadow-sm"
+            >
+              Terms of Service
+            </Link>
+            <span className="text-slate-300 dark:text-slate-700">•</span>
+            <p className="font-extrabold text-[#2563EB]">CONNECT • ENGAGE • GROW</p>
           </div>
         </div>
 
