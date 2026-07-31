@@ -292,41 +292,8 @@ function Laptop3DModel() {
 }
 
 export default function Hero3DCanvas() {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  if (isMobile) {
-    const logoUrl = (import.meta.env.BASE_URL + 'logo.png').replace(/\/+/g, '/');
-    return (
-      <div className="w-full h-full min-h-[280px] flex items-center justify-center p-4">
-        <div className="relative w-full max-w-sm rounded-3xl bg-gradient-to-b from-blue-900/40 via-slate-900/80 to-slate-950 p-6 border border-blue-500/30 shadow-2xl backdrop-blur-md flex flex-col items-center text-center space-y-4">
-          <div className="w-20 h-20 rounded-2xl bg-blue-500/10 p-3 flex items-center justify-center border border-blue-500/20 shadow-lg">
-            <img src={logoUrl} alt="TM Digital Marketing" width="80" height="80" decoding="async" className="w-full h-full object-contain filter drop-shadow-lg" />
-          </div>
-          <div className="space-y-1">
-            <h3 className="font-heading font-extrabold text-lg text-white">TM DIGITAL MARKETING</h3>
-            <p className="text-[10px] font-bold text-[#38BDF8] tracking-widest">CONNECT • ENGAGE • GROW</p>
-          </div>
-          <div className="flex flex-wrap justify-center gap-2 pt-1">
-            <span className="px-2.5 py-1 rounded-full bg-blue-600/30 text-blue-300 text-[10px] font-extrabold border border-blue-400/30">#1 SEO Agency</span>
-            <span className="px-2.5 py-1 rounded-full bg-emerald-600/30 text-emerald-300 text-[10px] font-extrabold border border-emerald-400/30">Google &amp; Meta Ads</span>
-            <span className="px-2.5 py-1 rounded-full bg-amber-600/30 text-amber-300 text-[10px] font-extrabold border border-amber-400/30">100% ROI Growth</span>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="w-full h-full min-h-[420px] relative pointer-events-auto">
+    <div className="w-full h-full min-h-[350px] sm:min-h-[420px] relative pointer-events-auto">
       <Canvas
         camera={{ position: [0, 0, 6.5], fov: 50 }}
         className="w-full h-full"
