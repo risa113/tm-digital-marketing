@@ -136,7 +136,7 @@ export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
         <>
           {/* Background backdrop dismiss target */}
           <div
-            className="fixed inset-0 top-16 sm:top-20 bg-slate-900/60 backdrop-blur-xs z-40 lg:hidden"
+            className="fixed inset-0 top-16 sm:top-20 bg-slate-950/60 backdrop-blur-xs z-40 lg:hidden"
             onClick={() => setMobileMenuOpen(false)}
             aria-hidden="true"
           />
@@ -144,47 +144,54 @@ export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
           <div
             data-lenis-prevent="true"
             data-lenis-prevent-touch="true"
-            className="relative z-50 lg:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0F172A] px-4 py-4 shadow-2xl overflow-y-auto modal-scrollable overscroll-contain touch-pan-y max-h-[calc(100dvh-4.5rem)] w-full"
+            className="relative z-50 lg:hidden border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-[#0F172A]/95 backdrop-blur-md px-3 sm:px-4 py-3 shadow-2xl overflow-y-auto modal-scrollable overscroll-contain touch-pan-y max-h-[65vh] w-full rounded-b-2xl"
           >
-            <div className="flex flex-col gap-2 pb-4">
-              <div className="text-[10px] font-extrabold text-[#2563EB] uppercase tracking-widest px-2 mb-1">
-                Select Page Route
+            <div className="space-y-3">
+              <div className="flex items-center justify-between px-1">
+                <span className="text-[10px] font-extrabold text-[#2563EB] uppercase tracking-widest">
+                  Quick Navigation
+                </span>
+                <span className="text-[10px] text-slate-400 font-semibold">
+                  Tap link to navigate
+                </span>
               </div>
 
-              {navLinks.map((link) => {
-                const IconComponent = link.icon;
-                return (
-                  <NavLink
-                    key={link.label}
-                    to={link.path}
-                    className={({ isActive }) =>
-                      `text-sm font-bold py-3 px-3.5 rounded-xl border flex items-center justify-between transition-all ${
-                        isActive
-                          ? 'bg-blue-50 dark:bg-blue-950/80 border-blue-200 dark:border-blue-800 text-[#2563EB] dark:text-blue-400 font-extrabold shadow-sm'
-                          : 'bg-slate-50 dark:bg-slate-800/60 border-slate-200/60 dark:border-slate-800 text-slate-900 dark:text-slate-200 hover:text-[#2563EB]'
-                      }`
-                    }
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950 text-[#2563EB] flex items-center justify-center shrink-0">
-                        <IconComponent className="w-4 h-4" />
+              {/* Compact 2-Column Grid Layout */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {navLinks.map((link) => {
+                  const IconComponent = link.icon;
+                  return (
+                    <NavLink
+                      key={link.label}
+                      to={link.path}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={({ isActive }) =>
+                        `text-xs font-bold py-2.5 px-3 rounded-xl border flex items-center gap-2.5 transition-all ${
+                          isActive
+                            ? 'bg-blue-50 dark:bg-blue-950/80 border-blue-300 dark:border-blue-700 text-[#2563EB] dark:text-blue-400 font-extrabold shadow-xs'
+                            : 'bg-slate-50 dark:bg-slate-800/60 border-slate-200/70 dark:border-slate-800 text-slate-800 dark:text-slate-200 hover:text-[#2563EB]'
+                        }`
+                      }
+                    >
+                      <div className="w-6 h-6 rounded-lg bg-blue-50 dark:bg-blue-950/80 text-[#2563EB] flex items-center justify-center shrink-0">
+                        <IconComponent className="w-3.5 h-3.5" />
                       </div>
-                      <span>{link.label}</span>
-                    </div>
-                    <ChevronRight className="w-4 h-4 text-[#2563EB]" />
-                  </NavLink>
-                );
-              })}
+                      <span className="truncate">{link.label}</span>
+                    </NavLink>
+                  );
+                })}
+              </div>
 
-              <div className="pt-3 border-t border-slate-200 dark:border-slate-800 space-y-3 mt-2">
+              {/* Compact CTA Button */}
+              <div className="pt-2 border-t border-slate-200 dark:border-slate-800">
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false);
                     onOpenConsultation();
                   }}
-                  className="w-full py-3.5 rounded-xl bg-[#2563EB] text-white font-btn font-semibold text-center flex items-center justify-center gap-2 shadow-xl shadow-blue-600/30 text-sm"
+                  className="w-full py-2.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-btn font-semibold text-xs text-center flex items-center justify-center gap-2 shadow-lg shadow-blue-600/25"
                 >
-                  <Sparkles className="w-4 h-4 text-amber-300" />
+                  <Sparkles className="w-3.5 h-3.5 text-amber-300" />
                   <span>Book Free Strategy Call</span>
                 </button>
               </div>

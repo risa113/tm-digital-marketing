@@ -4,27 +4,24 @@
     <meta charset="UTF-8" />
     <title>TM Digital Marketing</title>
     <script type="text/javascript">
-      // GitHub Pages SPA Redirect to HashRouter
+      // GitHub Pages SPA Redirect to HashRouter for Custom Domain & Subpaths
       (function () {
         var l = window.location;
+        var host = l.host.toLowerCase();
         var pathname = l.pathname;
         var search = l.search;
         var hash = l.hash;
 
-        // Auto-correct underscore repository names (tm_digital_marketing -> tm-digital-marketing)
-        var correctedPath = pathname.replace('/tm_digital_marketing', '/tm-digital-marketing');
+        var isCustomDomain = host.includes('tmdigitalgrow') || !pathname.toLowerCase().includes('tm-digital-marketing');
+        var repoPrefix = isCustomDomain ? '' : '/tm-digital-marketing';
 
-        var pathSegments = correctedPath.split('/').filter(Boolean);
-        var repoName = '';
-        if (pathSegments.length > 0 && pathSegments[0].toLowerCase().includes('digital-marketing')) {
-          repoName = '/' + pathSegments[0];
-          pathSegments.shift();
+        var routePath = pathname;
+        if (!isCustomDomain && routePath.toLowerCase().startsWith(repoPrefix)) {
+          routePath = routePath.substring(repoPrefix.length);
         }
-
-        var routePath = '/' + pathSegments.join('/');
         if (routePath === '/') routePath = '';
 
-        var targetUrl = l.protocol + '//' + l.host + (repoName || '/tm-digital-marketing') + '/#' + routePath + search + hash;
+        var targetUrl = l.protocol + '//' + l.host + repoPrefix + '/#' + routePath + search + hash;
         l.replace(targetUrl);
       })();
     </script>
