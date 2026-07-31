@@ -1,8 +1,52 @@
-# Allow all search engine bots to crawl the site
+# ==============================================================================
+# TM Digital Marketing - High-Performance SEO Robots.txt
+# Domain: https://tmdigitalgrow.com
+# ==============================================================================
+
+# User-agent rules for all web crawlers
 User-agent: *
 Allow: /
+Allow: /logo.png
+Allow: /favicon.svg
+Allow: /favicon.png
+Allow: /favicon.ico
+Allow: /sitemap.xml
+Allow: /site.webmanifest
 
-# Host & Sitemap specification
+# Crawl-delay for optimal server bandwidth
+Crawl-delay: 1
+
+# Major Search Engine Web Crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+# Canonical Host & XML Sitemap Location
 Host: https://tmdigitalgrow.com
 Sitemap: https://tmdigitalgrow.com/sitemap.xml
-
