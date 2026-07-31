@@ -12,6 +12,7 @@ import {
   Layers,
   ShieldCheck,
   HelpCircle,
+  MessageSquare,
   PhoneCall
 } from 'lucide-react';
 import Logo from './Logo';
@@ -20,10 +21,9 @@ interface NavbarProps {
   darkMode: boolean;
   setDarkMode: (val: boolean) => void;
   onOpenConsultation: () => void;
-  onOpenAdmin?: () => void;
 }
 
-export default function Navbar({ darkMode, onOpenConsultation, onOpenAdmin }: NavbarProps) {
+export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
@@ -52,9 +52,22 @@ export default function Navbar({ darkMode, onOpenConsultation, onOpenAdmin }: Na
     { label: 'Process', path: '/process', icon: RefreshCw },
     { label: 'Deliverables', path: '/deliverables', icon: Layers },
     { label: 'Why Us', path: '/why-us', icon: ShieldCheck },
+    { label: 'Testimonials', path: '/testimonials', icon: MessageSquare },
     { label: 'FAQ', path: '/faq', icon: HelpCircle },
     { label: 'Contact', path: '/contact', icon: PhoneCall }
   ];
+
+  // Lock background body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
 
   return (
     <header
@@ -96,16 +109,6 @@ export default function Navbar({ darkMode, onOpenConsultation, onOpenAdmin }: Na
 
         {/* Right CTA Group (Desktop) */}
         <div className="hidden lg:flex items-center gap-3 pl-4 border-l border-slate-200/60 dark:border-slate-800/60 shrink-0">
-          {onOpenAdmin && (
-            <button
-              onClick={onOpenAdmin}
-              className="font-btn text-xs font-bold rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-blue-950/60 text-slate-700 dark:text-slate-200 hover:text-[#2563EB] px-3 py-2 border border-slate-200 dark:border-slate-700 transition-all flex items-center gap-1.5 whitespace-nowrap"
-              title="Founder Lead Portal"
-            >
-              <span>🔒 Admin</span>
-            </button>
-          )}
-
           <button
             onClick={onOpenConsultation}
             className="font-btn text-xs xl:text-sm font-semibold rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-4 xl:px-5 py-2.5 shadow-lg shadow-blue-600/30 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2 whitespace-nowrap"
@@ -117,16 +120,6 @@ export default function Navbar({ darkMode, onOpenConsultation, onOpenAdmin }: Na
 
         {/* Mobile Controls Group */}
         <div className="flex items-center gap-2 lg:hidden">
-          {onOpenAdmin && (
-            <button
-              onClick={onOpenAdmin}
-              className="px-2.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800"
-              title="Founder Lead Portal"
-            >
-              <span>🔒 Admin</span>
-            </button>
-          )}
-
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 bg-slate-100 dark:bg-slate-800"
@@ -138,65 +131,66 @@ export default function Navbar({ darkMode, onOpenConsultation, onOpenAdmin }: Na
         </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Drawer Menu & Overlay */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0F172A] px-4 py-4 shadow-2xl overflow-y-auto max-h-[85vh] w-full">
-          <div className="flex flex-col gap-2">
-            <div className="text-[10px] font-extrabold text-[#2563EB] uppercase tracking-widest px-2 mb-1">
-              Select Page Route
-            </div>
+        <>
+          {/* Background backdrop dismiss target */}
+          <div
+            className="fixed inset-0 top-16 sm:top-20 bg-slate-900/60 backdrop-blur-xs z-40 lg:hidden"
+            onClick={() => setMobileMenuOpen(false)}
+            aria-hidden="true"
+          />
 
-            {navLinks.map((link) => {
-              const IconComponent = link.icon;
-              return (
-                <NavLink
-                  key={link.label}
-                  to={link.path}
-                  className={({ isActive }) =>
-                    `text-sm font-bold py-3 px-3.5 rounded-xl border flex items-center justify-between transition-all ${
-                      isActive
-                        ? 'bg-blue-50 dark:bg-blue-950/80 border-blue-200 dark:border-blue-800 text-[#2563EB] dark:text-blue-400 font-extrabold shadow-sm'
-                        : 'bg-slate-50 dark:bg-slate-800/60 border-slate-200/60 dark:border-slate-800 text-slate-900 dark:text-slate-200 hover:text-[#2563EB]'
-                    }`
-                  }
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950 text-[#2563EB] flex items-center justify-center shrink-0">
-                      <IconComponent className="w-4 h-4" />
+          <div
+            data-lenis-prevent="true"
+            data-lenis-prevent-touch="true"
+            className="relative z-50 lg:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0F172A] px-4 py-4 shadow-2xl overflow-y-auto modal-scrollable overscroll-contain touch-pan-y max-h-[calc(100dvh-4.5rem)] w-full"
+          >
+            <div className="flex flex-col gap-2 pb-4">
+              <div className="text-[10px] font-extrabold text-[#2563EB] uppercase tracking-widest px-2 mb-1">
+                Select Page Route
+              </div>
+
+              {navLinks.map((link) => {
+                const IconComponent = link.icon;
+                return (
+                  <NavLink
+                    key={link.label}
+                    to={link.path}
+                    className={({ isActive }) =>
+                      `text-sm font-bold py-3 px-3.5 rounded-xl border flex items-center justify-between transition-all ${
+                        isActive
+                          ? 'bg-blue-50 dark:bg-blue-950/80 border-blue-200 dark:border-blue-800 text-[#2563EB] dark:text-blue-400 font-extrabold shadow-sm'
+                          : 'bg-slate-50 dark:bg-slate-800/60 border-slate-200/60 dark:border-slate-800 text-slate-900 dark:text-slate-200 hover:text-[#2563EB]'
+                      }`
+                    }
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950 text-[#2563EB] flex items-center justify-center shrink-0">
+                        <IconComponent className="w-4 h-4" />
+                      </div>
+                      <span>{link.label}</span>
                     </div>
-                    <span>{link.label}</span>
-                  </div>
-                  <ChevronRight className="w-4 h-4 text-[#2563EB]" />
-                </NavLink>
-              );
-            })}
+                    <ChevronRight className="w-4 h-4 text-[#2563EB]" />
+                  </NavLink>
+                );
+              })}
 
-            <div className="pt-3 border-t border-slate-200 dark:border-slate-800 space-y-3 mt-2">
-              {onOpenAdmin && (
+              <div className="pt-3 border-t border-slate-200 dark:border-slate-800 space-y-3 mt-2">
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false);
-                    onOpenAdmin();
+                    onOpenConsultation();
                   }}
-                  className="w-full py-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-btn font-bold text-center flex items-center justify-center gap-2 text-xs border border-slate-200 dark:border-slate-700"
+                  className="w-full py-3.5 rounded-xl bg-[#2563EB] text-white font-btn font-semibold text-center flex items-center justify-center gap-2 shadow-xl shadow-blue-600/30 text-sm"
                 >
-                  <span>🔒 Founder Lead Portal (PIN: 8608)</span>
+                  <Sparkles className="w-4 h-4 text-amber-300" />
+                  <span>Book Free Strategy Call</span>
                 </button>
-              )}
-
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenConsultation();
-                }}
-                className="w-full py-3.5 rounded-xl bg-[#2563EB] text-white font-btn font-semibold text-center flex items-center justify-center gap-2 shadow-xl shadow-blue-600/30 text-sm"
-              >
-                <Sparkles className="w-4 h-4 text-amber-300" />
-                <span>Book Free Strategy Call</span>
-              </button>
+              </div>
             </div>
           </div>
-        </div>
+        </>
       )}
     </header>
   );

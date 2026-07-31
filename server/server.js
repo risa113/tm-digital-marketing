@@ -211,7 +211,26 @@ app.get('/api/leads', async (req, res) => {
   }
 });
 
-// 3. Clear All Leads
+// 3. Delete Specific Lead by ID
+app.delete('/api/leads/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    if (isNeonConnected && neonPool) {
+      await neonPool.query('DELETE FROM leads WHERE id::text = $1 OR id = $2', [id, isNaN(Number(id)) ? -1 : Number(id)]);
+      console.log(`[Neon Database] Lead ${id} deleted.`);
+    } else {
+      const db = readJsonDb();
+      db.leads = db.leads.filter(l => String(l.id) !== String(id) && String(l._id) !== String(id));
+      writeJsonDb(db);
+    }
+    res.json({ success: true, message: `Lead ${id} deleted successfully.` });
+  } catch (error) {
+    console.error('Error deleting lead:', error);
+    res.status(500).json({ error: 'Failed to delete lead' });
+  }
+});
+
+// 4. Clear All Leads
 app.post('/api/leads/clear', async (req, res) => {
   try {
     if (isNeonConnected && neonPool) {

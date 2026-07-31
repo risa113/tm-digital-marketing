@@ -22,11 +22,7 @@ const InstagramIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   </svg>
 );
 
-interface FooterProps {
-  onOpenAdmin?: () => void;
-}
-
-export default function Footer({ onOpenAdmin }: FooterProps) {
+export default function Footer() {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -152,6 +148,7 @@ export default function Footer({ onOpenAdmin }: FooterProps) {
               <li><Link to="/process" className="hover:text-[#2563EB] transition-colors">Growth Process</Link></li>
               <li><Link to="/deliverables" className="hover:text-[#2563EB] transition-colors">Deliverables</Link></li>
               <li><Link to="/why-us" className="hover:text-[#2563EB] transition-colors">Why Us</Link></li>
+              <li><Link to="/testimonials" className="hover:text-[#2563EB] transition-colors">Testimonials</Link></li>
               <li><Link to="/faq" className="hover:text-[#2563EB] transition-colors">FAQ</Link></li>
               <li><Link to="/contact" className="hover:text-[#2563EB] transition-colors">Contact</Link></li>
             </ul>
@@ -188,15 +185,6 @@ export default function Footer({ onOpenAdmin }: FooterProps) {
           <p>© {new Date().getFullYear()} TM Digital Marketing. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <p className="font-bold text-[#2563EB]">CONNECT • ENGAGE • GROW</p>
-            {onOpenAdmin && (
-              <button
-                onClick={onOpenAdmin}
-                className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-[#2563EB] text-[11px] font-semibold transition-colors flex items-center gap-1"
-                title="Founder Lead Portal"
-              >
-                <span>🔒 Admin Portal</span>
-              </button>
-            )}
           </div>
         </div>
 

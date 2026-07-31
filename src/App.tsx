@@ -10,7 +10,6 @@ import Footer from './components/Footer';
 import StickyButtons from './components/StickyButtons';
 import ChatbotWidget from './components/ChatbotWidget';
 import ConsultationModal from './components/ConsultationModal';
-import AdminLeadPortal from './components/AdminLeadPortal';
 
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
@@ -20,6 +19,7 @@ import DeliverablesPage from './pages/DeliverablesPage';
 import WhyUsPage from './pages/WhyUsPage';
 import FAQPage from './pages/FAQPage';
 import ContactPage from './pages/ContactPage';
+import TestimonialsPage from './pages/TestimonialsPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 import { ServiceItem } from './data/marketingData';
@@ -27,7 +27,6 @@ import { ServiceItem } from './data/marketingData';
 export default function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
-  const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [selectedServiceForForm, setSelectedServiceForForm] = useState<string | undefined>();
 
   const location = useLocation();
@@ -69,14 +68,6 @@ export default function App() {
     }
   }, [darkMode]);
 
-  // Auto-open Admin Lead Portal if URL contains /admin or /portal or /leads
-  useEffect(() => {
-    const path = location.pathname.toLowerCase();
-    if (path.includes('/admin') || path.includes('/portal') || path.includes('/leads')) {
-      setIsAdminOpen(true);
-    }
-  }, [location.pathname]);
-
   const handleOpenConsultation = () => {
     setIsConsultationOpen(true);
   };
@@ -106,7 +97,6 @@ export default function App() {
         darkMode={darkMode}
         setDarkMode={setDarkMode}
         onOpenConsultation={handleOpenConsultation}
-        onOpenAdmin={() => setIsAdminOpen(true)}
       />
 
       {/* Animated Route Transitions Content Area */}
@@ -126,12 +116,6 @@ export default function App() {
               <Route path="/dTM-digital-marketing" element={renderHomePage()} />
               <Route path="/tm-digital-marketing/" element={renderHomePage()} />
               <Route path="/dTM-digital-marketing/" element={renderHomePage()} />
-
-              {/* Admin Portal Direct Routes */}
-              <Route path="/admin" element={renderHomePage()} />
-              <Route path="/admin-portal" element={renderHomePage()} />
-              <Route path="/portal" element={renderHomePage()} />
-              <Route path="/leads" element={renderHomePage()} />
 
               {/* Dedicated Navigation Pages */}
               <Route
@@ -160,6 +144,10 @@ export default function App() {
                 element={<WhyUsPage onOpenConsultation={handleOpenConsultation} />}
               />
               <Route
+                path="/testimonials"
+                element={<TestimonialsPage onOpenConsultation={handleOpenConsultation} />}
+              />
+              <Route
                 path="/faq"
                 element={<FAQPage onOpenConsultation={handleOpenConsultation} />}
               />
@@ -173,7 +161,7 @@ export default function App() {
       </main>
 
       {/* Persistent Footer */}
-      <Footer onOpenAdmin={() => setIsAdminOpen(true)} />
+      <Footer />
 
       {/* Floating Action Utilities (WhatsApp, Direct Founder Call, Scroll-to-Top) */}
       <StickyButtons />
@@ -184,12 +172,6 @@ export default function App() {
         isOpen={isConsultationOpen}
         onClose={() => setIsConsultationOpen(false)}
         defaultService={selectedServiceForForm}
-      />
-
-      {/* Founder Admin Lead Portal */}
-      <AdminLeadPortal
-        isOpen={isAdminOpen}
-        onClose={() => setIsAdminOpen(false)}
       />
     </div>
   );
