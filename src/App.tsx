@@ -7,6 +7,7 @@ import SEOHead from './components/SEOHead';
 import ScrollToTop from './components/ScrollToTop';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import AdSenseBanner from './components/AdSenseBanner';
 import StickyButtons from './components/StickyButtons';
 import ChatbotWidget from './components/ChatbotWidget';
 import ConsultationModal from './components/ConsultationModal';
@@ -181,6 +182,9 @@ export default function App() {
           </motion.div>
         </AnimatePresence>
       </main>
+
+      {/* Google AdSense Ad Unit Banner */}
+      <AdSenseBanner slot="4970893672" />
 
       {/* Persistent Footer */}
       <Footer />
