@@ -373,33 +373,53 @@ export const WHY_CHOOSE_US = {
 export const TESTIMONIALS: Testimonial[] = [
   {
     id: 't1',
-    name: 'Elena Rostova',
-    role: 'CEO & Founder',
-    company: 'Aura Skincare',
+    name: 'Karthik Raja',
+    role: 'Managing Director',
+    company: 'Nellai Organic Mart (Tirunelveli)',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop',
-    companyLogo: '⚡ AURA',
+    companyLogo: '🌿 NELLAI ORGANIC',
     rating: 5,
-    quote: 'TM Digital Marketing is the most agile team we have worked with. Mohamed Thariq and Muja launched our Meta Ads and modern website in under a week!'
+    quote: 'TM Digital Marketing is hands down the best digital marketing agency in Tirunelveli! Mohamed Thariq and Muja transformed our local sales with targeted Meta Ads and Google PPC campaigns across Tamil Nadu.'
   },
   {
     id: 't2',
-    name: 'Marcus Sterling',
-    role: 'Co-Founder',
-    company: 'Sterling Tech',
+    name: 'Sundar Raman',
+    role: 'CEO & Founder',
+    company: 'Tirunelveli Tech Solutions',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop',
-    companyLogo: '🏛️ STERLING',
+    companyLogo: '🏛️ NELLAI TECH',
     rating: 5,
-    quote: 'Direct communication with founders Mohamed Thariq and Muja made all the difference. Their data-driven PPC strategy gave us instant sales momentum.'
+    quote: 'We hired TM Digital Marketing for 3D website development and local SEO services in Tirunelveli. Within 30 days, our site ranked #1 on Google for Tirunelveli tech services. Exceptional ROI!'
   },
   {
     id: 't3',
-    name: 'Sophia Chen',
-    role: 'Product Lead',
-    company: 'Hyperion Tech',
+    name: 'Meenakshi Sundaram',
+    role: 'Operations Head',
+    company: 'Tirunelveli Silk & Fashions',
     avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200&auto=format&fit=crop',
-    companyLogo: '🚀 HYPERION',
+    companyLogo: '🛍️ SILK & FASHIONS',
     rating: 5,
-    quote: 'Their mindset and dedication to ROI are unmatched. If you want fast results and modern designs, partner with TM Digital Marketing today.'
+    quote: 'Direct founder access with Mohamed Thariq (+91 86087 24931) & Muja (+91 63694 80812) gave us 5.2x ROAS on Instagram Reels video ads. Best social media marketing agency in Tirunelveli!'
+  },
+  {
+    id: 't4',
+    name: 'Dr. S. Ananth',
+    role: 'Founder & Director',
+    company: 'Tirunelveli Multi-Specialty Dental Clinic',
+    avatar: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=200&auto=format&fit=crop',
+    companyLogo: '🏥 NELLAI DENTAL',
+    rating: 5,
+    quote: 'TM Digital Marketing set up automated WhatsApp lead funnels and Google Maps Local SEO for our Tirunelveli clinic. Patient inquiries jumped by +320% in the very first month!'
+  },
+  {
+    id: 't5',
+    name: 'Venkatesh Kumar',
+    role: 'General Manager',
+    company: 'Tirunelveli Homes & Real Estate',
+    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop',
+    companyLogo: '🏢 NELLAI REALTY',
+    rating: 5,
+    quote: 'For real estate lead generation and Meta PPC ads in Tirunelveli, TM Digital Marketing is top-tier. They generated over 180 verified property buyer leads in just 7 days.'
   }
 ];
 
