@@ -39,8 +39,12 @@ export default function App() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Lenis Smooth Scroll Initialization with Modal Bypassing
+  // Lenis Smooth Scroll Initialization (Desktop Only for Maximum Mobile Performance)
   useEffect(() => {
+    // Disable Lenis on mobile / touch devices to prevent CPU throttle & main thread blocking
+    const isMobile = window.innerWidth < 768 || ('ontouchstart' in window && window.innerWidth < 1024);
+    if (isMobile) return;
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -54,14 +58,17 @@ export default function App() {
       }
     });
 
+    let animationFrameId: number;
+
     function raf(time: number) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      animationFrameId = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    animationFrameId = requestAnimationFrame(raf);
 
     return () => {
+      cancelAnimationFrame(animationFrameId);
       lenis.destroy();
     };
   }, []);
