@@ -103,6 +103,42 @@ export default function ServicesSection({ onSelectService }: ServicesSectionProp
             );
           })}
         </div>
+
+        {/* SEO & Content Growth Hub Section */}
+        <div className="mt-16 glass-card p-8 sm:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-white via-slate-50 to-blue-50/40 dark:from-[#0F172A] dark:via-slate-900 dark:to-blue-950/20 space-y-6 shadow-xl">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border-b border-slate-200 dark:border-slate-800 pb-6">
+            <div className="space-y-2">
+              <span className="text-xs font-extrabold uppercase tracking-widest text-[#2563EB]">Search Engine Optimization & Authority</span>
+              <h3 className="font-heading font-extrabold text-2xl sm:text-3xl text-[#111827] dark:text-white">
+                How We Rank Your Website #1 on Google Search
+              </h3>
+            </div>
+            <span className="px-4 py-2 rounded-2xl bg-blue-100 dark:bg-blue-950 text-[#2563EB] text-xs font-bold shrink-0">
+              100% Google Core Update Compliant
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+            <div className="p-5 rounded-2xl bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 space-y-2">
+              <h4 className="font-heading font-bold text-base text-[#111827] dark:text-white">1. Technical SEO & Core Web Vitals</h4>
+              <p className="text-xs text-[#64748B] dark:text-slate-300 leading-relaxed">
+                We optimize Largest Contentful Paint (LCP &lt; 1.2s), Cumulative Layout Shift (CLS = 0), and clean sitemap indexing for fast crawler processing.
+              </p>
+            </div>
+            <div className="p-5 rounded-2xl bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 space-y-2">
+              <h4 className="font-heading font-bold text-base text-[#111827] dark:text-white">2. Programmatic & Local SEO</h4>
+              <p className="text-xs text-[#64748B] dark:text-slate-300 leading-relaxed">
+                Target high-intent buyer keywords with structured JSON-LD schemas (LocalBusiness, BreadcrumbList, OfferCatalog, FAQPage).
+              </p>
+            </div>
+            <div className="p-5 rounded-2xl bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 space-y-2">
+              <h4 className="font-heading font-bold text-base text-[#111827] dark:text-white">3. High-Authority Backlink Acquisition</h4>
+              <p className="text-xs text-[#64748B] dark:text-slate-300 leading-relaxed">
+                Build DA 70+ dofollow backlinks, Google Business Profile local citations, and Web 2.0 brand syndication to establish domain authority.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Service Detail Modal */}

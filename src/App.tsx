@@ -6,6 +6,7 @@ import Lenis from 'lenis';
 import SEOHead from './components/SEOHead';
 import ScrollToTop from './components/ScrollToTop';
 import Navbar from './components/Navbar';
+import Breadcrumbs from './components/Breadcrumbs';
 import Footer from './components/Footer';
 import AdSenseBanner from './components/AdSenseBanner';
 import StickyButtons from './components/StickyButtons';
@@ -115,6 +116,9 @@ export default function App() {
         setDarkMode={setDarkMode}
         onOpenConsultation={handleOpenConsultation}
       />
+
+      {/* Visual Breadcrumb Navigation for Subpages */}
+      <Breadcrumbs />
 
       {/* Animated Route Transitions Content Area */}
       <main className="w-full max-w-[100vw] overflow-x-hidden min-h-[70vh]">
