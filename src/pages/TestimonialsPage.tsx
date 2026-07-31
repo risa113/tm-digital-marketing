@@ -74,12 +74,9 @@ export default function TestimonialsPage({ onOpenConsultation }: TestimonialsPag
                   </p>
                 </div>
 
-                <div className="flex items-center gap-3 pt-4 border-t border-slate-200 dark:border-slate-800">
-                  <img src={t.avatar} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
-                  <div>
-                    <h3 className="font-bold text-xs text-slate-900 dark:text-white">{t.name}</h3>
-                    <p className="text-[10px] text-slate-500 dark:text-slate-400">{t.role}, {t.company}</p>
-                  </div>
+                <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
+                  <h3 className="font-bold text-xs text-slate-900 dark:text-white">{t.name}</h3>
+                  <p className="text-[10px] text-slate-500 dark:text-slate-400">{t.role}, {t.company}</p>
                 </div>
               </div>
             ))}

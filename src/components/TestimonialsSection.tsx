@@ -72,19 +72,11 @@ export default function TestimonialsSection() {
                 "{current.quote}"
               </p>
 
-              {/* Avatar & Author */}
+              {/* Author Info */}
               <div className="pt-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <img
-                    src={current.avatar}
-                    alt={`${current.name} - Testimonial for TM Digital Marketing`}
-                    loading="lazy"
-                    className="w-12 h-12 rounded-full object-cover border-2 border-[#2563EB]"
-                  />
-                  <div>
-                    <h4 className="font-heading font-bold text-sm text-[#111827] dark:text-white">{current.name}</h4>
-                    <p className="text-xs text-[#64748B] dark:text-slate-400">{current.role} • <strong className="text-[#111827] dark:text-slate-200">{current.company}</strong></p>
-                  </div>
+                <div>
+                  <h4 className="font-heading font-bold text-sm text-[#111827] dark:text-white">{current.name}</h4>
+                  <p className="text-xs text-[#64748B] dark:text-slate-400">{current.role} • <strong className="text-[#111827] dark:text-slate-200">{current.company}</strong></p>
                 </div>
               </div>
             </motion.div>
