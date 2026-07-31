@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Lenis from 'lenis';
@@ -12,17 +12,24 @@ import ChatbotWidget from './components/ChatbotWidget';
 import ConsultationModal from './components/ConsultationModal';
 
 import HomePage from './pages/HomePage';
-import AboutPage from './pages/AboutPage';
-import ServicesPage from './pages/ServicesPage';
-import ProcessPage from './pages/ProcessPage';
-import DeliverablesPage from './pages/DeliverablesPage';
-import WhyUsPage from './pages/WhyUsPage';
-import FAQPage from './pages/FAQPage';
-import ContactPage from './pages/ContactPage';
-import TestimonialsPage from './pages/TestimonialsPage';
-import NotFoundPage from './pages/NotFoundPage';
+
+const AboutPage = lazy(() => import('./pages/AboutPage'));
+const ServicesPage = lazy(() => import('./pages/ServicesPage'));
+const ProcessPage = lazy(() => import('./pages/ProcessPage'));
+const DeliverablesPage = lazy(() => import('./pages/DeliverablesPage'));
+const WhyUsPage = lazy(() => import('./pages/WhyUsPage'));
+const FAQPage = lazy(() => import('./pages/FAQPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+const TestimonialsPage = lazy(() => import('./pages/TestimonialsPage'));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
 import { ServiceItem } from './data/marketingData';
+
+const PageLoader = () => (
+  <div className="w-full min-h-[60vh] flex items-center justify-center">
+    <div className="w-8 h-8 border-4 border-[#2563EB] border-t-transparent rounded-full animate-spin" />
+  </div>
+);
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -109,53 +116,55 @@ export default function App() {
             exit={{ opacity: 0, y: -15 }}
             transition={{ duration: 0.25, ease: 'easeOut' }}
           >
-            <Routes location={location}>
-              {/* Home Page Routes (Handles Root + GitHub Pages Subpaths) */}
-              <Route path="/" element={renderHomePage()} />
-              <Route path="/tm-digital-marketing" element={renderHomePage()} />
-              <Route path="/dTM-digital-marketing" element={renderHomePage()} />
-              <Route path="/tm-digital-marketing/" element={renderHomePage()} />
-              <Route path="/dTM-digital-marketing/" element={renderHomePage()} />
+            <Suspense fallback={<PageLoader />}>
+              <Routes location={location}>
+                {/* Home Page Routes (Handles Root + GitHub Pages Subpaths) */}
+                <Route path="/" element={renderHomePage()} />
+                <Route path="/tm-digital-marketing" element={renderHomePage()} />
+                <Route path="/dTM-digital-marketing" element={renderHomePage()} />
+                <Route path="/tm-digital-marketing/" element={renderHomePage()} />
+                <Route path="/dTM-digital-marketing/" element={renderHomePage()} />
 
-              {/* Dedicated Navigation Pages */}
-              <Route
-                path="/about"
-                element={<AboutPage onOpenConsultation={handleOpenConsultation} />}
-              />
-              <Route
-                path="/services"
-                element={
-                  <ServicesPage
-                    onOpenConsultation={handleOpenConsultation}
-                    onSelectService={handleSelectService}
-                  />
-                }
-              />
-              <Route
-                path="/process"
-                element={<ProcessPage onOpenConsultation={handleOpenConsultation} />}
-              />
-              <Route
-                path="/deliverables"
-                element={<DeliverablesPage onOpenConsultation={handleOpenConsultation} />}
-              />
-              <Route
-                path="/why-us"
-                element={<WhyUsPage onOpenConsultation={handleOpenConsultation} />}
-              />
-              <Route
-                path="/testimonials"
-                element={<TestimonialsPage onOpenConsultation={handleOpenConsultation} />}
-              />
-              <Route
-                path="/faq"
-                element={<FAQPage onOpenConsultation={handleOpenConsultation} />}
-              />
-              <Route path="/contact" element={<ContactPage />} />
+                {/* Dedicated Navigation Pages */}
+                <Route
+                  path="/about"
+                  element={<AboutPage onOpenConsultation={handleOpenConsultation} />}
+                />
+                <Route
+                  path="/services"
+                  element={
+                    <ServicesPage
+                      onOpenConsultation={handleOpenConsultation}
+                      onSelectService={handleSelectService}
+                    />
+                  }
+                />
+                <Route
+                  path="/process"
+                  element={<ProcessPage onOpenConsultation={handleOpenConsultation} />}
+                />
+                <Route
+                  path="/deliverables"
+                  element={<DeliverablesPage onOpenConsultation={handleOpenConsultation} />}
+                />
+                <Route
+                  path="/why-us"
+                  element={<WhyUsPage onOpenConsultation={handleOpenConsultation} />}
+                />
+                <Route
+                  path="/testimonials"
+                  element={<TestimonialsPage onOpenConsultation={handleOpenConsultation} />}
+                />
+                <Route
+                  path="/faq"
+                  element={<FAQPage onOpenConsultation={handleOpenConsultation} />}
+                />
+                <Route path="/contact" element={<ContactPage />} />
 
-              {/* 404 Fallback */}
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
+                {/* 404 Fallback */}
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </Suspense>
           </motion.div>
         </AnimatePresence>
       </main>

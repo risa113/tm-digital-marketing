@@ -87,6 +87,9 @@ export default function AboutSection() {
                   src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1000&auto=format&fit=crop"
                   alt="SEO Services in Tirunelveli - TM Digital Marketing Team"
                   loading="lazy"
+                  decoding="async"
+                  width="1000"
+                  height="667"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-transparent" />

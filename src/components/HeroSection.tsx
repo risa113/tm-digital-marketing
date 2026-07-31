@@ -1,9 +1,10 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Play, CheckCircle2, Zap } from 'lucide-react';
-import Hero3DCanvas from './Hero3DCanvas';
 import { STATS } from '../data/marketingData';
+
+const Hero3DCanvas = lazy(() => import('./Hero3DCanvas'));
 
 interface HeroSectionProps {
   onOpenConsultation: () => void;
@@ -120,7 +121,13 @@ export default function HeroSection({ onOpenConsultation }: HeroSectionProps) {
             transition={{ duration: 0.8, delay: 0.1 }}
             className="lg:col-span-5 relative h-[320px] sm:h-[450px] flex items-center justify-center"
           >
-            <Hero3DCanvas />
+            <Suspense fallback={
+              <div className="w-full h-64 rounded-3xl bg-blue-50/50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 animate-pulse flex items-center justify-center">
+                <Zap className="w-8 h-8 text-[#2563EB]/40 animate-spin" />
+              </div>
+            }>
+              <Hero3DCanvas />
+            </Suspense>
           </motion.div>
 
         </div>

@@ -37,6 +37,9 @@ export default function Logo({ className = '', showTagline = true, size = 'md' }
         <img
           src={logoUrl}
           alt="TM Digital Marketing Logo"
+          width="48"
+          height="48"
+          decoding="async"
           className="w-full h-full object-contain filter drop-shadow-md group-hover:scale-105 transition-transform"
         />
       </div>

@@ -101,6 +101,7 @@ export default function ChatbotWidget({ onOpenConsultation }: ChatbotWidgetProps
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           onClick={() => setIsOpen(true)}
+          aria-label="Open AI Assistant"
           className="p-4 rounded-2xl bg-[#2563EB] text-white shadow-2xl shadow-blue-600/40 hover:scale-105 transition-transform flex items-center gap-3 group border border-white/20"
         >
           <div className="relative">
@@ -136,7 +137,7 @@ export default function ChatbotWidget({ onOpenConsultation }: ChatbotWidgetProps
                 </div>
               </div>
 
-              <button onClick={() => setIsOpen(false)} className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20">
+              <button onClick={() => setIsOpen(false)} aria-label="Close AI Assistant" className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20">
                 <X className="w-4 h-4" />
               </button>
             </div>
@@ -189,6 +190,7 @@ export default function ChatbotWidget({ onOpenConsultation }: ChatbotWidgetProps
               />
               <button
                 onClick={() => handleSend()}
+                aria-label="Send message"
                 className="p-2.5 rounded-xl bg-[#2563EB] text-white hover:bg-[#1D4ED8] shadow-md transition-colors"
               >
                 <Send className="w-4 h-4" />
