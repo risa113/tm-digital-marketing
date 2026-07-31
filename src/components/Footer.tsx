@@ -170,7 +170,7 @@ export default function Footer() {
               transition={{ duration: 0.35, ease: 'easeInOut' }}
               className="overflow-hidden mb-10"
             >
-              <div className="p-8 rounded-3xl bg-slate-50 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              <div className="p-8 rounded-3xl bg-slate-50 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 
                 {/* Navigation Pages */}
                 <div className="space-y-3">
@@ -230,31 +230,6 @@ export default function Footer() {
                       {CONTACT_INFO.email}
                     </a>
                   </div>
-                </div>
-
-                {/* SEO & Sitemap Links */}
-                <div className="space-y-3">
-                  <h4 className="font-heading font-extrabold text-xs text-[#2563EB] uppercase tracking-wider flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#2563EB]" />
-                    <span>SEO &amp; Index Endpoints</span>
-                  </h4>
-                  <ul className="space-y-2 text-xs">
-                    <li>
-                      <a href="https://tmdigitalgrow.com/sitemap.xml" target="_blank" rel="noopener noreferrer" className="hover:text-[#2563EB] transition-colors flex items-center gap-1.5 py-0.5">
-                        <FileText className="w-3.5 h-3.5 text-[#2563EB]" />
-                        <span>XML Sitemap (sitemap.xml)</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="https://tmdigitalgrow.com/robots.txt" target="_blank" rel="noopener noreferrer" className="hover:text-[#2563EB] transition-colors flex items-center gap-1.5 py-0.5">
-                        <FileText className="w-3.5 h-3.5 text-[#2563EB]" />
-                        <span>Robots File (robots.txt)</span>
-                      </a>
-                    </li>
-                    <li className="pt-2 text-[11px] text-slate-500 dark:text-slate-400">
-                      Location: Tirunelveli, Tamil Nadu, India (8.7139, 77.7567)
-                    </li>
-                  </ul>
                 </div>
 
               </div>
