@@ -224,7 +224,7 @@ export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
           <div
             data-lenis-prevent="true"
             data-lenis-prevent-touch="true"
-            className="relative z-50 lg:hidden border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-[#0F172A]/95 backdrop-blur-md px-3 sm:px-4 py-3 shadow-2xl overflow-y-auto modal-scrollable overscroll-contain touch-pan-y max-h-[75vh] w-full rounded-b-2xl"
+            className="relative z-50 lg:hidden border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-[#0F172A]/95 backdrop-blur-md px-3 sm:px-4 py-3.5 shadow-2xl overflow-y-auto modal-scrollable overscroll-contain touch-pan-y max-h-[85vh] w-full rounded-b-3xl"
           >
             <div className="space-y-3">
               <div className="flex items-center justify-between px-1">
@@ -262,23 +262,40 @@ export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
                 })}
               </div>
 
-              {/* Mobile Dedicated Service Links */}
+              {/* Mobile Dedicated Service Links (All 8 Services) */}
               <div className="pt-2 border-t border-slate-200 dark:border-slate-800 space-y-2">
-                <span className="text-[10px] font-extrabold text-[#2563EB] uppercase tracking-widest px-1">
-                  High-Intent Local Services
-                </span>
+                <div className="flex items-center justify-between px-1">
+                  <span className="text-[10px] font-extrabold text-[#2563EB] uppercase tracking-widest">
+                    Local Services ({dedicatedServices.length})
+                  </span>
+                  <span className="text-[10px] text-slate-400 font-medium">
+                    All 8 Growth Services
+                  </span>
+                </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs">
-                  {dedicatedServices.slice(0, 4).map((ds) => (
-                    <Link
-                      key={ds.path}
-                      to={ds.path}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800/40 text-slate-700 dark:text-slate-300 hover:text-[#2563EB] flex items-center gap-2 font-medium"
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
-                      <span className="truncate">{ds.label}</span>
-                    </Link>
-                  ))}
+                  {dedicatedServices.map((ds) => {
+                    const IconComp = ds.icon;
+                    return (
+                      <Link
+                        key={ds.path}
+                        to={ds.path}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/40 hover:bg-blue-50 dark:hover:bg-blue-950/60 border border-slate-200/60 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-[#2563EB] flex items-start gap-2 font-medium transition-all group"
+                      >
+                        <div className="w-5 h-5 rounded-md bg-blue-50 dark:bg-blue-950 text-[#2563EB] flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-105 transition-transform">
+                          <IconComp className="w-3 h-3" />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="text-[11px] font-bold text-slate-900 dark:text-white truncate leading-tight group-hover:text-[#2563EB] transition-colors">
+                            {ds.label}
+                          </p>
+                          <p className="text-[9px] text-slate-500 dark:text-slate-400 truncate leading-tight pt-0.5">
+                            {ds.desc}
+                          </p>
+                        </div>
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
 
