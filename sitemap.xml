@@ -5,157 +5,253 @@
   <!-- Home Page -->
   <url>
     <loc>https://tmdigitalgrow.com/</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://tmdigitalgrow.com/logo.png</image:loc>
-      <image:title>TM Digital Marketing Official Logo</image:title>
-      <image:caption>TM Digital Marketing - Connect, Engage, Grow</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://tmdigitalgrow.com/ad_creatives_banner.jpg</image:loc>
-      <image:title>Digital Ad Creatives &amp; Growth Banners</image:title>
-      <image:caption>High-converting social ad creatives and banner designs</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://tmdigitalgrow.com/whatsapp_funnel_graphic.jpg</image:loc>
-      <image:title>WhatsApp Marketing Lead Funnel</image:title>
-      <image:caption>Direct-to-consumer conversational WhatsApp funnel architecture</image:caption>
+      <image:title>TM Digital Marketing - Best Digital Marketing Agency in Tirunelveli</image:title>
+      <image:caption>TM Digital Marketing official brand logo and growth agency</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://images.unsplash.com/photo-1460925895917-afdab827c52f</image:loc>
-      <image:title>Digital Marketing &amp; ROI Analytics Growth</image:title>
+      <image:title>Digital Marketing &amp; ROI Analytics Growth in Tirunelveli</image:title>
       <image:caption>Data-driven performance marketing dashboard and growth analytics</image:caption>
     </image:image>
   </url>
 
-  <!-- About Us Page -->
+  <!-- Dedicated High-Intent Local Service Pillar Pages -->
   <url>
-    <loc>https://tmdigitalgrow.com/about</loc>
-    <lastmod>2026-07-31</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://tmdigitalgrow.com/digital-marketing-agency-tirunelveli</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
     <image:image>
-      <image:loc>https://tmdigitalgrow.com/logo.png</image:loc>
-      <image:title>About TM Digital Marketing Founders</image:title>
-      <image:caption>Agency founders Mohamed Thariq and Muja growth story</image:caption>
+      <image:loc>https://images.unsplash.com/photo-1460925895917-afdab827c52f</image:loc>
+      <image:title>Digital Marketing Agency in Tirunelveli</image:title>
+      <image:caption>Comprehensive digital marketing solutions for Nellai and Tamil Nadu businesses</image:caption>
     </image:image>
+  </url>
+
+  <url>
+    <loc>https://tmdigitalgrow.com/seo-services-tirunelveli</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
     <image:image>
       <image:loc>https://images.unsplash.com/photo-1522071820081-009f0129c71c</image:loc>
-      <image:title>TM Digital Marketing Vision &amp; Team</image:title>
-      <image:caption>Collaborative digital growth strategy and agency team</image:caption>
+      <image:title>SEO Services in Tirunelveli - Google #1 Ranking Agency</image:title>
+      <image:caption>Technical Core Web Vitals, Google Map Pack 3-Pack and link building in Nellai</image:caption>
     </image:image>
   </url>
 
-  <!-- Services Page -->
+  <url>
+    <loc>https://tmdigitalgrow.com/social-media-marketing-tirunelveli</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7</image:loc>
+      <image:title>Social Media Marketing Agency in Tirunelveli</image:title>
+      <image:caption>Instagram Reels production, viral growth hooks, and community building</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://tmdigitalgrow.com/google-ads-tirunelveli</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1553877522-43269d4ea984</image:loc>
+      <image:title>Google Ads &amp; PPC Agency in Tirunelveli</image:title>
+      <image:caption>High-intent Google Search PPC, Performance Max, and Shopping ads management</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://tmdigitalgrow.com/meta-ads-tirunelveli</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1553877522-43269d4ea984</image:loc>
+      <image:title>Meta Facebook &amp; Instagram Ads Agency in Tirunelveli</image:title>
+      <image:caption>High-ROAS creative testing, lookalike retargeting funnels, and CAPI tracking</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://tmdigitalgrow.com/web-development-tirunelveli</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1498050108023-c5249f4df085</image:loc>
+      <image:title>Website Development Company in Tirunelveli</image:title>
+      <image:caption>Ultra-fast 3D glassmorphic websites built with React, Next.js, and Tailwind CSS</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://tmdigitalgrow.com/branding-tirunelveli</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1507238691740-187a5b1d37b8</image:loc>
+      <image:title>Branding &amp; Vector Logo Design in Tirunelveli</image:title>
+      <image:caption>Luxury brand books, typography systems, vector logos, and packaging design</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://tmdigitalgrow.com/lead-generation-tirunelveli</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1611746872915-64382b5c76da</image:loc>
+      <image:title>Lead Generation &amp; WhatsApp Marketing in Tirunelveli</image:title>
+      <image:caption>Conversational WhatsApp funnels with 98% open rates and AI chatbot qualification</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Blog Hub & Topical Authority Articles -->
+  <url>
+    <loc>https://tmdigitalgrow.com/blog</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://tmdigitalgrow.com/blog/how-to-choose-best-digital-marketing-agency-tirunelveli</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1460925895917-afdab827c52f</image:loc>
+      <image:title>How to Choose the Best Digital Marketing Agency in Tirunelveli</image:title>
+      <image:caption>Agency selection guide for business owners in Nellai and Tamil Nadu</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://tmdigitalgrow.com/blog/local-seo-guide-tirunelveli-businesses</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1522071820081-009f0129c71c</image:loc>
+      <image:title>Local SEO Guide for Tirunelveli Businesses</image:title>
+      <image:caption>Google Maps Local 3-Pack ranking strategy for Nellai business owners</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://tmdigitalgrow.com/blog/google-ads-vs-meta-ads-tirunelveli-roi</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1553877522-43269d4ea984</image:loc>
+      <image:title>Google Ads vs Meta Ads for Tirunelveli Businesses</image:title>
+      <image:caption>Paid advertising ROI comparison for businesses in Tamil Nadu</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://tmdigitalgrow.com/blog/website-development-cost-in-tirunelveli</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1498050108023-c5249f4df085</image:loc>
+      <image:title>Website Development Cost in Tirunelveli</image:title>
+      <image:caption>Transparent website development pricing guide in Tirunelveli</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://tmdigitalgrow.com/blog/instagram-marketing-strategy-local-brands-tamil-nadu</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7</image:loc>
+      <image:title>Instagram Marketing Strategy for Local Brands in Tamil Nadu</image:title>
+      <image:caption>Short-form Reels scripting and WhatsApp conversion blueprint</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Core Supporting Pages -->
+  <url>
+    <loc>https://tmdigitalgrow.com/about</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <url>
     <loc>https://tmdigitalgrow.com/services</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <image:image>
-      <image:loc>https://tmdigitalgrow.com/ad_creatives_banner.jpg</image:loc>
-      <image:title>TM Digital Marketing Services Overview</image:title>
-      <image:caption>SEO, Meta Ads, Google PPC, Web Development and AI Automation</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://tmdigitalgrow.com/whatsapp_funnel_graphic.jpg</image:loc>
-      <image:title>Conversational WhatsApp Marketing</image:title>
-      <image:caption>High open-rate messaging funnels and automated chatbots</image:caption>
-    </image:image>
   </url>
 
-  <!-- Process Page -->
   <url>
     <loc>https://tmdigitalgrow.com/process</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <image:image>
-      <image:loc>https://tmdigitalgrow.com/whatsapp_funnel_graphic.jpg</image:loc>
-      <image:title>6-Step Growth Methodology &amp; Execution Blueprint</image:title>
-      <image:caption>Research, strategy, content sprint, launch, optimization, scale</image:caption>
-    </image:image>
+    <priority>0.85</priority>
   </url>
 
-  <!-- Deliverables Page -->
   <url>
     <loc>https://tmdigitalgrow.com/deliverables</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <image:image>
-      <image:loc>https://tmdigitalgrow.com/ad_creatives_banner.jpg</image:loc>
-      <image:title>Website Development &amp; Marketing Deliverables</image:title>
-      <image:caption>Starter, Growth, Professional &amp; Enterprise package details</image:caption>
-    </image:image>
+    <priority>0.85</priority>
   </url>
 
-  <!-- Why Us Page -->
   <url>
     <loc>https://tmdigitalgrow.com/why-us</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <image:image>
-      <image:loc>https://tmdigitalgrow.com/logo.png</image:loc>
-      <image:title>Why Choose TM Digital Marketing</image:title>
-      <image:caption>Agile 7-day launch vs traditional slow agencies</image:caption>
-    </image:image>
+    <priority>0.85</priority>
   </url>
 
-  <!-- FAQ Page -->
-  <url>
-    <loc>https://tmdigitalgrow.com/faq</loc>
-    <lastmod>2026-07-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://tmdigitalgrow.com/logo.png</image:loc>
-      <image:title>TM Digital Marketing FAQ &amp; Knowledge Base</image:title>
-      <image:caption>Answers regarding timeline, pricing models, founder access, and guarantees</image:caption>
-    </image:image>
-  </url>
-
-  <!-- Testimonials Page -->
   <url>
     <loc>https://tmdigitalgrow.com/testimonials</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://images.unsplash.com/photo-1534528741775-53994a69daeb</image:loc>
-      <image:title>Elena Rostova - Client Testimonial</image:title>
-      <image:caption>5.2x Meta Ads ROAS client case study</image:caption>
-    </image:image>
   </url>
 
-  <!-- Contact Page -->
+  <url>
+    <loc>https://tmdigitalgrow.com/faq</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <url>
     <loc>https://tmdigitalgrow.com/contact</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <image:image>
-      <image:loc>https://tmdigitalgrow.com/logo.png</image:loc>
-      <image:title>Contact TM Digital Marketing Founders</image:title>
-      <image:caption>Direct contacts for Mohamed Thariq and Muja</image:caption>
-    </image:image>
   </url>
 
-  <!-- Privacy Policy Page -->
   <url>
     <loc>https://tmdigitalgrow.com/privacy</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
-  <!-- Terms of Service Page -->
   <url>
     <loc>https://tmdigitalgrow.com/terms</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
