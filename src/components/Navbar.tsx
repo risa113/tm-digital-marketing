@@ -4,7 +4,7 @@ import {
   Menu, 
   X, 
   Sparkles, 
-  ChevronRight, 
+  ChevronDown, 
   Home,
   UserCheck,
   Zap,
@@ -13,7 +13,14 @@ import {
   ShieldCheck,
   HelpCircle,
   MessageSquare,
-  PhoneCall
+  PhoneCall,
+  BookOpen,
+  Search,
+  Share2,
+  Target,
+  TrendingUp,
+  Code,
+  Palette
 } from 'lucide-react';
 import Logo from './Logo';
 
@@ -26,6 +33,7 @@ interface NavbarProps {
 export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -40,21 +48,34 @@ export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile drawer when location changes
+  // Close mobile drawer & dropdown when location changes
   useEffect(() => {
     setMobileMenuOpen(false);
+    setServicesDropdownOpen(false);
   }, [location.pathname]);
 
   const navLinks = [
     { label: 'Home', path: '/', icon: Home },
-    { label: 'About us', path: '/about', icon: UserCheck },
-    { label: 'Services', path: '/services', icon: Zap },
+    { label: 'About', path: '/about', icon: UserCheck },
+    { label: 'Services', path: '/services', icon: Zap, hasDropdown: true },
+    { label: 'Blog', path: '/blog', icon: BookOpen },
     { label: 'Process', path: '/process', icon: RefreshCw },
     { label: 'Deliverables', path: '/deliverables', icon: Layers },
     { label: 'Why Us', path: '/why-us', icon: ShieldCheck },
-    { label: 'Testimonials', path: '/testimonials', icon: MessageSquare },
+    { label: 'Reviews', path: '/testimonials', icon: MessageSquare },
     { label: 'FAQ', path: '/faq', icon: HelpCircle },
     { label: 'Contact', path: '/contact', icon: PhoneCall }
+  ];
+
+  const dedicatedServices = [
+    { label: 'Digital Marketing Tirunelveli', path: '/digital-marketing-agency-tirunelveli', desc: 'Full-funnel growth engine', icon: Zap },
+    { label: 'SEO Services Tirunelveli', path: '/seo-services-tirunelveli', desc: 'Google search & local 3-pack', icon: Search },
+    { label: 'Social Media Marketing', path: '/social-media-marketing-tirunelveli', desc: 'Viral Instagram Reels & feeds', icon: Share2 },
+    { label: 'Google Ads PPC', path: '/google-ads-tirunelveli', desc: 'High-intent search & PMax', icon: TrendingUp },
+    { label: 'Meta Ads (FB & IG)', path: '/meta-ads-tirunelveli', desc: 'Visual ad scaling & CAPI', icon: Target },
+    { label: 'Website Development', path: '/web-development-tirunelveli', desc: '3D React & Next.js platforms', icon: Code },
+    { label: 'Branding & Logo Systems', path: '/branding-tirunelveli', desc: 'Luxury vector identities', icon: Palette },
+    { label: 'Lead Generation Funnels', path: '/lead-generation-tirunelveli', desc: 'WhatsApp & AI chatbot leads', icon: MessageSquare }
   ];
 
   // Lock background body scroll when mobile menu is open
@@ -82,29 +103,89 @@ export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2 sm:gap-4">
         
         {/* Brand Logo */}
-        <Link to="/" className="shrink-0 flex items-center lg:pr-6 lg:border-r border-slate-200/60 dark:border-slate-800/60">
+        <Link to="/" className="shrink-0 flex items-center lg:pr-4 xl:pr-6 lg:border-r border-slate-200/60 dark:border-slate-800/60">
           <Logo size="sm" showTagline={true} />
         </Link>
 
         {/* Desktop Nav Items */}
         <nav className="hidden lg:flex items-center gap-1 xl:gap-2 justify-center flex-1">
-          {navLinks.map((link) => (
-            <NavLink
-              key={link.label}
-              to={link.path}
-              className={({ isActive }) =>
-                `text-xs xl:text-[13px] font-bold px-2.5 py-1.5 rounded-lg whitespace-nowrap transition-all duration-200 ${
-                  isActive
-                    ? 'text-[#2563EB] bg-blue-50 dark:bg-blue-950/60 dark:text-blue-400 font-extrabold shadow-xs'
-                    : darkMode
-                    ? 'text-slate-300 hover:text-[#2563EB] hover:bg-slate-800/50'
-                    : 'text-[#111827] hover:text-[#2563EB] hover:bg-slate-100/70'
-                }`
-              }
-            >
-              {link.label}
-            </NavLink>
-          ))}
+          {navLinks.map((link) => {
+            if (link.hasDropdown) {
+              return (
+                <div
+                  key={link.label}
+                  className="relative group"
+                  onMouseEnter={() => setServicesDropdownOpen(true)}
+                  onMouseLeave={() => setServicesDropdownOpen(false)}
+                >
+                  <NavLink
+                    to={link.path}
+                    className={({ isActive }) =>
+                      `text-xs xl:text-[13px] font-bold px-2.5 py-1.5 rounded-lg whitespace-nowrap transition-all duration-200 flex items-center gap-1 ${
+                        isActive || location.pathname.includes('-tirunelveli')
+                          ? 'text-[#2563EB] bg-blue-50 dark:bg-blue-950/60 dark:text-blue-400 font-extrabold shadow-xs'
+                          : darkMode
+                          ? 'text-slate-300 hover:text-[#2563EB] hover:bg-slate-800/50'
+                          : 'text-[#111827] hover:text-[#2563EB] hover:bg-slate-100/70'
+                      }`
+                    }
+                  >
+                    <span>{link.label}</span>
+                    <ChevronDown className="w-3.5 h-3.5 opacity-70 group-hover:rotate-180 transition-transform" />
+                  </NavLink>
+
+                  {/* Mega Menu Dropdown */}
+                  <div
+                    className={`absolute top-full left-1/2 -translate-x-1/2 mt-1 w-[520px] p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl transition-all duration-200 grid grid-cols-2 gap-2 z-50 ${
+                      servicesDropdownOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible pointer-events-none -translate-y-2'
+                    }`}
+                  >
+                    {dedicatedServices.map((ds) => {
+                      const IconComp = ds.icon;
+                      return (
+                        <Link
+                          key={ds.path}
+                          to={ds.path}
+                          onClick={() => setServicesDropdownOpen(false)}
+                          className="p-2.5 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-950/60 border border-transparent hover:border-blue-200 dark:hover:border-blue-800 transition-all flex items-start gap-2.5 text-left group/item"
+                        >
+                          <div className="w-7 h-7 rounded-lg bg-blue-50 dark:bg-blue-950 text-[#2563EB] flex items-center justify-center shrink-0 mt-0.5">
+                            <IconComp className="w-3.5 h-3.5" />
+                          </div>
+                          <div>
+                            <p className="text-xs font-bold text-slate-900 dark:text-white group-hover/item:text-[#2563EB] transition-colors leading-tight">
+                              {ds.label}
+                            </p>
+                            <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-tight pt-0.5">
+                              {ds.desc}
+                            </p>
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            }
+
+            return (
+              <NavLink
+                key={link.label}
+                to={link.path}
+                className={({ isActive }) =>
+                  `text-xs xl:text-[13px] font-bold px-2.5 py-1.5 rounded-lg whitespace-nowrap transition-all duration-200 ${
+                    isActive
+                      ? 'text-[#2563EB] bg-blue-50 dark:bg-blue-950/60 dark:text-blue-400 font-extrabold shadow-xs'
+                      : darkMode
+                      ? 'text-slate-300 hover:text-[#2563EB] hover:bg-slate-800/50'
+                      : 'text-[#111827] hover:text-[#2563EB] hover:bg-slate-100/70'
+                  }`
+                }
+              >
+                {link.label}
+              </NavLink>
+            );
+          })}
         </nav>
 
         {/* Right CTA Group (Desktop) */}
@@ -134,7 +215,6 @@ export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
       {/* Mobile Drawer Menu & Overlay */}
       {mobileMenuOpen && (
         <>
-          {/* Background backdrop dismiss target */}
           <div
             className="fixed inset-0 top-16 sm:top-20 bg-slate-950/60 backdrop-blur-xs z-40 lg:hidden"
             onClick={() => setMobileMenuOpen(false)}
@@ -144,7 +224,7 @@ export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
           <div
             data-lenis-prevent="true"
             data-lenis-prevent-touch="true"
-            className="relative z-50 lg:hidden border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-[#0F172A]/95 backdrop-blur-md px-3 sm:px-4 py-3 shadow-2xl overflow-y-auto modal-scrollable overscroll-contain touch-pan-y max-h-[65vh] w-full rounded-b-2xl"
+            className="relative z-50 lg:hidden border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-[#0F172A]/95 backdrop-blur-md px-3 sm:px-4 py-3 shadow-2xl overflow-y-auto modal-scrollable overscroll-contain touch-pan-y max-h-[75vh] w-full rounded-b-2xl"
           >
             <div className="space-y-3">
               <div className="flex items-center justify-between px-1">
@@ -156,7 +236,7 @@ export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
                 </span>
               </div>
 
-              {/* Compact 2-Column Grid Layout */}
+              {/* 2-Column Grid Layout */}
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 {navLinks.map((link) => {
                   const IconComponent = link.icon;
@@ -180,6 +260,26 @@ export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
                     </NavLink>
                   );
                 })}
+              </div>
+
+              {/* Mobile Dedicated Service Links */}
+              <div className="pt-2 border-t border-slate-200 dark:border-slate-800 space-y-2">
+                <span className="text-[10px] font-extrabold text-[#2563EB] uppercase tracking-widest px-1">
+                  High-Intent Local Services
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs">
+                  {dedicatedServices.slice(0, 4).map((ds) => (
+                    <Link
+                      key={ds.path}
+                      to={ds.path}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800/40 text-slate-700 dark:text-slate-300 hover:text-[#2563EB] flex items-center gap-2 font-medium"
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
+                      <span className="truncate">{ds.label}</span>
+                    </Link>
+                  ))}
+                </div>
               </div>
 
               {/* Compact CTA Button */}

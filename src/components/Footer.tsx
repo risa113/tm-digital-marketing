@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, CheckCircle2, Loader2, ChevronDown, MapPin, Phone, FileText } from 'lucide-react';
+import { Mail, CheckCircle2, Loader2, ChevronDown, MapPin, Phone } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import Logo from './Logo';
@@ -67,7 +67,7 @@ export default function Footer() {
           <div className="lg:col-span-6 space-y-4">
             <Logo size="md" showTagline={true} />
             <p className="text-xs sm:text-sm text-[#64748B] dark:text-slate-400 leading-relaxed max-w-lg">
-              TM Digital Marketing is Tirunelveli’s premier growth agency. We scale business revenue with high-ROI SEO, Meta Ads, Google PPC, Web Development, and AI Automation.
+              TM Digital Marketing is Tirunelveli’s premier digital marketing agency. We engineer high-ROAS Meta Ads, Google Ads PPC, Google Local SEO, 3D Web Development, and AI Automation for brands across Tamil Nadu.
             </p>
             <div className="flex items-center gap-3 pt-2">
               <a
@@ -75,14 +75,14 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-pink-500 hover:text-pink-600 transition-colors"
-                title="Instagram Page"
+                title="Instagram Official Profile"
               >
                 <InstagramIcon className="w-4 h-4 stroke-pink-500" />
               </a>
               <a
                 href={`mailto:${CONTACT_INFO.email}`}
                 className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-[#2563EB] transition-colors"
-                title="Email Us"
+                title="Email Founders Directly"
               >
                 <Mail className="w-4 h-4" />
               </a>
@@ -91,10 +91,10 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-emerald-500 transition-colors flex items-center gap-1.5 text-xs font-semibold"
-                title="Google Maps Location"
+                title="Google Maps Location in Tirunelveli"
               >
                 <MapPin className="w-4 h-4 text-emerald-500" />
-                <span>Tirunelveli, TN</span>
+                <span>Tirunelveli / Nellai, TN</span>
               </a>
             </div>
           </div>
@@ -102,10 +102,10 @@ export default function Footer() {
           {/* Newsletter Box */}
           <div className="lg:col-span-6 flex flex-col justify-center space-y-3 lg:border-l lg:border-slate-200 dark:lg:border-slate-800 lg:pl-8">
             <h3 className="font-heading font-extrabold text-lg sm:text-xl text-[#111827] dark:text-white">
-              Subscribe to Growth Insights
+              Subscribe to Tirunelveli Growth Insights
             </h3>
             <p className="text-xs text-[#64748B] dark:text-slate-400">
-              Get battle-tested ad frameworks and SEO updates directly in your inbox.
+              Get battle-tested ad frameworks, local SEO blueprints, and conversion tips directly in your inbox.
             </p>
 
             {isSubscribed ? (
@@ -124,7 +124,7 @@ export default function Footer() {
                 <input
                   type="email"
                   required
-                  placeholder="Enter your work email..."
+                  placeholder="Enter your business email..."
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-900 text-[#111827] dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-[#2563EB] border border-slate-200 dark:border-slate-800"
@@ -146,14 +146,14 @@ export default function Footer() {
 
         </div>
 
-        {/* Single Professional Interactive Accordion Button */}
+        {/* Interactive Site Explorer Accordion Button */}
         <div className="flex justify-center my-6">
           <button
             onClick={() => setIsSitemapOpen(!isSitemapOpen)}
             className="group flex items-center gap-3 px-6 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-300/80 dark:border-slate-700 text-xs font-bold transition-all shadow-sm hover:shadow-md active:scale-[0.98]"
             aria-expanded={isSitemapOpen}
           >
-            <span>{isSitemapOpen ? 'Hide All Website Headings & Footers' : 'Show All Website Headings & Footers'}</span>
+            <span>{isSitemapOpen ? 'Hide Full Website Directory & Headings' : 'Show Full Website Directory & Headings'}</span>
             <div className={`p-1 rounded-full bg-[#2563EB] text-white transition-transform duration-300 ${isSitemapOpen ? 'rotate-180' : ''}`}>
               <ChevronDown className="w-4 h-4 stroke-[3]" />
             </div>
@@ -170,42 +170,60 @@ export default function Footer() {
               transition={{ duration: 0.35, ease: 'easeInOut' }}
               className="overflow-hidden mb-10"
             >
-              <div className="p-8 rounded-3xl bg-slate-50 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="p-8 rounded-3xl bg-slate-50 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 
                 {/* Navigation Pages */}
                 <div className="space-y-3">
                   <h4 className="font-heading font-extrabold text-xs text-[#2563EB] uppercase tracking-wider flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-[#2563EB]" />
-                    <span>Navigation Pages</span>
+                    <span>Company Pages</span>
                   </h4>
                   <ul className="space-y-2 text-xs">
                     <li><Link to="/" className="hover:text-[#2563EB] transition-colors block py-0.5">Home</Link></li>
                     <li><Link to="/about" className="hover:text-[#2563EB] transition-colors block py-0.5">About Us</Link></li>
-                    <li><Link to="/services" className="hover:text-[#2563EB] transition-colors block py-0.5">Services</Link></li>
-                    <li><Link to="/process" className="hover:text-[#2563EB] transition-colors block py-0.5">Growth Process</Link></li>
-                    <li><Link to="/deliverables" className="hover:text-[#2563EB] transition-colors block py-0.5">Deliverables</Link></li>
-                    <li><Link to="/why-us" className="hover:text-[#2563EB] transition-colors block py-0.5">Why Us</Link></li>
-                    <li><Link to="/testimonials" className="hover:text-[#2563EB] transition-colors block py-0.5">Testimonials</Link></li>
+                    <li><Link to="/services" className="hover:text-[#2563EB] transition-colors block py-0.5">Services Hub</Link></li>
+                    <li><Link to="/blog" className="hover:text-[#2563EB] transition-colors block py-0.5 font-bold text-[#2563EB]">Growth &amp; SEO Blog</Link></li>
+                    <li><Link to="/process" className="hover:text-[#2563EB] transition-colors block py-0.5">6-Step Growth Process</Link></li>
+                    <li><Link to="/deliverables" className="hover:text-[#2563EB] transition-colors block py-0.5">Deliverables &amp; Portfolio</Link></li>
+                    <li><Link to="/why-us" className="hover:text-[#2563EB] transition-colors block py-0.5">Why Choose Us</Link></li>
+                    <li><Link to="/testimonials" className="hover:text-[#2563EB] transition-colors block py-0.5">Client Reviews</Link></li>
                     <li><Link to="/faq" className="hover:text-[#2563EB] transition-colors block py-0.5">FAQ</Link></li>
-                    <li><Link to="/contact" className="hover:text-[#2563EB] transition-colors block py-0.5">Contact</Link></li>
-                    <li><Link to="/privacy" className="hover:text-[#2563EB] transition-colors block py-0.5 font-bold text-[#2563EB]">Privacy Policy</Link></li>
-                    <li><Link to="/terms" className="hover:text-[#2563EB] transition-colors block py-0.5 font-bold text-[#2563EB]">Terms &amp; Conditions</Link></li>
+                    <li><Link to="/contact" className="hover:text-[#2563EB] transition-colors block py-0.5">Contact Founders</Link></li>
+                    <li><Link to="/privacy" className="hover:text-[#2563EB] transition-colors block py-0.5 font-semibold">Privacy Policy</Link></li>
+                    <li><Link to="/terms" className="hover:text-[#2563EB] transition-colors block py-0.5 font-semibold">Terms of Service</Link></li>
                   </ul>
                 </div>
 
-                {/* Growth Services */}
+                {/* Local High-Intent Services */}
                 <div className="space-y-3">
                   <h4 className="font-heading font-extrabold text-xs text-[#2563EB] uppercase tracking-wider flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-[#2563EB]" />
-                    <span>Growth Services</span>
+                    <span>Tirunelveli Services</span>
                   </h4>
                   <ul className="space-y-2 text-xs">
-                    <li><Link to="/services" className="hover:text-[#2563EB] transition-colors block py-0.5">SEO &amp; Local Ranking</Link></li>
-                    <li><Link to="/services" className="hover:text-[#2563EB] transition-colors block py-0.5">Meta &amp; Instagram Ads</Link></li>
-                    <li><Link to="/services" className="hover:text-[#2563EB] transition-colors block py-0.5">Google Ads &amp; PPC Sprints</Link></li>
-                    <li><Link to="/services" className="hover:text-[#2563EB] transition-colors block py-0.5">Website Engineering</Link></li>
-                    <li><Link to="/services" className="hover:text-[#2563EB] transition-colors block py-0.5">Vector Branding &amp; Logo</Link></li>
-                    <li><Link to="/services" className="hover:text-[#2563EB] transition-colors block py-0.5">WhatsApp Lead Automation</Link></li>
+                    <li><Link to="/digital-marketing-agency-tirunelveli" className="hover:text-[#2563EB] transition-colors block py-0.5 font-semibold">Digital Marketing Tirunelveli</Link></li>
+                    <li><Link to="/seo-services-tirunelveli" className="hover:text-[#2563EB] transition-colors block py-0.5 font-semibold">SEO Services Tirunelveli</Link></li>
+                    <li><Link to="/social-media-marketing-tirunelveli" className="hover:text-[#2563EB] transition-colors block py-0.5">Social Media Marketing</Link></li>
+                    <li><Link to="/google-ads-tirunelveli" className="hover:text-[#2563EB] transition-colors block py-0.5">Google Ads &amp; PPC</Link></li>
+                    <li><Link to="/meta-ads-tirunelveli" className="hover:text-[#2563EB] transition-colors block py-0.5">Meta &amp; Instagram Ads</Link></li>
+                    <li><Link to="/web-development-tirunelveli" className="hover:text-[#2563EB] transition-colors block py-0.5">Website Development</Link></li>
+                    <li><Link to="/branding-tirunelveli" className="hover:text-[#2563EB] transition-colors block py-0.5">Branding &amp; Vector Logo</Link></li>
+                    <li><Link to="/lead-generation-tirunelveli" className="hover:text-[#2563EB] transition-colors block py-0.5">WhatsApp Lead Funnels</Link></li>
+                  </ul>
+                </div>
+
+                {/* Top Blog Guides */}
+                <div className="space-y-3">
+                  <h4 className="font-heading font-extrabold text-xs text-[#2563EB] uppercase tracking-wider flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#2563EB]" />
+                    <span>Top Growth Guides</span>
+                  </h4>
+                  <ul className="space-y-2 text-xs">
+                    <li><Link to="/blog/how-to-choose-best-digital-marketing-agency-tirunelveli" className="hover:text-[#2563EB] transition-colors block py-0.5">How to Choose Agency</Link></li>
+                    <li><Link to="/blog/local-seo-guide-tirunelveli-businesses" className="hover:text-[#2563EB] transition-colors block py-0.5">Local SEO Nellai Guide</Link></li>
+                    <li><Link to="/blog/google-ads-vs-meta-ads-tirunelveli-roi" className="hover:text-[#2563EB] transition-colors block py-0.5">Google Ads vs Meta Ads</Link></li>
+                    <li><Link to="/blog/website-development-cost-in-tirunelveli" className="hover:text-[#2563EB] transition-colors block py-0.5">Website Cost Breakdown</Link></li>
+                    <li><Link to="/blog/instagram-marketing-strategy-local-brands-tamil-nadu" className="hover:text-[#2563EB] transition-colors block py-0.5">Instagram Reels Strategy</Link></li>
                   </ul>
                 </div>
 
@@ -239,7 +257,7 @@ export default function Footer() {
           )}
         </AnimatePresence>
 
-        {/* Clean Copyright Footer */}
+        {/* Copyright Footer */}
         <div className="pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row items-center justify-between text-xs text-[#64748B] dark:text-slate-400 gap-3 text-center md:text-left">
           <p>© {new Date().getFullYear()} TM Digital Marketing. All rights reserved.</p>
           

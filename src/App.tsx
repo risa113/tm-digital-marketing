@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Lenis from 'lenis';
@@ -16,6 +16,16 @@ import ConsultationModal from './components/ConsultationModal';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import ServicesPage from './pages/ServicesPage';
+import DigitalMarketingTirunelveliPage from './pages/DigitalMarketingTirunelveliPage';
+import SEOServicesTirunelveliPage from './pages/SEOServicesTirunelveliPage';
+import SocialMediaMarketingTirunelveliPage from './pages/SocialMediaMarketingTirunelveliPage';
+import GoogleAdsTirunelveliPage from './pages/GoogleAdsTirunelveliPage';
+import MetaAdsTirunelveliPage from './pages/MetaAdsTirunelveliPage';
+import WebDevelopmentTirunelveliPage from './pages/WebDevelopmentTirunelveliPage';
+import BrandingTirunelveliPage from './pages/BrandingTirunelveliPage';
+import LeadGenerationTirunelveliPage from './pages/LeadGenerationTirunelveliPage';
+import BlogIndexPage from './pages/BlogIndexPage';
+import BlogPostPage from './pages/BlogPostPage';
 import ProcessPage from './pages/ProcessPage';
 import DeliverablesPage from './pages/DeliverablesPage';
 import WhyUsPage from './pages/WhyUsPage';
@@ -38,7 +48,6 @@ export default function App() {
 
   // Lenis Smooth Scroll Initialization (Desktop Only for Maximum Mobile Performance)
   useEffect(() => {
-    // Disable Lenis on mobile / touch devices to prevent CPU throttle & main thread blocking
     const isMobile = window.innerWidth < 768 || ('ontouchstart' in window && window.innerWidth < 1024);
     if (isMobile) return;
 
@@ -97,10 +106,10 @@ export default function App() {
 
   return (
     <div className="min-h-screen w-full max-w-[100vw] overflow-x-hidden bg-[#F8FAFC] dark:bg-[#0F172A] text-[#111827] dark:text-slate-100 transition-colors duration-300 relative font-poppins">
-      {/* Scroll restoration component */}
+      {/* Scroll restoration */}
       <ScrollToTop />
 
-      {/* Dynamic Route SEO Head setup */}
+      {/* Dynamic Route SEO Head & Structured Data Schemas */}
       <SEOHead />
 
       {/* Persistent Header Navbar */}
@@ -110,28 +119,28 @@ export default function App() {
         onOpenConsultation={handleOpenConsultation}
       />
 
-      {/* Visual Breadcrumb Navigation for Subpages */}
+      {/* Visual Breadcrumb Navigation */}
       <Breadcrumbs />
 
-      {/* Animated Route Transitions Content Area */}
+      {/* Route Content Area */}
       <main className="w-full max-w-[100vw] overflow-x-hidden min-h-[70vh]">
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.1, ease: 'easeOut' }}
+            transition={{ duration: 0.15, ease: 'easeOut' }}
           >
             <Routes location={location}>
-              {/* Home Page Routes (Handles Root + GitHub Pages Subpaths) */}
+              {/* Home Page Routes */}
               <Route path="/" element={renderHomePage()} />
               <Route path="/tm-digital-marketing" element={renderHomePage()} />
               <Route path="/dTM-digital-marketing" element={renderHomePage()} />
               <Route path="/tm-digital-marketing/" element={renderHomePage()} />
               <Route path="/dTM-digital-marketing/" element={renderHomePage()} />
 
-              {/* Dedicated Navigation Pages */}
+              {/* Dedicated Core Pages */}
               <Route
                 path="/about"
                 element={<AboutPage onOpenConsultation={handleOpenConsultation} />}
@@ -145,6 +154,52 @@ export default function App() {
                   />
                 }
               />
+
+              {/* Dedicated High-Intent Local Service Landing Pages */}
+              <Route
+                path="/digital-marketing-agency-tirunelveli"
+                element={<DigitalMarketingTirunelveliPage onOpenConsultation={handleOpenConsultation} />}
+              />
+              <Route
+                path="/seo-services-tirunelveli"
+                element={<SEOServicesTirunelveliPage onOpenConsultation={handleOpenConsultation} />}
+              />
+              <Route
+                path="/social-media-marketing-tirunelveli"
+                element={<SocialMediaMarketingTirunelveliPage onOpenConsultation={handleOpenConsultation} />}
+              />
+              <Route
+                path="/google-ads-tirunelveli"
+                element={<GoogleAdsTirunelveliPage onOpenConsultation={handleOpenConsultation} />}
+              />
+              <Route
+                path="/meta-ads-tirunelveli"
+                element={<MetaAdsTirunelveliPage onOpenConsultation={handleOpenConsultation} />}
+              />
+              <Route
+                path="/web-development-tirunelveli"
+                element={<WebDevelopmentTirunelveliPage onOpenConsultation={handleOpenConsultation} />}
+              />
+              <Route
+                path="/branding-tirunelveli"
+                element={<BrandingTirunelveliPage onOpenConsultation={handleOpenConsultation} />}
+              />
+              <Route
+                path="/lead-generation-tirunelveli"
+                element={<LeadGenerationTirunelveliPage onOpenConsultation={handleOpenConsultation} />}
+              />
+
+              {/* Blog System */}
+              <Route
+                path="/blog"
+                element={<BlogIndexPage onOpenConsultation={handleOpenConsultation} />}
+              />
+              <Route
+                path="/blog/:slug"
+                element={<BlogPostPage onOpenConsultation={handleOpenConsultation} />}
+              />
+
+              {/* Supporting Agency Navigation Pages */}
               <Route
                 path="/process"
                 element={<ProcessPage onOpenConsultation={handleOpenConsultation} />}
@@ -184,7 +239,7 @@ export default function App() {
       {/* Persistent Footer */}
       <Footer />
 
-      {/* Floating Action Utilities (WhatsApp, Direct Founder Call, Scroll-to-Top) */}
+      {/* Floating Action Utilities */}
       <StickyButtons />
       <ChatbotWidget onOpenConsultation={handleOpenConsultation} />
 

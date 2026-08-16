@@ -6,6 +6,7 @@ export interface ServiceItem {
   iconName: string;
   tag: string;
   metric: string;
+  href?: string;
 }
 
 export interface PortfolioItem {
@@ -184,7 +185,8 @@ export const SERVICES: ServiceItem[] = [
     fullDesc: 'We optimize your website to rank #1 on Google for high-intent buyer queries using technical Core Web Vitals audits and keyword opportunity maps.',
     iconName: 'Search',
     tag: 'Organic Growth',
-    metric: '+350% Organic Traffic'
+    metric: '+350% Organic Traffic',
+    href: '/seo-services-tirunelveli'
   },
   {
     id: 'social-media-marketing',
@@ -193,7 +195,8 @@ export const SERVICES: ServiceItem[] = [
     fullDesc: 'Engage and grow your community across all social networks with high-impact visual grids, daily interactive stories, and organic growth strategies.',
     iconName: 'Share2',
     tag: 'Brand Building',
-    metric: 'Viral Impressions'
+    metric: 'Viral Impressions',
+    href: '/social-media-marketing-tirunelveli'
   },
   {
     id: 'meta-ads',
@@ -202,7 +205,8 @@ export const SERVICES: ServiceItem[] = [
     fullDesc: 'Turn Facebook and Instagram into continuous revenue generators. We run high-velocity creative testing, retargeting funnels, and CAPI server tracking.',
     iconName: 'Target',
     tag: 'Paid Acquisition',
-    metric: 'High ROAS Scaling'
+    metric: 'High ROAS Scaling',
+    href: '/meta-ads-tirunelveli'
   },
   {
     id: 'google-ads',
@@ -211,7 +215,8 @@ export const SERVICES: ServiceItem[] = [
     fullDesc: 'Reach customers the exact instant they search for your services. We manage Google Search PPC, Shopping, YouTube Ads, and Performance Max.',
     iconName: 'TrendingUp',
     tag: 'PPC Mastery',
-    metric: 'Lower Acquisition Cost'
+    metric: 'Lower Acquisition Cost',
+    href: '/google-ads-tirunelveli'
   },
   {
     id: 'website-development',
@@ -220,7 +225,8 @@ export const SERVICES: ServiceItem[] = [
     fullDesc: 'Bespoke corporate web platforms engineered for lightning speed, mobile responsiveness, seamless UX, and high lead capture rates.',
     iconName: 'Code',
     tag: 'Engineering',
-    metric: '98+ Lighthouse Score'
+    metric: '98+ Lighthouse Score',
+    href: '/web-development-tirunelveli'
   },
   {
     id: 'branding',
@@ -229,7 +235,8 @@ export const SERVICES: ServiceItem[] = [
     fullDesc: 'Unforgettable visual identities tailored for fast-moving businesses, including color tokens, typography systems, vector logos, and brand books.',
     iconName: 'Palette',
     tag: 'Creative Studio',
-    metric: '100% Brand Clarity'
+    metric: '100% Brand Clarity',
+    href: '/branding-tirunelveli'
   },
   {
     id: 'graphic-design',
@@ -265,7 +272,8 @@ export const SERVICES: ServiceItem[] = [
     fullDesc: 'Leverage the 98% open rate of WhatsApp with segmented broadcast campaigns, automated catalog messaging, and CRM routing.',
     iconName: 'MessageSquare',
     tag: 'Direct Messaging',
-    metric: '98% Open Rate'
+    metric: '98% Open Rate',
+    href: '/lead-generation-tirunelveli'
   },
   {
     id: 'email-marketing',
