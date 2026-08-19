@@ -37,7 +37,7 @@ export default function AboutPage({ onOpenConsultation }: AboutPageProps) {
       phone: '+91 63694 80812',
       directTel: '6369480812',
       bio: 'PPC & Meta Ads specialist with expertise in scaling acquisition funnels, ROAS optimization, and performance copywriting for international and local brands.',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop',
+      image: '/muja.png',
       skills: ['Poster Making', 'Meta Ads', 'Video Editing', 'Social Media Management']
     }
   ];

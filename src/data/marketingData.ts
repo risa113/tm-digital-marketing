@@ -394,7 +394,7 @@ export const TESTIMONIALS: Testimonial[] = [
     name: 'Sundar Raman',
     role: 'CEO & Founder',
     company: 'Tirunelveli Tech Solutions',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop',
+    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop',
     companyLogo: '🏛️ NELLAI TECH',
     rating: 5,
     quote: 'We hired TM Digital Marketing for 3D website development and local SEO services in Tirunelveli. Within 30 days, our site ranked #1 on Google for Tirunelveli tech services. Exceptional ROI!'

@@ -43,7 +43,7 @@ export const AUTHORS: Record<string, BlogAuthor> = {
     name: 'Muja',
     role: 'Co-Founder & Chief Growth Officer at TM Digital Marketing',
     phone: '+91 63694 80812',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop'
+    avatar: '/muja.png'
   }
 };
 
