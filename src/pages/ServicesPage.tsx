@@ -23,6 +23,8 @@ import {
   Clock
 } from 'lucide-react';
 import { SERVICES, ServiceItem, WEBSITE_PACKAGES } from '../data/marketingData';
+import AmbientBackground from '../components/AmbientBackground';
+import { fadeInUp, fadeInDown, slideInLeft, slideInRight, staggerContainer, defaultViewport } from '../utils/animations';
 
 interface ServicesPageProps {
   onOpenConsultation: () => void;
@@ -56,27 +58,55 @@ export default function ServicesPage({ onOpenConsultation, onSelectService }: Se
   });
 
   return (
-    <div className="w-full pt-20 sm:pt-28 pb-16 bg-[#F8FAFC] dark:bg-[#0F172A] min-h-screen">
-      
-      {/* Hero Header Banner */}
+    <div className="relative w-full pt-20 sm:pt-28 pb-16 bg-[#F8FAFC] dark:bg-[#0F172A] min-h-screen overflow-hidden">
+      <AmbientBackground />
+
+      {/* Hero Header Banner (Upper to Down & Down to Up) */}
       <section className="relative py-16 sm:py-24 overflow-hidden bg-gradient-to-b from-blue-50/50 via-white to-transparent dark:from-blue-950/20 dark:via-[#0F172A] dark:to-[#0F172A]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 text-xs font-bold text-[#2563EB]">
+          <motion.div 
+            variants={fadeInDown}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 text-xs font-bold text-[#2563EB]"
+          >
             <Zap className="w-4 h-4" />
             <span>12+ Growth Solutions</span>
-          </div>
+          </motion.div>
 
-          <h1 className="font-heading font-extrabold text-4xl sm:text-6xl text-[#111827] dark:text-white tracking-tight leading-tight max-w-4xl mx-auto">
+          <motion.h1 
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            custom={1}
+            className="font-heading font-extrabold text-4xl sm:text-6xl text-[#111827] dark:text-white tracking-tight leading-tight max-w-4xl mx-auto"
+          >
             High-Performance Digital Marketing <br />
             <span className="text-[#2563EB]">Tailored For Maximum Revenue</span>
-          </h1>
+          </motion.h1>
 
-          <p className="text-base sm:text-xl text-[#64748B] dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
+          <motion.p 
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            custom={2}
+            className="text-base sm:text-xl text-[#64748B] dark:text-slate-300 max-w-3xl mx-auto leading-relaxed"
+          >
             From SEO search domination to high-ROAS Meta Ads and 3D web engineering, explore our comprehensive suite of growth solutions.
-          </p>
+          </motion.p>
 
           {/* Category Filter Pills */}
-          <div className="flex flex-wrap justify-center gap-2 pt-4">
+          <motion.div 
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            custom={3}
+            className="flex flex-wrap justify-center gap-2 pt-4"
+          >
             {[
               { id: 'all', label: 'All Services' },
               { id: 'paid', label: 'Paid Ads & PPC' },
@@ -86,32 +116,43 @@ export default function ServicesPage({ onOpenConsultation, onSelectService }: Se
               <button
                 key={tab.id}
                 onClick={() => setActiveCategory(tab.id as any)}
-                className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all border ${
+                className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all border cursor-pointer ${
                   activeCategory === tab.id
-                    ? 'bg-[#2563EB] text-white border-[#2563EB] shadow-lg shadow-blue-600/30'
+                    ? 'bg-[#2563EB] text-white border-[#2563EB] shadow-lg shadow-blue-600/30 scale-105'
                     : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:border-[#2563EB]'
                 }`}
               >
                 {tab.label}
               </button>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Services Grid */}
+      {/* Services Grid (Staggered Directional Entrances) */}
       <section className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredServices.map((service) => {
+        <motion.div 
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          {filteredServices.map((service, idx) => {
             const IconComp = ICON_MAP[service.iconName] || Zap;
+            const cardVariant = idx % 3 === 0 ? slideInLeft : idx % 3 === 1 ? fadeInUp : slideInRight;
+
             return (
-              <div
+              <motion.div
                 key={service.id}
-                className="p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xl shadow-blue-500/5 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+                variants={cardVariant}
+                custom={idx % 3}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xl shadow-blue-500/5 hover:border-[#2563EB]/50 transition-all duration-300 flex flex-col justify-between"
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950 text-[#2563EB] flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950 text-[#2563EB] flex items-center justify-center shadow-md">
                       <IconComp className="w-6 h-6" />
                     </div>
                     <span className="px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 font-extrabold text-[11px] border border-emerald-200/60 dark:border-emerald-800">
@@ -150,37 +191,68 @@ export default function ServicesPage({ onOpenConsultation, onSelectService }: Se
                 <div className="pt-6">
                   <button
                     onClick={() => onSelectService(service)}
-                    className="w-full py-3 rounded-xl bg-blue-50 dark:bg-blue-950/80 hover:bg-[#2563EB] hover:text-white text-[#2563EB] font-btn font-bold text-xs transition-colors flex items-center justify-center gap-2"
+                    className="w-full py-3 rounded-xl bg-blue-50 dark:bg-blue-950/80 hover:bg-[#2563EB] hover:text-white text-[#2563EB] font-btn font-bold text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <span>Request This Service</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </section>
 
-      {/* Pricing / Packages Matrix */}
+      {/* Pricing / Packages Matrix (Staggered Down to Up) */}
       <section className="py-16 sm:py-24 bg-white dark:bg-[#0B101D] border-t border-slate-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center space-y-3">
-            <span className="text-xs font-extrabold uppercase tracking-widest text-[#2563EB]">Transparent Pricing</span>
-            <h2 className="font-heading font-extrabold text-3xl sm:text-5xl text-slate-900 dark:text-white">
+            <motion.span 
+              variants={fadeInDown}
+              initial="hidden"
+              whileInView="visible"
+              viewport={defaultViewport}
+              className="text-xs font-extrabold uppercase tracking-widest text-[#2563EB]"
+            >
+              Transparent Pricing
+            </motion.span>
+            <motion.h2 
+              variants={fadeInUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={defaultViewport}
+              custom={1}
+              className="font-heading font-extrabold text-3xl sm:text-5xl text-slate-900 dark:text-white"
+            >
               Website & Development Pricing Plans
-            </h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400 max-w-xl mx-auto">
+            </motion.h2>
+            <motion.p 
+              variants={fadeInUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={defaultViewport}
+              custom={2}
+              className="text-sm text-slate-500 dark:text-slate-400 max-w-xl mx-auto"
+            >
               Choose the perfect plan tailored for your brand. 100% transparent pricing with direct founder support.
-            </p>
+            </motion.p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 sm:gap-8 items-stretch pt-4">
-            {WEBSITE_PACKAGES.map((pkg) => {
+          <motion.div 
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 sm:gap-8 items-stretch pt-4"
+          >
+            {WEBSITE_PACKAGES.map((pkg, idx) => {
               const isProf = pkg.id === 'professional' || pkg.popular;
               return (
-                <div
+                <motion.div
                   key={pkg.id}
+                  variants={fadeInUp}
+                  custom={idx}
+                  whileHover={{ y: -6 }}
                   className={`p-6 sm:p-7 rounded-3xl transition-all duration-300 flex flex-col justify-between relative ${
                     isProf
                       ? 'bg-gradient-to-b from-blue-950 via-slate-900 to-indigo-950 text-white border-2 border-blue-500 shadow-[0_10px_40px_rgba(37,99,235,0.4)] xl:-translate-y-3 z-20 scale-[1.03]'
@@ -249,7 +321,7 @@ export default function ServicesPage({ onOpenConsultation, onSelectService }: Se
                   <div className="pt-6 mt-4">
                     <button
                       onClick={onOpenConsultation}
-                      className={`w-full py-3.5 rounded-xl font-btn font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 ${
+                      className={`w-full py-3.5 rounded-xl font-btn font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 cursor-pointer ${
                         isProf
                           ? 'bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 hover:from-blue-500 hover:to-indigo-500 text-white shadow-xl shadow-blue-500/50 border border-blue-400/40 hover:scale-[1.02]'
                           : 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:opacity-90'
@@ -259,38 +331,48 @@ export default function ServicesPage({ onOpenConsultation, onSelectService }: Se
                       <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Bottom CTA Banner */}
-      <section className="py-16 bg-slate-900 text-white text-center">
+      <motion.section 
+        variants={fadeInUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={defaultViewport}
+        className="py-16 bg-slate-900 text-white text-center"
+      >
         <div className="max-w-4xl mx-auto px-4 space-y-6">
           <h2 className="font-heading font-extrabold text-3xl sm:text-4xl">Need a Custom Growth Package?</h2>
           <p className="text-sm text-slate-300 max-w-xl mx-auto">
             Contact founders Mohamed Thariq & Muja directly to build a bespoke performance marketing roadmap.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={onOpenConsultation}
-              className="w-full sm:w-auto font-btn font-bold px-8 py-4 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-xl shadow-blue-600/30 flex items-center justify-center gap-2"
+              className="w-full sm:w-auto font-btn font-bold px-8 py-4 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-xl shadow-blue-600/30 flex items-center justify-center gap-2 cursor-pointer"
             >
               <Sparkles className="w-4 h-4 text-amber-300" />
               <span>Book Strategy Call</span>
-            </button>
-            <Link
-              to="/contact"
-              className="w-full sm:w-auto font-btn font-bold px-8 py-4 rounded-2xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 flex items-center justify-center gap-2"
-            >
-              <span>Contact Us</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+            </motion.button>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link
+                to="/contact"
+                className="w-full sm:w-auto font-btn font-bold px-8 py-4 rounded-2xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 flex items-center justify-center gap-2"
+              >
+                <span>Contact Us</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
     </div>
   );

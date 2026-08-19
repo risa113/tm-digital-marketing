@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { 
@@ -15,6 +16,8 @@ import {
   Users
 } from 'lucide-react';
 import { CONTACT_INFO } from '../data/marketingData';
+import AmbientBackground from '../components/AmbientBackground';
+import { fadeInUp, fadeInDown, slideInLeft, slideInRight, staggerContainer, defaultViewport } from '../utils/animations';
 
 interface AboutPageProps {
   onOpenConsultation: () => void;
@@ -66,33 +69,61 @@ export default function AboutPage({ onOpenConsultation }: AboutPageProps) {
   ];
 
   return (
-    <div className="w-full pt-20 sm:pt-28 pb-16 bg-[#F8FAFC] dark:bg-[#0F172A] min-h-screen">
-      
+    <div className="relative w-full pt-20 sm:pt-28 pb-16 bg-[#F8FAFC] dark:bg-[#0F172A] min-h-screen overflow-hidden">
+      <AmbientBackground />
+
       {/* Hero Header Banner */}
       <section className="relative py-16 sm:py-24 overflow-hidden bg-gradient-to-b from-blue-50/50 via-white to-transparent dark:from-blue-950/20 dark:via-[#0F172A] dark:to-[#0F172A]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 text-xs font-bold text-[#2563EB]">
+          <motion.div 
+            variants={fadeInDown}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 text-xs font-bold text-[#2563EB]"
+          >
             <UserCheck className="w-4 h-4" />
             <span>About TM Digital Marketing</span>
-          </div>
+          </motion.div>
 
-          <h1 className="font-heading font-extrabold text-4xl sm:text-6xl text-[#111827] dark:text-white tracking-tight leading-tight max-w-4xl mx-auto">
+          <motion.h1 
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            custom={1}
+            className="font-heading font-extrabold text-4xl sm:text-6xl text-[#111827] dark:text-white tracking-tight leading-tight max-w-4xl mx-auto"
+          >
             We Are Built to Scale <br />
             <span className="text-[#2563EB]">Ambitious Brands Globally</span>
-          </h1>
+          </motion.h1>
 
-          <p className="text-base sm:text-xl text-[#64748B] dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
+          <motion.p 
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            custom={2}
+            className="text-base sm:text-xl text-[#64748B] dark:text-slate-300 max-w-3xl mx-auto leading-relaxed"
+          >
             Founded with a singular mission: to liberate businesses from slow, outdated marketing agencies by delivering high-velocity ad campaigns, 3D web platforms, and data-driven ROI engines.
-          </p>
+          </motion.p>
         </div>
       </section>
 
-      {/* Story & Vision Section */}
+      {/* Story & Vision Section (Side-Show Left & Right) */}
       <section className="py-16 bg-white dark:bg-[#0B101D] border-y border-slate-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
-            <div className="lg:col-span-6 space-y-6">
+            {/* Story Left Column */}
+            <motion.div 
+              variants={slideInLeft}
+              initial="hidden"
+              whileInView="visible"
+              viewport={defaultViewport}
+              className="lg:col-span-6 space-y-6"
+            >
               <span className="text-xs font-extrabold uppercase tracking-widest text-[#2563EB]">Our Agency Story</span>
               <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-[#111827] dark:text-white leading-tight">
                 From Local Performance Sprints to International Growth Benchmarks
@@ -105,21 +136,27 @@ export default function AboutPage({ onOpenConsultation }: AboutPageProps) {
               </p>
 
               <div className="pt-4 grid grid-cols-2 gap-4">
-                <div className="p-4 rounded-2xl bg-blue-50/60 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900">
+                <motion.div whileHover={{ scale: 1.03 }} className="p-4 rounded-2xl bg-blue-50/60 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900">
                   <Target className="w-6 h-6 text-[#2563EB] mb-2" />
                   <h3 className="font-bold text-sm text-slate-900 dark:text-white">Our Mission</h3>
                   <p className="text-xs text-slate-600 dark:text-slate-400 pt-1">To engineer scalable, predictable lead and revenue systems for every client.</p>
-                </div>
-                <div className="p-4 rounded-2xl bg-sky-50/60 dark:bg-sky-950/40 border border-sky-100 dark:border-sky-900">
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.03 }} className="p-4 rounded-2xl bg-sky-50/60 dark:bg-sky-950/40 border border-sky-100 dark:border-sky-900">
                   <Eye className="w-6 h-6 text-[#3B82F6] mb-2" />
                   <h3 className="font-bold text-sm text-slate-900 dark:text-white">Our Vision</h3>
                   <p className="text-xs text-slate-600 dark:text-slate-400 pt-1">To become the premier growth agency trusted by high-growth global enterprises.</p>
-                </div>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
 
-            {/* Visual Feature Card */}
-            <div className="lg:col-span-6">
+            {/* Story Right Column (Visual Card) */}
+            <motion.div 
+              variants={slideInRight}
+              initial="hidden"
+              whileInView="visible"
+              viewport={defaultViewport}
+              className="lg:col-span-6"
+            >
               <div className="relative p-8 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-900 to-[#0F172A] text-white shadow-2xl space-y-6 overflow-hidden">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/20 rounded-full blur-3xl pointer-events-none" />
                 
@@ -151,29 +188,56 @@ export default function AboutPage({ onOpenConsultation }: AboutPageProps) {
                   <span className="text-[#2563EB] font-bold">HQ & Remote Hubs</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
           </div>
         </div>
       </section>
 
-      {/* Leadership Bios (Mohamed Thariq & Muja) */}
+      {/* Leadership Bios (Mohamed Thariq & Muja) with Left & Right Slides */}
       <section className="py-16 sm:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center space-y-3">
-            <span className="text-xs font-extrabold uppercase tracking-widest text-[#2563EB]">Executive Leadership</span>
-            <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-[#111827] dark:text-white">
+            <motion.span 
+              variants={fadeInDown}
+              initial="hidden"
+              whileInView="visible"
+              viewport={defaultViewport}
+              className="text-xs font-extrabold uppercase tracking-widest text-[#2563EB]"
+            >
+              Executive Leadership
+            </motion.span>
+            <motion.h2 
+              variants={fadeInUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={defaultViewport}
+              custom={1}
+              className="font-heading font-extrabold text-3xl sm:text-4xl text-[#111827] dark:text-white"
+            >
               Meet the Agency Founders
-            </h2>
-            <p className="text-sm text-[#64748B] dark:text-slate-400 max-w-xl mx-auto">
+            </motion.h2>
+            <motion.p 
+              variants={fadeInUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={defaultViewport}
+              custom={2}
+              className="text-sm text-[#64748B] dark:text-slate-400 max-w-xl mx-auto"
+            >
               Direct access to senior strategy partners who manage your campaigns personally.
-            </p>
+            </motion.p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {leadership.map((founder) => (
-              <div
+            {leadership.map((founder, idx) => (
+              <motion.div
                 key={founder.name}
+                variants={idx === 0 ? slideInLeft : slideInRight}
+                initial="hidden"
+                whileInView="visible"
+                viewport={defaultViewport}
+                whileHover={{ y: -6 }}
                 className="p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl space-y-6 flex flex-col justify-between"
               >
                 <div className="space-y-4">
@@ -223,18 +287,18 @@ export default function AboutPage({ onOpenConsultation }: AboutPageProps) {
                   </a>
                   <button
                     onClick={onOpenConsultation}
-                    className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-[#2563EB] hover:text-white text-slate-700 dark:text-slate-300 text-xs transition-colors"
+                    className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-[#2563EB] hover:text-white text-slate-700 dark:text-slate-300 text-xs font-bold transition-colors cursor-pointer"
                   >
                     Book Call
                   </button>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Core Agency Values */}
+      {/* Core Agency Values (Staggered Down to Up Entrance) */}
       <section className="py-16 bg-white dark:bg-[#0B101D] border-t border-slate-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center space-y-3">
@@ -244,51 +308,70 @@ export default function AboutPage({ onOpenConsultation }: AboutPageProps) {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {coreValues.map((val) => {
+          <motion.div 
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
+            {coreValues.map((val, idx) => {
               const IconComp = val.icon;
               return (
-                <div
+                <motion.div
                   key={val.title}
-                  className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3"
+                  variants={fadeInUp}
+                  custom={idx}
+                  whileHover={{ y: -6 }}
+                  className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3 shadow-md hover:border-[#2563EB] transition-all"
                 >
                   <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-950 text-[#2563EB] flex items-center justify-center">
                     <IconComp className="w-5 h-5" />
                   </div>
                   <h3 className="font-heading font-bold text-base text-slate-900 dark:text-white">{val.title}</h3>
                   <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">{val.desc}</p>
-                </div>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Bottom Call to Action */}
-      <section className="py-16 bg-slate-900 text-white text-center">
+      <motion.section 
+        variants={fadeInUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={defaultViewport}
+        className="py-16 bg-slate-900 text-white text-center"
+      >
         <div className="max-w-4xl mx-auto px-4 space-y-6">
           <h2 className="font-heading font-extrabold text-3xl sm:text-4xl">Ready to Work with Founders Directly?</h2>
           <p className="text-sm text-slate-300 max-w-xl mx-auto">
             Schedule your free 1-on-1 strategy call with Mohamed Thariq & Muja to audit your current marketing funnels.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={onOpenConsultation}
-              className="w-full sm:w-auto font-btn font-bold px-8 py-4 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-xl shadow-blue-600/30 flex items-center justify-center gap-2"
+              className="w-full sm:w-auto font-btn font-bold px-8 py-4 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-xl shadow-blue-600/30 flex items-center justify-center gap-2 cursor-pointer"
             >
               <Sparkles className="w-4 h-4 text-amber-300" />
               <span>Schedule Free Strategy Call</span>
-            </button>
-            <Link
-              to="/services"
-              className="w-full sm:w-auto font-btn font-bold px-8 py-4 rounded-2xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 flex items-center justify-center gap-2"
-            >
-              <span>Explore Our Services</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+            </motion.button>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link
+                to="/services"
+                className="w-full sm:w-auto font-btn font-bold px-8 py-4 rounded-2xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 flex items-center justify-center gap-2"
+              >
+                <span>Explore Our Services</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
     </div>
   );

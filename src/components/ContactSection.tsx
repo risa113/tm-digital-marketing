@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { CONTACT_INFO } from '../data/marketingData';
 import { submitLeadToDatabase } from '../services/apiService';
+import { fadeInUp, fadeInDown, slideInLeft, slideInRight, defaultViewport } from '../utils/animations';
 
 const InstagramIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
   <svg
@@ -61,27 +62,55 @@ export default function ContactSection({ preselectedService }: ContactSectionPro
   };
 
   return (
-    <section id="contact" className="py-16 sm:py-24 bg-[#F8FAFC] dark:bg-[#0F172A] relative">
+    <section id="contact" className="py-16 sm:py-24 bg-[#F8FAFC] dark:bg-[#0F172A] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
+        {/* Section Header (Upper to Down & Down to Up) */}
         <div className="text-center max-w-3xl mx-auto space-y-3 sm:space-y-4 mb-12 sm:mb-20">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-xs font-bold text-[#2563EB] border border-blue-200 dark:border-blue-800">
+          <motion.div 
+            variants={fadeInDown}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-xs font-bold text-[#2563EB] border border-blue-200 dark:border-blue-800"
+          >
             <Sparkles className="w-3.5 h-3.5 text-[#3B82F6]" />
             <span>CONTACT US</span>
-          </div>
-          <h2 className="font-heading font-extrabold text-3xl sm:text-5xl text-[#111827] dark:text-white tracking-tight leading-tight">
+          </motion.div>
+
+          <motion.h2 
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            custom={1}
+            className="font-heading font-extrabold text-3xl sm:text-5xl text-[#111827] dark:text-white tracking-tight leading-tight"
+          >
             Start Your Growth <span className="gradient-text">Journey Today</span>
-          </h2>
-          <p className="text-[#64748B] dark:text-slate-300 text-sm sm:text-lg">
+          </motion.h2>
+
+          <motion.p 
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            custom={2}
+            className="text-[#64748B] dark:text-slate-300 text-sm sm:text-lg"
+          >
             Connect directly with Mohamed Thariq and Muja for a free growth consultation.
-          </p>
+          </motion.p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           
-          {/* Left Column: Form */}
-          <div className="lg:col-span-7">
+          {/* Left Column: Form (Slide in Left) */}
+          <motion.div 
+            variants={slideInLeft}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            className="lg:col-span-7"
+          >
             <div className="glass-card p-6 sm:p-10 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl relative overflow-hidden">
               {submitted ? (
                 <div className="text-center py-10 space-y-6">
@@ -110,7 +139,7 @@ export default function ContactSection({ preselectedService }: ContactSectionPro
                   <div>
                     <button
                       onClick={() => setSubmitted(false)}
-                      className="font-btn font-semibold text-xs text-[#2563EB] underline hover:text-[#1D4ED8] mt-4"
+                      className="font-btn font-semibold text-xs text-[#2563EB] underline hover:text-[#1D4ED8] mt-4 cursor-pointer"
                     >
                       Send Another Message
                     </button>
@@ -210,24 +239,32 @@ export default function ContactSection({ preselectedService }: ContactSectionPro
                     />
                   </div>
 
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     type="submit"
-                    className="font-btn font-semibold w-full py-4 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-base shadow-xl shadow-blue-600/30 hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2"
+                    className="font-btn font-semibold w-full py-4 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-base shadow-xl shadow-blue-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <Send className="w-5 h-5" />
                     <span>Send Message to TM Digital</span>
-                  </button>
+                  </motion.button>
                 </form>
               )}
             </div>
-          </div>
+          </motion.div>
 
-          {/* Right Column: Direct Contact Person Cards & Map */}
-          <div className="lg:col-span-5 space-y-5 sm:space-y-6">
-            
+          {/* Right Column: Direct Contact Person Cards & Map (Slide in Right) */}
+          <motion.div 
+            variants={slideInRight}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            className="lg:col-span-5 space-y-5 sm:space-y-6"
+          >
             {/* Founder Contact Cards */}
             {CONTACT_INFO.contacts.map((founder) => (
-              <div
+              <motion.div
+                whileHover={{ y: -4 }}
                 key={founder.name}
                 className="glass-card p-6 sm:p-7 rounded-3xl border border-slate-200 dark:border-slate-800 hover:border-[#2563EB] transition-all group shadow-md hover:shadow-xl bg-white dark:bg-slate-900 space-y-4"
               >
@@ -262,7 +299,9 @@ export default function ContactSection({ preselectedService }: ContactSectionPro
 
                 {/* Direct Action Buttons: WhatsApp & Call */}
                 <div className="grid grid-cols-2 gap-3 pt-3 border-t border-slate-100 dark:border-slate-800/80">
-                  <a
+                  <motion.a
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.96 }}
                     href={founder.whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -271,22 +310,25 @@ export default function ContactSection({ preselectedService }: ContactSectionPro
                   >
                     <MessageSquare className="w-4 h-4" />
                     <span>WhatsApp</span>
-                  </a>
+                  </motion.a>
 
-                  <a
+                  <motion.a
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.96 }}
                     href={`tel:${founder.phone}`}
                     className="py-2.5 sm:py-3 px-3 rounded-xl bg-blue-50 dark:bg-blue-950/50 hover:bg-[#2563EB] text-[#2563EB] dark:text-blue-300 hover:text-white border border-blue-200/80 dark:border-blue-800/60 text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 shadow-sm"
                     title={`Call ${founder.name}`}
                   >
                     <Phone className="w-4 h-4" />
                     <span>{founder.formattedPhone}</span>
-                  </a>
+                  </motion.a>
                 </div>
-              </div>
+              </motion.div>
             ))}
 
             {/* Email Card */}
-            <a
+            <motion.a
+              whileHover={{ y: -3 }}
               href={`mailto:${CONTACT_INFO.email}`}
               className="glass-card p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 flex items-center justify-between hover:border-[#2563EB] transition-all group"
             >
@@ -300,10 +342,11 @@ export default function ContactSection({ preselectedService }: ContactSectionPro
                 </div>
               </div>
               <Mail className="w-5 h-5 text-[#2563EB]" />
-            </a>
+            </motion.a>
 
             {/* Instagram Official Logo Card */}
-            <a
+            <motion.a
+              whileHover={{ y: -3 }}
               href={CONTACT_INFO.instagram}
               target="_blank"
               rel="noopener noreferrer"
@@ -319,7 +362,7 @@ export default function ContactSection({ preselectedService }: ContactSectionPro
                 </div>
               </div>
               <InstagramIcon className="w-5 h-5 stroke-pink-500 group-hover:scale-110 transition-transform" />
-            </a>
+            </motion.a>
 
             {/* Official Google Maps Card */}
             <div className="glass-card rounded-3xl border border-slate-200 dark:border-slate-800 p-5 sm:p-6 shadow-lg space-y-4">
@@ -335,19 +378,21 @@ export default function ContactSection({ preselectedService }: ContactSectionPro
                 </div>
               </div>
 
-              <a
+              <motion.a
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
                 href={CONTACT_INFO.googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-btn font-semibold w-full py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white text-xs shadow-md transition-all flex items-center justify-center gap-2"
+                className="font-btn font-semibold w-full py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white text-xs shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 <MapPin className="w-4 h-4" />
                 <span>Open in Google Maps</span>
                 <ExternalLink className="w-3.5 h-3.5" />
-              </a>
+              </motion.a>
             </div>
 
-          </div>
+          </motion.div>
 
         </div>
 

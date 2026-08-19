@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, CheckCircle2, Target, ShieldCheck, TrendingUp, Award } from 'lucide-react';
+import { fadeInUp, fadeInDown, slideInLeft, slideInRight, defaultViewport } from '../utils/animations';
 
 export default function AboutSection() {
   const pillars = [
@@ -19,30 +20,43 @@ export default function AboutSection() {
   ];
 
   return (
-    <section id="about" className="py-24 bg-[#F8FAFC] dark:bg-[#0F172A] relative">
+    <section id="about" className="py-24 bg-[#F8FAFC] dark:bg-[#0F172A] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
+        {/* Section Header (Upper to Down & Down to Up) */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 text-left">
           <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-xs font-bold text-[#2563EB] border border-blue-200 dark:border-blue-800">
+            <motion.div 
+              variants={fadeInDown}
+              initial="hidden"
+              whileInView="visible"
+              viewport={defaultViewport}
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-xs font-bold text-[#2563EB] border border-blue-200 dark:border-blue-800"
+            >
               <Sparkles className="w-3.5 h-3.5 text-[#3B82F6]" />
               <span>ABOUT US</span>
-            </div>
-            <h2 className="font-heading font-extrabold text-3xl sm:text-5xl text-[#111827] dark:text-white tracking-tight leading-tight">
+            </motion.div>
+            <motion.h2 
+              variants={fadeInUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={defaultViewport}
+              custom={1}
+              className="font-heading font-extrabold text-3xl sm:text-5xl text-[#111827] dark:text-white tracking-tight leading-tight"
+            >
               Strategic Marketing, Thoughtful Design, <span className="gradient-text">Measurable Growth.</span>
-            </h2>
+            </motion.h2>
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          {/* Left Column: Glass Card Info */}
+          {/* Left Column: Glass Card Info (Slide in Left) */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            variants={slideInLeft}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
             className="lg:col-span-6 space-y-6 text-left"
           >
             <div className="glass-card p-8 sm:p-10 rounded-3xl border border-slate-200 dark:border-slate-800 relative overflow-hidden shadow-xl">
@@ -60,29 +74,29 @@ export default function AboutSection() {
                 <div className="pt-4 space-y-4">
                   <p className="text-xs font-bold text-[#111827] dark:text-white uppercase tracking-wider">What Makes Us Distinct</p>
                   {pillars.map((p) => (
-                    <div key={p.title} className="flex items-start gap-3 text-left">
+                    <motion.div whileHover={{ x: 4 }} key={p.title} className="flex items-start gap-3 text-left">
                       <CheckCircle2 className="w-5 h-5 text-[#2563EB] shrink-0 mt-0.5" />
                       <div>
                         <h4 className="font-heading font-bold text-sm text-[#111827] dark:text-white">{p.title}</h4>
                         <p className="text-xs text-[#64748B] dark:text-slate-400 leading-relaxed text-justify sm:text-left">{p.desc}</p>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Right Column: Interactive Showcase Card */}
+          {/* Right Column: Interactive Showcase Card (Slide in Right) */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            variants={slideInRight}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
             className="lg:col-span-6 relative"
           >
             <div className="glass-card p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl relative">
-              <div className="relative rounded-2xl overflow-hidden shadow-lg h-72 sm:h-80">
+              <div className="relative rounded-2xl overflow-hidden shadow-lg h-72 sm:h-80 group">
                 <img
                   src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1000&auto=format&fit=crop"
                   alt="SEO Services in Tirunelveli - TM Digital Marketing Team"
@@ -90,7 +104,7 @@ export default function AboutSection() {
                   decoding="async"
                   width="1000"
                   height="667"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-transparent" />
                 
@@ -99,23 +113,25 @@ export default function AboutSection() {
                     <p className="text-xs font-bold text-sky-400">Quality-Driven Approach</p>
                     <p className="text-sm font-bold text-white">Polished digital products that perform & inspire.</p>
                   </div>
-                  <Award className="w-8 h-8 text-[#3B82F6] shrink-0" />
+                  <Award className="w-8 h-8 text-[#2563EB] shrink-0" />
                 </div>
               </div>
 
-              {/* Bottom Badge Overlay */}
-              <div className="mt-6 p-4 rounded-2xl bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800/60 flex items-center justify-between text-left">
-                <div>
-                  <p className="text-xs font-bold text-[#2563EB]">Proven Outcomes</p>
-                  <p className="text-sm font-bold text-[#111827] dark:text-white">High-impact marketing launches for ambitious businesses.</p>
+              {/* Quick Stat Pill */}
+              <div className="mt-6 grid grid-cols-2 gap-4">
+                <div className="p-4 rounded-2xl bg-white/60 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-center">
+                  <p className="font-heading font-extrabold text-2xl text-[#2563EB]">100%</p>
+                  <p className="text-xs text-[#64748B] dark:text-slate-400">Target Accountability</p>
                 </div>
-                <TrendingUp className="w-6 h-6 text-[#2563EB] shrink-0" />
+                <div className="p-4 rounded-2xl bg-white/60 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-center">
+                  <p className="font-heading font-extrabold text-2xl text-[#10B981]">24/7</p>
+                  <p className="text-xs text-[#64748B] dark:text-slate-400">Transparent Reporting</p>
+                </div>
               </div>
             </div>
           </motion.div>
 
         </div>
-
       </div>
     </section>
   );

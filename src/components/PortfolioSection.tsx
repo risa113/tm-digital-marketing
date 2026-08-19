@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, ArrowUpRight, CheckCircle2, Zap, Image as ImageIcon } from 'lucide-react';
 import { PORTFOLIO, PortfolioItem } from '../data/marketingData';
+import { fadeInUp, fadeInDown, slideInLeft, slideInRight, staggerContainer, defaultViewport } from '../utils/animations';
 
 export default function PortfolioSection() {
   const [activeCategory, setActiveCategory] = useState<string>('All');
@@ -19,109 +20,153 @@ export default function PortfolioSection() {
   };
 
   return (
-    <section id="portfolio" className="py-24 bg-[#F8FAFC] dark:bg-[#0F172A] relative">
+    <section id="portfolio" className="py-24 bg-[#F8FAFC] dark:bg-[#0F172A] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header with Highlighted Deliverables (Step 6: H2 Heading) */}
+        {/* Section Header (Upper to Down & Down to Up) */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-xs font-bold text-[#2563EB] border border-blue-200 dark:border-blue-800">
+          <motion.div 
+            variants={fadeInDown}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-xs font-bold text-[#2563EB] border border-blue-200 dark:border-blue-800"
+          >
             <Sparkles className="w-3.5 h-3.5 text-[#3B82F6]" />
             <span>AGENCY CAPABILITIES & DELIVERABLES</span>
-          </div>
-          <h2 className="font-heading font-extrabold text-3xl sm:text-5xl text-[#111827] dark:text-white tracking-tight">
+          </motion.div>
+
+          <motion.h2 
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            custom={1}
+            className="font-heading font-extrabold text-3xl sm:text-5xl text-[#111827] dark:text-white tracking-tight"
+          >
             Client Results & <span className="gradient-text">Deliverables</span>
-          </h2>
-          <p className="text-[#64748B] dark:text-slate-300 text-base sm:text-lg">
+          </motion.h2>
+
+          <motion.p 
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            custom={2}
+            className="text-[#64748B] dark:text-slate-300 text-base sm:text-lg"
+          >
             Explore our client results and core marketing deliverables engineered to elevate brand identity, scale acquisition, and drive revenue in Tirunelveli.
-          </p>
+          </motion.p>
         </div>
 
-        {/* Filter Category Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
+        {/* Filter Category Tabs (Staggered Down to Up) */}
+        <motion.div 
+          variants={fadeInUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
+          custom={3}
+          className="flex flex-wrap items-center justify-center gap-2 mb-12"
+        >
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-5 py-2.5 rounded-2xl text-xs font-bold transition-all ${
+              className={`px-5 py-2.5 rounded-2xl text-xs font-bold transition-all cursor-pointer ${
                 activeCategory === cat
-                  ? 'bg-[#2563EB] text-white shadow-lg shadow-blue-600/30'
+                  ? 'bg-[#2563EB] text-white shadow-lg shadow-blue-600/30 scale-105'
                   : 'glass-card text-[#64748B] dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800'
               }`}
             >
               {cat}
             </button>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Deliverables Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <AnimatePresence mode="wait">
-            {filteredItems.map((item) => (
-              <motion.div
-                key={item.id}
-                layout
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.3 }}
-                onClick={() => setSelectedItem(item)}
-                className="group glass-card rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 hover:border-[#2563EB] transition-all cursor-pointer shadow-lg hover:shadow-2xl flex flex-col justify-between"
-              >
-                <div>
-                  {/* Image Container (Step 7 & Step 15: Optimized alt & loading="lazy") */}
-                  <div className="relative h-56 overflow-hidden bg-slate-100 dark:bg-slate-800">
-                    {failedImages[item.id] ? (
-                      <div className="w-full h-full bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-500 flex flex-col items-center justify-center p-6 text-white text-center">
-                        <ImageIcon className="w-10 h-10 mb-2 opacity-80" />
-                        <span className="font-heading font-extrabold text-sm">{item.category}</span>
+        {/* Deliverables Grid (Staggered Directional Entrances) */}
+        <motion.div 
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          <AnimatePresence mode="popLayout">
+            {filteredItems.map((item, idx) => {
+              const cardVariant = idx % 3 === 0 ? slideInLeft : idx % 3 === 1 ? fadeInUp : slideInRight;
+
+              return (
+                <motion.div
+                  key={item.id}
+                  layout
+                  variants={cardVariant}
+                  custom={idx % 3}
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  onClick={() => setSelectedItem(item)}
+                  className="group glass-card rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 hover:border-[#2563EB] transition-all cursor-pointer shadow-lg hover:shadow-2xl flex flex-col justify-between"
+                >
+                  <div>
+                    {/* Image Container */}
+                    <div className="relative h-56 overflow-hidden bg-slate-100 dark:bg-slate-800">
+                      {failedImages[item.id] ? (
+                        <div className="w-full h-full bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-500 flex flex-col items-center justify-center p-6 text-white text-center">
+                          <ImageIcon className="w-10 h-10 mb-2 opacity-80" />
+                          <span className="font-heading font-extrabold text-sm">{item.category}</span>
+                        </div>
+                      ) : (
+                        <img
+                          src={item.image}
+                          alt={`${item.title} - SEO Services in Tirunelveli`}
+                          loading="lazy"
+                          onError={() => handleImageError(item.id)}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      )}
+
+                      <div className="absolute top-4 left-4">
+                        <span className="px-3 py-1 rounded-full bg-white/90 dark:bg-[#0F172A]/90 backdrop-blur-md text-[10px] font-bold text-[#2563EB] border border-blue-200 dark:border-blue-800 shadow-sm">
+                          {item.category}
+                        </span>
                       </div>
-                    ) : (
-                      <img
-                        src={item.image}
-                        alt={`${item.title} - SEO Services in Tirunelveli`}
-                        loading="lazy"
-                        onError={() => handleImageError(item.id)}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    )}
 
-                    <div className="absolute top-4 left-4">
-                      <span className="px-3 py-1 rounded-full bg-white/90 dark:bg-[#0F172A]/90 backdrop-blur-md text-[10px] font-bold text-[#2563EB] border border-blue-200 dark:border-blue-800 shadow-sm">
-                        {item.category}
-                      </span>
+                      <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/90 dark:bg-[#0F172A]/90 backdrop-blur-md text-[#2563EB] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <ArrowUpRight className="w-5 h-5" />
+                      </div>
                     </div>
 
-                    <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/90 dark:bg-[#0F172A]/90 backdrop-blur-md text-[#2563EB] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                      <ArrowUpRight className="w-5 h-5" />
+                    {/* Content Container */}
+                    <div className="p-6 space-y-3">
+                      <h3 className="font-heading font-extrabold text-lg text-[#111827] dark:text-white group-hover:text-[#2563EB] transition-colors leading-snug">
+                        {item.title}
+                      </h3>
+                      <p className="text-xs text-[#64748B] dark:text-slate-300 line-clamp-3 leading-relaxed">
+                        {item.summary}
+                      </p>
                     </div>
                   </div>
 
-                  {/* Content Container */}
-                  <div className="p-6 space-y-3">
-                    <h3 className="font-heading font-extrabold text-lg text-[#111827] dark:text-white group-hover:text-[#2563EB] transition-colors leading-snug">
-                      {item.title}
-                    </h3>
-                    <p className="text-xs text-[#64748B] dark:text-slate-300 line-clamp-3 leading-relaxed">
-                      {item.summary}
-                    </p>
+                  {/* Footer Tag */}
+                  <div className="px-6 pb-6 pt-2 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between">
+                    <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#10B981]">
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                      <span>{item.result}</span>
+                    </div>
+                    <span className="text-[10px] font-semibold text-slate-400">{item.client}</span>
                   </div>
-                </div>
-
-                {/* Footer Tag */}
-                <div className="px-6 pb-6 pt-2 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#10B981]">
-                    <CheckCircle2 className="w-3.5 h-3.5" />
-                    <span>{item.result}</span>
-                  </div>
-                  <span className="text-[10px] font-semibold text-slate-400">{item.client}</span>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </AnimatePresence>
-        </div>
+        </motion.div>
 
-        {/* Launch Special Offer Callout Banner */}
-        <div className="mt-16 glass-card p-8 rounded-3xl border border-blue-200 dark:border-blue-800/60 bg-gradient-to-r from-blue-500/10 via-sky-500/10 to-indigo-500/10 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+        {/* Launch Special Offer Callout Banner (Slide in from Bottom) */}
+        <motion.div 
+          variants={fadeInUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
+          className="mt-16 glass-card p-8 rounded-3xl border border-blue-200 dark:border-blue-800/60 bg-gradient-to-r from-blue-500/10 via-sky-500/10 to-indigo-500/10 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left shadow-xl"
+        >
           <div className="space-y-2 max-w-xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-[#2563EB] dark:text-blue-400 text-xs font-bold">
               <Zap className="w-3.5 h-3.5 animate-pulse" />
@@ -135,13 +180,15 @@ export default function PortfolioSection() {
             </p>
           </div>
 
-          <a
+          <motion.a
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             href="#contact"
-            className="font-btn font-semibold text-xs rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-8 py-4 shadow-xl shadow-blue-600/30 shrink-0 hover:scale-105 transition-all"
+            className="font-btn font-semibold text-xs rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-8 py-4 shadow-xl shadow-blue-600/30 shrink-0 transition-all"
           >
             Claim Launch Discount
-          </a>
-        </div>
+          </motion.a>
+        </motion.div>
 
       </div>
 
@@ -157,7 +204,7 @@ export default function PortfolioSection() {
             >
               <button
                 onClick={() => setSelectedItem(null)}
-                className="absolute top-6 right-6 p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-[#2563EB]"
+                className="absolute top-6 right-6 p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-[#2563EB] cursor-pointer"
               >
                 ✕
               </button>

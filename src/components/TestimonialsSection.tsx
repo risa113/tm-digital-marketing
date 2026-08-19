@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { TESTIMONIALS } from '../data/marketingData';
 import { Sparkles, Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
+import { fadeInUp, fadeInDown, scaleIn, defaultViewport } from '../utils/animations';
 
 export default function TestimonialsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -24,32 +25,60 @@ export default function TestimonialsSection() {
   const current = TESTIMONIALS[currentIndex];
 
   return (
-    <section id="testimonials" className="py-24 bg-[#F8FAFC] dark:bg-[#0F172A] relative">
+    <section id="testimonials" className="py-24 bg-[#F8FAFC] dark:bg-[#0F172A] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
+        {/* Section Header (Upper to Down & Down to Up) */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-xs font-bold text-[#2563EB] border border-blue-200 dark:border-blue-800">
+          <motion.div 
+            variants={fadeInDown}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-xs font-bold text-[#2563EB] border border-blue-200 dark:border-blue-800"
+          >
             <Sparkles className="w-3.5 h-3.5 text-[#3B82F6]" />
             <span>CLIENT TESTIMONIALS</span>
-          </div>
-          <h2 className="font-heading font-extrabold text-3xl sm:text-5xl text-[#111827] dark:text-white tracking-tight">
+          </motion.div>
+
+          <motion.h2 
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            custom={1}
+            className="font-heading font-extrabold text-3xl sm:text-5xl text-[#111827] dark:text-white tracking-tight"
+          >
             What Our Clients <span className="gradient-text">Say About Us</span>
-          </h2>
-          <p className="text-[#64748B] dark:text-slate-300 text-base sm:text-lg">
+          </motion.h2>
+
+          <motion.p 
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            custom={2}
+            className="text-[#64748B] dark:text-slate-300 text-base sm:text-lg"
+          >
             Real feedback from business owners and CMOs who trust TM Digital Marketing.
-          </p>
+          </motion.p>
         </div>
 
-        {/* Glass Card Auto-Slide Display */}
-        <div className="max-w-4xl mx-auto relative">
+        {/* Glass Card Auto-Slide Display (Scale & Pop in) */}
+        <motion.div 
+          variants={scaleIn}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
+          className="max-w-4xl mx-auto relative"
+        >
           <AnimatePresence mode="wait">
             <motion.div
               key={current.id}
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.4 }}
+              exit={{ opacity: 0, x: -40 }}
+              transition={{ duration: 0.45, ease: 'easeOut' }}
               className="glass-card p-8 sm:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 relative shadow-xl space-y-6"
             >
               <Quote className="w-12 h-12 text-[#2563EB]/20 absolute top-6 right-8 pointer-events-none" />
@@ -89,7 +118,7 @@ export default function TestimonialsSection() {
                 <button
                   key={i}
                   onClick={() => setCurrentIndex(i)}
-                  className={`h-2.5 rounded-full transition-all ${
+                  className={`h-2.5 rounded-full transition-all cursor-pointer ${
                     currentIndex === i ? 'w-8 bg-[#2563EB]' : 'w-2.5 bg-slate-300 dark:bg-slate-700'
                   }`}
                 />
@@ -99,19 +128,19 @@ export default function TestimonialsSection() {
             <div className="flex items-center gap-3">
               <button
                 onClick={prev}
-                className="p-3 rounded-2xl glass-card hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200"
+                className="p-3 rounded-2xl glass-card text-slate-600 dark:text-slate-300 hover:text-[#2563EB] hover:bg-slate-100 dark:hover:bg-slate-800 transition-all border border-slate-200 dark:border-slate-800 cursor-pointer"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <button
                 onClick={next}
-                className="p-3 rounded-2xl glass-card hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200"
+                className="p-3 rounded-2xl glass-card text-slate-600 dark:text-slate-300 hover:text-[#2563EB] hover:bg-slate-100 dark:hover:bg-slate-800 transition-all border border-slate-200 dark:border-slate-800 cursor-pointer"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
             </div>
           </div>
-        </div>
+        </motion.div>
 
       </div>
     </section>

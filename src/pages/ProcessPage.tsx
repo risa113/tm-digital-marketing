@@ -17,6 +17,8 @@ import {
   Clock
 } from 'lucide-react';
 import { PROCESS_STEPS } from '../data/marketingData';
+import AmbientBackground from '../components/AmbientBackground';
+import { fadeInUp, fadeInDown, slideInLeft, slideInRight, staggerContainer, defaultViewport } from '../utils/animations';
 
 interface ProcessPageProps {
   onOpenConsultation: () => void;
@@ -116,33 +118,60 @@ export default function ProcessPage({ onOpenConsultation }: ProcessPageProps) {
   ];
 
   return (
-    <div className="w-full pt-20 sm:pt-28 pb-16 bg-[#F8FAFC] dark:bg-[#0F172A] min-h-screen">
-      
-      {/* Hero Header Banner */}
+    <div className="relative w-full pt-20 sm:pt-28 pb-16 bg-[#F8FAFC] dark:bg-[#0F172A] min-h-screen overflow-hidden">
+      <AmbientBackground />
+
+      {/* Hero Header Banner (Upper to Down & Down to Up) */}
       <section className="relative py-16 sm:py-24 overflow-hidden bg-gradient-to-b from-blue-50/50 via-white to-transparent dark:from-blue-950/20 dark:via-[#0F172A] dark:to-[#0F172A]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 text-xs font-bold text-[#2563EB]">
+          <motion.div 
+            variants={fadeInDown}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 text-xs font-bold text-[#2563EB]"
+          >
             <RefreshCw className="w-4 h-4 animate-spin-slow" />
             <span>Agile Growth Engine</span>
-          </div>
+          </motion.div>
 
-          <h1 className="font-heading font-extrabold text-4xl sm:text-6xl text-[#111827] dark:text-white tracking-tight leading-tight max-w-4xl mx-auto">
+          <motion.h1 
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            custom={1}
+            className="font-heading font-extrabold text-4xl sm:text-6xl text-[#111827] dark:text-white tracking-tight leading-tight max-w-4xl mx-auto"
+          >
             Our Proven 6-Step <br />
             <span className="text-[#2563EB]">7-Day Campaign Launch Blueprint</span>
-          </h1>
+          </motion.h1>
 
-          <p className="text-base sm:text-xl text-[#64748B] dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
+          <motion.p 
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            custom={2}
+            className="text-base sm:text-xl text-[#64748B] dark:text-slate-300 max-w-3xl mx-auto leading-relaxed"
+          >
             We turn market research into live, high-converting ad campaigns and modern web platforms in just 7 days.
-          </p>
+          </motion.p>
         </div>
       </section>
 
-      {/* Interactive Process Step Explorer */}
+      {/* Interactive Process Step Explorer (Side-Show Left & Right) */}
       <section className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
-          {/* Step Selector Tabs (Left) */}
-          <div className="lg:col-span-5 space-y-3">
+          {/* Step Selector Tabs (Left Slide) */}
+          <motion.div 
+            variants={slideInLeft}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            className="lg:col-span-5 space-y-3"
+          >
             <p className="text-xs font-extrabold uppercase tracking-widest text-[#2563EB] mb-2 px-2">
               Select Step To View Details
             </p>
@@ -152,7 +181,7 @@ export default function ProcessPage({ onOpenConsultation }: ProcessPageProps) {
                 <button
                   key={step.step}
                   onClick={() => setActiveStep(idx)}
-                  className={`w-full p-4 rounded-2xl border text-left transition-all duration-200 flex items-center justify-between ${
+                  className={`w-full p-4 rounded-2xl border text-left transition-all duration-200 flex items-center justify-between cursor-pointer ${
                     activeStep === idx
                       ? 'bg-[#2563EB] text-white border-[#2563EB] shadow-xl shadow-blue-600/30 font-bold scale-[1.02]'
                       : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 border-slate-200 dark:border-slate-800 hover:border-[#2563EB]'
@@ -175,10 +204,16 @@ export default function ProcessPage({ onOpenConsultation }: ProcessPageProps) {
                 </button>
               );
             })}
-          </div>
+          </motion.div>
 
-          {/* Active Step Details Panel (Right) */}
-          <div className="lg:col-span-7">
+          {/* Active Step Details Panel (Right Slide) */}
+          <motion.div 
+            variants={slideInRight}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            className="lg:col-span-7"
+          >
             <motion.div
               key={activeStep}
               initial={{ opacity: 0, x: 20 }}
@@ -237,18 +272,18 @@ export default function ProcessPage({ onOpenConsultation }: ProcessPageProps) {
                 </span>
                 <button
                   onClick={onOpenConsultation}
-                  className="px-5 py-2.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-bold shadow-md transition-all"
+                  className="px-5 py-2.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-bold shadow-md transition-all cursor-pointer"
                 >
                   Start This Process
                 </button>
               </div>
             </motion.div>
-          </div>
+          </motion.div>
 
         </div>
       </section>
 
-      {/* Technology & Tools Stack */}
+      {/* Technology & Tools Stack (Staggered Down to Up) */}
       <section className="py-16 bg-white dark:bg-[#0B101D] border-t border-slate-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 text-center">
           <div className="space-y-3">
@@ -258,46 +293,65 @@ export default function ProcessPage({ onOpenConsultation }: ProcessPageProps) {
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-            {toolsStack.map((tool) => (
-              <div
+          <motion.div 
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4"
+          >
+            {toolsStack.map((tool, idx) => (
+              <motion.div
                 key={tool.name}
-                className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2"
+                variants={fadeInUp}
+                custom={idx}
+                whileHover={{ y: -6 }}
+                className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 shadow-md"
               >
                 <div className="text-2xl">{tool.icon}</div>
                 <h3 className="font-bold text-xs text-slate-900 dark:text-white">{tool.name}</h3>
                 <p className="text-[10px] text-slate-500 dark:text-slate-400">{tool.category}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Bottom CTA Banner */}
-      <section className="py-16 bg-slate-900 text-white text-center">
+      <motion.section 
+        variants={fadeInUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={defaultViewport}
+        className="py-16 bg-slate-900 text-white text-center"
+      >
         <div className="max-w-4xl mx-auto px-4 space-y-6">
           <h2 className="font-heading font-extrabold text-3xl sm:text-4xl">Ready to Launch Your 7-Day Growth Sprint?</h2>
           <p className="text-sm text-slate-300 max-w-xl mx-auto">
             Get started today with founders Mohamed Thariq & Muja. We set up your campaign and tracking in under a week.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={onOpenConsultation}
-              className="w-full sm:w-auto font-btn font-bold px-8 py-4 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-xl shadow-blue-600/30 flex items-center justify-center gap-2"
+              className="w-full sm:w-auto font-btn font-bold px-8 py-4 rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-xl shadow-blue-600/30 flex items-center justify-center gap-2 cursor-pointer"
             >
               <Sparkles className="w-4 h-4 text-amber-300" />
               <span>Launch 7-Day Sprint</span>
-            </button>
-            <Link
-              to="/deliverables"
-              className="w-full sm:w-auto font-btn font-bold px-8 py-4 rounded-2xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 flex items-center justify-center gap-2"
-            >
-              <span>View Past Deliverables</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+            </motion.button>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link
+                to="/deliverables"
+                className="w-full sm:w-auto font-btn font-bold px-8 py-4 rounded-2xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 flex items-center justify-center gap-2"
+              >
+                <span>View Past Deliverables</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
     </div>
   );
