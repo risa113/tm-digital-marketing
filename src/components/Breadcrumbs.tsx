@@ -4,6 +4,8 @@ import { BLOG_ARTICLES } from '../data/blogData';
 
 const STATIC_ROUTE_NAMES: Record<string, string> = {
   '/about': 'About Us',
+  '/founders': 'Agency Founders',
+  '/leadership': 'Agency Leadership',
   '/services': 'Services & Solutions',
   '/digital-marketing-agency-tirunelveli': 'Digital Marketing Agency Tirunelveli',
   '/seo-services-tirunelveli': 'SEO Services Tirunelveli',

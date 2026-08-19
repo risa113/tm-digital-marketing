@@ -34,6 +34,7 @@ import ContactPage from './pages/ContactPage';
 import TestimonialsPage from './pages/TestimonialsPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import TermsPage from './pages/TermsPage';
+import FoundersPage from './pages/FoundersPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 import { ServiceItem } from './data/marketingData';
@@ -219,6 +220,14 @@ export default function App() {
               <Route
                 path="/faq"
                 element={<FAQPage onOpenConsultation={handleOpenConsultation} />}
+              />
+              <Route
+                path="/founders"
+                element={<FoundersPage onOpenConsultation={handleOpenConsultation} />}
+              />
+              <Route
+                path="/leadership"
+                element={<FoundersPage onOpenConsultation={handleOpenConsultation} />}
               />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/privacy" element={<PrivacyPolicyPage />} />

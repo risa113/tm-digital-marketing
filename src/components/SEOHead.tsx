@@ -29,6 +29,20 @@ const STATIC_ROUTE_SEO_MAP: Record<string, RouteSEO> = {
     canonical: 'https://tmdigitalgrow.com/about',
     name: 'About Us'
   },
+  '/founders': {
+    title: 'Agency Founders | Mohamed Thariq & Muja | TM Digital Marketing',
+    description: 'Meet TM Digital Marketing co-founders Mohamed Thariq (Creative Director) & Muja (Chief Growth Officer). Direct founder access, 7-day sprints & 5.2x ROAS in Tirunelveli, Tamil Nadu.',
+    keywords: 'TM digital marketing founders, Mohamed Thariq, Muja, agency leadership, Tirunelveli marketing agency founders',
+    canonical: 'https://tmdigitalgrow.com/founders',
+    name: 'Agency Founders'
+  },
+  '/leadership': {
+    title: 'Agency Leadership | Mohamed Thariq & Muja | TM Digital Marketing',
+    description: 'Meet TM Digital Marketing co-founders Mohamed Thariq (Creative Director) & Muja (Chief Growth Officer). Direct founder access, 7-day sprints & 5.2x ROAS in Tirunelveli, Tamil Nadu.',
+    keywords: 'TM digital marketing founders, Mohamed Thariq, Muja, agency leadership, Tirunelveli marketing agency founders',
+    canonical: 'https://tmdigitalgrow.com/founders',
+    name: 'Agency Leadership'
+  },
   '/services': {
     title: 'Services & Growth Solutions | TM Digital Marketing Tirunelveli',
     description: 'Explore our 12+ digital marketing services in Tirunelveli: Google SEO, Meta Ads, Google Search PPC, 3D Web Engineering, Video Editing, Vector Branding & D2C WhatsApp Lead Funnels.',

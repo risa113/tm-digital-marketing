@@ -181,6 +181,7 @@ export default function Footer() {
                   <ul className="space-y-2 text-xs">
                     <li><Link to="/" className="hover:text-[#2563EB] transition-colors block py-0.5">Home</Link></li>
                     <li><Link to="/about" className="hover:text-[#2563EB] transition-colors block py-0.5">About Us</Link></li>
+                    <li><Link to="/founders" className="hover:text-[#2563EB] transition-colors block py-0.5 font-bold text-[#2563EB]">Agency Founders</Link></li>
                     <li><Link to="/services" className="hover:text-[#2563EB] transition-colors block py-0.5">Services Hub</Link></li>
                     <li><Link to="/blog" className="hover:text-[#2563EB] transition-colors block py-0.5 font-bold text-[#2563EB]">Growth &amp; SEO Blog</Link></li>
                     <li><Link to="/process" className="hover:text-[#2563EB] transition-colors block py-0.5">6-Step Growth Process</Link></li>

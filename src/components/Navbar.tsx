@@ -57,6 +57,7 @@ export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
   const navLinks = [
     { label: 'Home', path: '/', icon: Home },
     { label: 'About', path: '/about', icon: UserCheck },
+    { label: 'Founders', path: '/founders', icon: Sparkles },
     { label: 'Services', path: '/services', icon: Zap, hasDropdown: true },
     { label: 'Blog', path: '/blog', icon: BookOpen },
     { label: 'Process', path: '/process', icon: RefreshCw },
