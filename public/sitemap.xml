@@ -5,7 +5,7 @@
   <!-- Home Page -->
   <url>
     <loc>https://tmdigitalgrow.com/</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -23,7 +23,7 @@
   <!-- Dedicated High-Intent Local Service Pillar Pages -->
   <url>
     <loc>https://tmdigitalgrow.com/digital-marketing-agency-tirunelveli</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
@@ -35,7 +35,7 @@
 
   <url>
     <loc>https://tmdigitalgrow.com/seo-services-tirunelveli</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
@@ -47,7 +47,7 @@
 
   <url>
     <loc>https://tmdigitalgrow.com/social-media-marketing-tirunelveli</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
@@ -59,7 +59,7 @@
 
   <url>
     <loc>https://tmdigitalgrow.com/google-ads-tirunelveli</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
@@ -71,7 +71,7 @@
 
   <url>
     <loc>https://tmdigitalgrow.com/meta-ads-tirunelveli</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
@@ -83,7 +83,7 @@
 
   <url>
     <loc>https://tmdigitalgrow.com/web-development-tirunelveli</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
@@ -95,7 +95,7 @@
 
   <url>
     <loc>https://tmdigitalgrow.com/branding-tirunelveli</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
@@ -107,7 +107,7 @@
 
   <url>
     <loc>https://tmdigitalgrow.com/lead-generation-tirunelveli</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
@@ -120,14 +120,14 @@
   <!-- Blog Hub & Topical Authority Articles -->
   <url>
     <loc>https://tmdigitalgrow.com/blog</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://tmdigitalgrow.com/blog/how-to-choose-best-digital-marketing-agency-tirunelveli</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -139,7 +139,7 @@
 
   <url>
     <loc>https://tmdigitalgrow.com/blog/local-seo-guide-tirunelveli-businesses</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -151,7 +151,7 @@
 
   <url>
     <loc>https://tmdigitalgrow.com/blog/google-ads-vs-meta-ads-tirunelveli-roi</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -163,7 +163,7 @@
 
   <url>
     <loc>https://tmdigitalgrow.com/blog/website-development-cost-in-tirunelveli</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -175,7 +175,7 @@
 
   <url>
     <loc>https://tmdigitalgrow.com/blog/instagram-marketing-strategy-local-brands-tamil-nadu</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -188,77 +188,97 @@
   <!-- Core Supporting Pages -->
   <url>
     <loc>https://tmdigitalgrow.com/about</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://tmdigitalgrow.com/mohamed_thariq.png</image:loc>
+      <image:title>Mohamed Thariq - Co-Founder &amp; Creative Director</image:title>
+      <image:caption>Executive leadership at TM Digital Marketing</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://tmdigitalgrow.com/muja.png</image:loc>
+      <image:title>Muja - Co-Founder &amp; Chief Growth Officer</image:title>
+      <image:caption>Executive leadership at TM Digital Marketing</image:caption>
+    </image:image>
   </url>
 
   <url>
     <loc>https://tmdigitalgrow.com/founders</loc>
     <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://tmdigitalgrow.com/mohamed_thariq.png</image:loc>
+      <image:title>Mohamed Thariq - Co-Founder &amp; Creative Director</image:title>
+      <image:caption>Mohamed Thariq portrait - Co-Founder at TM Digital Marketing</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://tmdigitalgrow.com/muja.png</image:loc>
+      <image:title>Muja - Co-Founder &amp; Chief Growth Officer</image:title>
+      <image:caption>Muja portrait - Co-Founder at TM Digital Marketing</image:caption>
+    </image:image>
   </url>
 
   <url>
     <loc>https://tmdigitalgrow.com/services</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://tmdigitalgrow.com/process</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <url>
     <loc>https://tmdigitalgrow.com/deliverables</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <url>
     <loc>https://tmdigitalgrow.com/why-us</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <url>
     <loc>https://tmdigitalgrow.com/testimonials</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://tmdigitalgrow.com/faq</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://tmdigitalgrow.com/contact</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://tmdigitalgrow.com/privacy</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://tmdigitalgrow.com/terms</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
