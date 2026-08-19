@@ -37,7 +37,7 @@ export const AUTHORS: Record<string, BlogAuthor> = {
     name: 'Mohamed Thariq',
     role: 'Co-Founder & Creative Director at TM Digital Marketing',
     phone: '+91 86087 24931',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop'
+    avatar: '/mohamed_thariq.png'
   },
   muja: {
     name: 'Muja',

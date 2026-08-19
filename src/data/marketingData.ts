@@ -384,7 +384,7 @@ export const TESTIMONIALS: Testimonial[] = [
     name: 'Karthik Raja',
     role: 'Managing Director',
     company: 'Nellai Organic Mart (Tirunelveli)',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop',
+    avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop',
     companyLogo: '🌿 NELLAI ORGANIC',
     rating: 5,
     quote: 'TM Digital Marketing is hands down the best digital marketing agency in Tirunelveli! Mohamed Thariq and Muja transformed our local sales with targeted Meta Ads and Google PPC campaigns across Tamil Nadu.'

@@ -28,7 +28,7 @@ export default function AboutPage({ onOpenConsultation }: AboutPageProps) {
       phone: '+91 86087 24931',
       directTel: '8608724931',
       bio: 'Brand architect and full-stack web dev wizard specializing in 3D glassmorphic web design, vector brand identities, and high-CTR video editing.',
-      image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop',
+      image: '/mohamed_thariq.png',
       skills: ['3D Web Engineering', 'Brand Systems', 'Motion & Video', 'AI Automation']
     },
     {
@@ -178,10 +178,18 @@ export default function AboutPage({ onOpenConsultation }: AboutPageProps) {
               >
                 <div className="space-y-4">
                   <div className="flex items-center gap-4">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-sky-400 p-0.5 shrink-0 shadow-lg">
-                      <div className="w-full h-full rounded-2xl bg-slate-900 flex items-center justify-center text-white font-black text-xl">
-                        {founder.name[0]}
-                      </div>
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-sky-400 p-0.5 shrink-0 shadow-lg overflow-hidden">
+                      {founder.image ? (
+                        <img
+                          src={founder.image}
+                          alt={founder.name}
+                          className="w-full h-full object-cover rounded-2xl"
+                        />
+                      ) : (
+                        <div className="w-full h-full rounded-2xl bg-slate-900 flex items-center justify-center text-white font-black text-xl">
+                          {founder.name[0]}
+                        </div>
+                      )}
                     </div>
                     <div>
                       <h3 className="font-heading font-extrabold text-xl text-slate-900 dark:text-white">{founder.name}</h3>
