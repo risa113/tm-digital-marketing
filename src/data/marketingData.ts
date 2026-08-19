@@ -161,8 +161,24 @@ export const CONTACT_INFO = {
   companyName: 'TM Digital Marketing',
   tagline: 'CONNECT • ENGAGE • GROW',
   contacts: [
-    { name: 'MOHAMED THARIQ', phone: '8608724931', formattedPhone: '+91 86087 24931' },
-    { name: 'MUJA', phone: '6369480812', formattedPhone: '+91 63694 80812' }
+    {
+      name: 'Mohamed Thariq',
+      role: 'Co-Founder & Creative Director',
+      specialty: '3D Web Architecture & Brand Strategy',
+      phone: '8608724931',
+      formattedPhone: '+91 86087 24931',
+      image: '/mohamed_thariq.png',
+      whatsappUrl: 'https://wa.me/918608724931'
+    },
+    {
+      name: 'Muja',
+      role: 'Co-Founder & Chief Growth Officer',
+      specialty: 'PPC, Meta Ads & Conversion Funnels',
+      phone: '6369480812',
+      formattedPhone: '+91 63694 80812',
+      image: '/muja.png',
+      whatsappUrl: 'https://wa.me/916369480812'
+    }
   ],
   email: 'tmdigitalgrow@gmail.com',
   instagram: 'https://www.instagram.com/tm_digital_marketing_/',

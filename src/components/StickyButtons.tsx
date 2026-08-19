@@ -59,12 +59,12 @@ export default function StickyButtons() {
                   href={`tel:${c.phone}`}
                   className="flex items-center gap-2.5 p-2 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-950/60 text-slate-800 dark:text-slate-200 text-xs font-bold transition-colors border border-transparent hover:border-blue-200 dark:hover:border-blue-800"
                 >
-                  <div className="w-7 h-7 rounded-lg bg-blue-100 dark:bg-blue-900/60 text-[#2563EB] flex items-center justify-center shrink-0">
-                    <User className="w-4 h-4" />
+                  <div className="w-8 h-8 rounded-lg overflow-hidden shrink-0 border border-blue-400/50 shadow-sm bg-slate-100 dark:bg-slate-800">
+                    <img src={c.image} alt={c.name} className="w-full h-full object-cover" />
                   </div>
                   <div>
                     <p className="text-xs font-extrabold">{c.name}</p>
-                    <p className="text-[11px] text-[#2563EB] font-medium">{c.formattedPhone}</p>
+                    <p className="text-[10px] text-[#2563EB] font-semibold">{c.role}</p>
                   </div>
                 </a>
               ))}

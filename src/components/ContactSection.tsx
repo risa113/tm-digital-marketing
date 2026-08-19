@@ -225,39 +225,69 @@ export default function ContactSection({ preselectedService }: ContactSectionPro
           {/* Right Column: Direct Contact Person Cards & Map */}
           <div className="lg:col-span-5 space-y-5 sm:space-y-6">
             
-            {/* Contact Person 1: Mohamed Thariq */}
-            <a
-              href="tel:8608724931"
-              className="glass-card p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 flex items-center justify-between hover:border-[#2563EB] transition-all group"
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-blue-50 dark:bg-blue-950 text-[#2563EB] flex items-center justify-center font-bold">
-                  <User className="w-5 h-5 sm:w-6 sm:h-6" />
-                </div>
-                <div>
-                  <h4 className="font-heading font-extrabold text-sm text-[#111827] dark:text-white">MOHAMED THARIQ</h4>
-                  <p className="text-xs text-[#2563EB] font-bold">+91 86087 24931</p>
-                </div>
-              </div>
-              <Phone className="w-5 h-5 text-[#2563EB] group-hover:scale-110 transition-transform" />
-            </a>
+            {/* Founder Contact Cards */}
+            {CONTACT_INFO.contacts.map((founder) => (
+              <div
+                key={founder.name}
+                className="glass-card p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-[#2563EB] transition-all group shadow-sm hover:shadow-md"
+              >
+                <div className="flex items-center justify-between gap-3 sm:gap-4">
+                  <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
+                    <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl p-0.5 bg-gradient-to-tr from-blue-600 to-sky-400 shrink-0 shadow-md overflow-hidden">
+                      <img
+                        src={founder.image}
+                        alt={`${founder.name} - Agency Founder`}
+                        className="w-full h-full object-cover rounded-[14px]"
+                      />
+                    </div>
+                    <div className="min-w-0 space-y-0.5">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h4 className="font-heading font-extrabold text-sm sm:text-base text-[#111827] dark:text-white">
+                          {founder.name}
+                        </h4>
+                        <span className="px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200/60 dark:border-blue-800 text-[#2563EB] text-[10px] font-extrabold uppercase tracking-wider">
+                          Co-Founder
+                        </span>
+                      </div>
+                      <p className="text-xs font-bold text-[#2563EB]">
+                        {founder.role}
+                      </p>
+                      <p className="text-[11px] text-[#64748B] dark:text-slate-400 hidden sm:block">
+                        {founder.specialty}
+                      </p>
+                      <a
+                        href={`tel:${founder.phone}`}
+                        className="inline-flex items-center gap-1.5 text-xs text-slate-900 dark:text-slate-200 font-extrabold hover:text-[#2563EB] transition-colors pt-0.5"
+                      >
+                        <Phone className="w-3.5 h-3.5 text-[#2563EB]" />
+                        <span>{founder.formattedPhone}</span>
+                      </a>
+                    </div>
+                  </div>
 
-            {/* Contact Person 2: Muja */}
-            <a
-              href="tel:6369480812"
-              className="glass-card p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 flex items-center justify-between hover:border-[#2563EB] transition-all group"
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-blue-50 dark:bg-blue-950 text-[#2563EB] flex items-center justify-center font-bold">
-                  <User className="w-5 h-5 sm:w-6 sm:h-6" />
-                </div>
-                <div>
-                  <h4 className="font-heading font-extrabold text-sm text-[#111827] dark:text-white">MUJA</h4>
-                  <p className="text-xs text-[#2563EB] font-bold">+91 63694 80812</p>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <a
+                      href={founder.whatsappUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2.5 sm:p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500 hover:text-white border border-emerald-200/60 dark:border-emerald-800/60 transition-all shadow-sm group-hover:scale-105"
+                      title={`Chat with ${founder.name} on WhatsApp`}
+                      aria-label={`Chat with ${founder.name} on WhatsApp`}
+                    >
+                      <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </a>
+                    <a
+                      href={`tel:${founder.phone}`}
+                      className="p-2.5 sm:p-3 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-[#2563EB] hover:bg-[#2563EB] hover:text-white border border-blue-200/60 dark:border-blue-800/60 transition-all shadow-sm group-hover:scale-105"
+                      title={`Call ${founder.name} directly`}
+                      aria-label={`Call ${founder.name} directly`}
+                    >
+                      <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </a>
+                  </div>
                 </div>
               </div>
-              <Phone className="w-5 h-5 text-[#2563EB] group-hover:scale-110 transition-transform" />
-            </a>
+            ))}
 
             {/* Email Card */}
             <a
