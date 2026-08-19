@@ -163,8 +163,9 @@ export const CONTACT_INFO = {
   contacts: [
     {
       name: 'Mohamed Thariq',
-      role: 'Co-Founder & Creative Director',
-      specialty: '3D Web Architecture & Brand Strategy',
+      role: 'Creative Director',
+      designation: 'Co-Founder & Creative Director',
+      specialty: '3D Web Engineering, UI/UX & Brand Identity',
       phone: '8608724931',
       formattedPhone: '+91 86087 24931',
       image: '/mohamed_thariq.png',
@@ -172,8 +173,9 @@ export const CONTACT_INFO = {
     },
     {
       name: 'Muja',
-      role: 'Co-Founder & Chief Growth Officer',
-      specialty: 'PPC, Meta Ads & Conversion Funnels',
+      role: 'Chief Growth Officer',
+      designation: 'Co-Founder & Chief Growth Officer',
+      specialty: 'Meta & Google Ads, ROAS & Growth Funnels',
       phone: '6369480812',
       formattedPhone: '+91 63694 80812',
       image: '/muja.png',

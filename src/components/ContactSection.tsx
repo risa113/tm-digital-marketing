@@ -229,62 +229,58 @@ export default function ContactSection({ preselectedService }: ContactSectionPro
             {CONTACT_INFO.contacts.map((founder) => (
               <div
                 key={founder.name}
-                className="glass-card p-5 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-[#2563EB] transition-all group shadow-sm hover:shadow-md"
+                className="glass-card p-6 sm:p-7 rounded-3xl border border-slate-200 dark:border-slate-800 hover:border-[#2563EB] transition-all group shadow-md hover:shadow-xl bg-white dark:bg-slate-900 space-y-4"
               >
-                <div className="flex items-center justify-between gap-3 sm:gap-4">
-                  <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
-                    <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl p-0.5 bg-gradient-to-tr from-blue-600 to-sky-400 shrink-0 shadow-md overflow-hidden">
-                      <img
-                        src={founder.image}
-                        alt={`${founder.name} - Agency Founder`}
-                        className="w-full h-full object-cover rounded-[14px]"
-                      />
-                    </div>
-                    <div className="min-w-0 space-y-0.5">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <h4 className="font-heading font-extrabold text-sm sm:text-base text-[#111827] dark:text-white">
-                          {founder.name}
-                        </h4>
-                        <span className="px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200/60 dark:border-blue-800 text-[#2563EB] text-[10px] font-extrabold uppercase tracking-wider">
-                          Co-Founder
-                        </span>
-                      </div>
-                      <p className="text-xs font-bold text-[#2563EB]">
-                        {founder.role}
-                      </p>
-                      <p className="text-[11px] text-[#64748B] dark:text-slate-400 hidden sm:block">
-                        {founder.specialty}
-                      </p>
-                      <a
-                        href={`tel:${founder.phone}`}
-                        className="inline-flex items-center gap-1.5 text-xs text-slate-900 dark:text-slate-200 font-extrabold hover:text-[#2563EB] transition-colors pt-0.5"
-                      >
-                        <Phone className="w-3.5 h-3.5 text-[#2563EB]" />
-                        <span>{founder.formattedPhone}</span>
-                      </a>
-                    </div>
+                <div className="flex items-start gap-4 sm:gap-5">
+                  <div className="relative w-20 h-20 sm:w-22 sm:h-22 rounded-2xl p-0.5 bg-gradient-to-tr from-blue-600 to-sky-400 shrink-0 shadow-lg overflow-hidden">
+                    <img
+                      src={founder.image}
+                      alt={`${founder.name} - Agency Founder`}
+                      className="w-full h-full object-cover rounded-[14px] group-hover:scale-105 transition-transform duration-300"
+                    />
                   </div>
 
-                  <div className="flex items-center gap-2 shrink-0">
-                    <a
-                      href={founder.whatsappUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2.5 sm:p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500 hover:text-white border border-emerald-200/60 dark:border-emerald-800/60 transition-all shadow-sm group-hover:scale-105"
-                      title={`Chat with ${founder.name} on WhatsApp`}
-                      aria-label={`Chat with ${founder.name} on WhatsApp`}
-                    >
-                      <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5" />
-                    </a>
-                    <a
-                      href={`tel:${founder.phone}`}
-                      className="p-2.5 sm:p-3 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-[#2563EB] hover:bg-[#2563EB] hover:text-white border border-blue-200/60 dark:border-blue-800/60 transition-all shadow-sm group-hover:scale-105"
-                      title={`Call ${founder.name} directly`}
-                      aria-label={`Call ${founder.name} directly`}
-                    >
-                      <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
-                    </a>
+                  <div className="flex-1 min-w-0 space-y-1">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h4 className="font-heading font-extrabold text-lg sm:text-xl text-[#111827] dark:text-white">
+                        {founder.name}
+                      </h4>
+                      <span className="px-2.5 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 text-[#2563EB] text-[10px] font-extrabold uppercase tracking-wider">
+                        Co-Founder
+                      </span>
+                    </div>
+
+                    <p className="text-xs sm:text-sm font-bold text-[#2563EB]">
+                      {founder.role}
+                    </p>
+
+                    <p className="text-xs sm:text-sm text-[#64748B] dark:text-slate-300 leading-snug">
+                      {founder.specialty}
+                    </p>
                   </div>
+                </div>
+
+                {/* Direct Action Buttons: WhatsApp & Call */}
+                <div className="grid grid-cols-2 gap-3 pt-3 border-t border-slate-100 dark:border-slate-800/80">
+                  <a
+                    href={founder.whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="py-2.5 sm:py-3 px-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 hover:bg-[#25D366] text-emerald-700 dark:text-emerald-300 hover:text-white border border-emerald-200/80 dark:border-emerald-800/60 text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 shadow-sm"
+                    title={`WhatsApp ${founder.name}`}
+                  >
+                    <MessageSquare className="w-4 h-4" />
+                    <span>WhatsApp</span>
+                  </a>
+
+                  <a
+                    href={`tel:${founder.phone}`}
+                    className="py-2.5 sm:py-3 px-3 rounded-xl bg-blue-50 dark:bg-blue-950/50 hover:bg-[#2563EB] text-[#2563EB] dark:text-blue-300 hover:text-white border border-blue-200/80 dark:border-blue-800/60 text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 shadow-sm"
+                    title={`Call ${founder.name}`}
+                  >
+                    <Phone className="w-4 h-4" />
+                    <span>{founder.formattedPhone}</span>
+                  </a>
                 </div>
               </div>
             ))}
