@@ -259,8 +259,8 @@ export default function SEOHead() {
       ogTags['og:image'] = blogArticle.featuredImage;
       ogTags['twitter:image'] = blogArticle.featuredImage;
     } else {
-      ogTags['og:image'] = 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop';
-      ogTags['twitter:image'] = 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop';
+      ogTags['og:image'] = 'https://tmdigitalgrow.com/growth_dashboard.jpg';
+      ogTags['twitter:image'] = 'https://tmdigitalgrow.com/growth_dashboard.jpg';
     }
 
     Object.entries(ogTags).forEach(([key, val]) => {

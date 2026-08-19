@@ -58,7 +58,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     publishedDate: '2026-08-01',
     updatedDate: '2026-08-16',
     author: AUTHORS.thariq,
-    featuredImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop',
+    featuredImage: '/growth_dashboard.jpg',
     summary: 'Selecting the right digital marketing agency in Tirunelveli can make or break your local business expansion. Learn how to identify performance-driven agencies versus vanity-metric vendors.',
     tableOfContents: [
       { id: 'introduction', title: 'The Changing Digital Landscape in Nellai' },
