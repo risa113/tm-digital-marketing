@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Play, CheckCircle2, Zap, Sparkles } from 'lucide-react';
+import { ArrowRight, Play, CheckCircle2, Zap, Sparkles, TrendingUp, ShieldCheck } from 'lucide-react';
 import { STATS } from '../data/marketingData';
 import AmbientBackground from './AmbientBackground';
 import { fadeInUp, fadeInDown, slideInLeft, slideInRight, scaleIn, staggerContainer, defaultViewport } from '../utils/animations';
@@ -54,7 +54,7 @@ export default function HeroSection({ onOpenConsultation }: HeroSectionProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          {/* Left Column: Heading, Subtitle & Buttons (Slide in Left & Fade in Up) */}
+          {/* Left Column: Heading, Subtitle & Buttons (Heavy Slide in Left & Fade in Up) */}
           <motion.div
             variants={slideInLeft}
             initial="hidden"
@@ -62,10 +62,10 @@ export default function HeroSection({ onOpenConsultation }: HeroSectionProps) {
             viewport={defaultViewport}
             className="lg:col-span-7 space-y-5 sm:space-y-7 text-left"
           >
-            {/* Top Tag Pill (Upper to Down) */}
+            {/* Top Tag Pill (Upper to Down) with Animated Glow */}
             <motion.div 
               variants={fadeInDown}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 text-[11px] sm:text-xs font-extrabold text-[#2563EB] shadow-sm"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 text-[11px] sm:text-xs font-extrabold text-[#2563EB] shadow-lg shadow-blue-500/10 animate-continuous-float"
             >
               <Zap className="w-3.5 h-3.5 text-[#3B82F6] animate-pulse" />
               <span>#1 Digital Marketing Agency in Tirunelveli</span>
@@ -78,7 +78,7 @@ export default function HeroSection({ onOpenConsultation }: HeroSectionProps) {
               className="font-heading font-extrabold text-3xl sm:text-5xl lg:text-6xl xl:text-7xl text-[#111827] dark:text-white tracking-tight leading-[1.1]"
             >
               Grow Your Business with <br className="hidden sm:block" />
-              <span className="gradient-text">TM Digital Marketing</span>
+              <span className="gradient-text drop-shadow-[0_4px_24px_rgba(37,99,235,0.3)]">TM Digital Marketing</span>
             </motion.h1>
 
             {/* Subheadline (Down to Up) */}
@@ -97,19 +97,19 @@ export default function HeroSection({ onOpenConsultation }: HeroSectionProps) {
               className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-1"
             >
               <motion.button
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.96 }}
+                whileHover={{ scale: 1.06, y: -2 }}
+                whileTap={{ scale: 0.94 }}
                 onClick={onOpenConsultation}
-                className="font-btn font-semibold text-sm sm:text-base rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-6 sm:px-8 py-3.5 sm:py-4 shadow-xl shadow-blue-600/30 transition-all flex items-center justify-center gap-2.5 cursor-pointer"
+                className="font-btn font-semibold text-sm sm:text-base rounded-2xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-6 sm:px-8 py-3.5 sm:py-4 shadow-xl shadow-blue-600/40 hover:shadow-blue-500/60 transition-all flex items-center justify-center gap-2.5 cursor-pointer relative overflow-hidden shimmer-sweep"
               >
                 <span>Book Free Consultation</span>
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
               </motion.button>
 
-              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
+              <motion.div whileHover={{ scale: 1.06, y: -2 }} whileTap={{ scale: 0.94 }}>
                 <Link
                   to="/deliverables"
-                  className="font-btn font-semibold text-sm sm:text-base rounded-2xl glass-card text-[#111827] dark:text-white px-6 sm:px-8 py-3.5 sm:py-4 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all flex items-center justify-center gap-2.5 border border-slate-200 dark:border-slate-800"
+                  className="font-btn font-semibold text-sm sm:text-base rounded-2xl glass-card text-[#111827] dark:text-white px-6 sm:px-8 py-3.5 sm:py-4 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all flex items-center justify-center gap-2.5 border border-slate-200 dark:border-slate-800 shadow-md"
                 >
                   <span>Deliverables</span>
                   <Play className="w-4 h-4 text-[#2563EB] fill-[#2563EB]" />
@@ -138,7 +138,7 @@ export default function HeroSection({ onOpenConsultation }: HeroSectionProps) {
             </motion.div>
           </motion.div>
 
-          {/* Right Column: 3D Laptop Visual (Slide in Right) */}
+          {/* Right Column: 3D Laptop Visual (Heavy Slide in Right) */}
           <motion.div
             variants={slideInRight}
             initial="hidden"
@@ -146,6 +146,16 @@ export default function HeroSection({ onOpenConsultation }: HeroSectionProps) {
             viewport={defaultViewport}
             className="lg:col-span-5 relative h-[320px] sm:h-[450px] flex items-center justify-center"
           >
+            {/* Floating High-Impact Glassmorphic Badge */}
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute -top-4 -right-2 sm:right-4 z-20 px-3.5 py-2 rounded-2xl bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200 dark:border-slate-800 shadow-xl flex items-center gap-2"
+            >
+              <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
+              <span className="text-[11px] font-extrabold text-slate-800 dark:text-slate-200">Live ROI Engines</span>
+            </motion.div>
+
             <Suspense fallback={
               <div className="w-full h-64 rounded-3xl bg-blue-50/50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 animate-pulse flex items-center justify-center">
                 <Zap className="w-8 h-8 text-[#2563EB]/40 animate-spin" />
@@ -157,7 +167,7 @@ export default function HeroSection({ onOpenConsultation }: HeroSectionProps) {
 
         </div>
 
-        {/* Animated Counter Statistics Bar (Staggered Down to Up Entrance) */}
+        {/* Animated Counter Statistics Bar (Heavy Glow + Shimmer on Hover) */}
         <div className="mt-12 sm:mt-20 pt-8 sm:pt-10 border-t border-slate-200 dark:border-slate-800">
           <motion.div 
             variants={staggerContainer}
@@ -171,8 +181,8 @@ export default function HeroSection({ onOpenConsultation }: HeroSectionProps) {
                 key={stat.label}
                 variants={fadeInUp}
                 custom={idx}
-                whileHover={{ y: -6, scale: 1.02 }}
-                className="glass-card p-4 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 text-center space-y-1 group"
+                whileHover={{ y: -8, scale: 1.03 }}
+                className="glass-card p-4 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 text-center space-y-1 group heavy-card-glow shimmer-sweep"
               >
                 <StatCounter value={stat.value} suffix={stat.suffix} />
                 <h3 className="font-heading font-bold text-xs sm:text-sm text-[#111827] dark:text-white pt-0.5 sm:pt-1 group-hover:text-[#2563EB] transition-colors">

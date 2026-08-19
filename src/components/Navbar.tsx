@@ -104,7 +104,7 @@ export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2 sm:gap-4">
         
         {/* Brand Logo */}
-        <Link to="/" className="shrink-0 flex items-center lg:pr-4 xl:pr-6 lg:border-r border-slate-200/60 dark:border-slate-800/60">
+        <Link to="/" className="shrink-0 flex items-center lg:pr-4 xl:pr-6">
           <Logo size="sm" showTagline={true} />
         </Link>
 
