@@ -86,20 +86,6 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* Custom Scrollbars */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #F8FAFC;
-}
-.dark ::-webkit-scrollbar-track {
-  background: #0F172A;
-}
-::-webkit-scrollbar-thumb {
-  background: #2563EB;
-  border-radius: 4px;
-}
 
 /* Lenis Scroll Prevention & Modal Scroll Isolation */
 [data-lenis-prevent],
