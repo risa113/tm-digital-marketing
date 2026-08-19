@@ -2,14 +2,14 @@ const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-function run(cmd) {
+function run(cmd, cwd) {
   console.log('Running:', cmd);
-  const out = execSync(cmd, { encoding: 'utf8' });
+  const out = execSync(cmd, { cwd: cwd || __dirname, encoding: 'utf8' });
   if (out) console.log(out.trim());
   return out;
 }
 
-console.log('1. Building fresh production bundles...');
+console.log('1. Building production bundles...');
 run('npm run build');
 
 const tempDir = path.join(__dirname, '..', 'gh-pages-deploy-temp');
@@ -18,7 +18,8 @@ if (fs.existsSync(tempDir)) {
 }
 
 console.log('2. Cloning gh-pages branch...');
-run(`git clone --depth 1 --branch gh-pages https://github.com/risa113/tm-digital-marketing.git "${tempDir}"`);
+run(`git clone https://github.com/risa113/tm-digital-marketing.git "${tempDir}"`);
+run(`git -C "${tempDir}" checkout gh-pages`);
 
 console.log('3. Cleaning old assets in temp worktree...');
 const oldFiles = fs.readdirSync(tempDir);
@@ -49,11 +50,12 @@ console.log('5. Configuring git identity in tempDir...');
 run(`git -C "${tempDir}" config user.name "Mohamed Thariq"`);
 run(`git -C "${tempDir}" config user.email "mohamedthariq113@gmail.com"`);
 
-console.log('6. Staging all files...');
-run(`git -C "${tempDir}" add -A`);
+console.log('6. Forcing git add of all files including images...');
+run(`git -C "${tempDir}" add -A -f`);
 
 console.log('7. Checking status...');
 const status = run(`git -C "${tempDir}" status --porcelain`);
+console.log('Status:\n', status);
 
 if (status && status.trim().length > 0) {
   console.log('8. Committing changes...');
