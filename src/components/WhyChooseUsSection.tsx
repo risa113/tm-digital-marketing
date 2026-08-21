@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, XCircle, CheckCircle2, ShieldCheck, Zap } from 'lucide-react';
+import { Sparkles, XCircle, CheckCircle2 } from 'lucide-react';
 import { WHY_CHOOSE_US } from '../data/marketingData';
 import { fadeInUp, fadeInDown, slideInLeft, slideInRight, defaultViewport } from '../utils/animations';
 

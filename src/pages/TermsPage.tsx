@@ -1,6 +1,5 @@
 import React from 'react';
 import { ShieldCheck, FileCheck, AlertCircle, Award, Mail } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { CONTACT_INFO } from '../data/marketingData';
 
 export default function TermsPage() {

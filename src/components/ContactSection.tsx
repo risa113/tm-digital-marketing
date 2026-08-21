@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import confetti from 'canvas-confetti';
 import { 
   Sparkles, 
   Send, 
@@ -8,7 +7,6 @@ import {
   Mail, 
   MapPin, 
   CheckCircle2, 
-  User, 
   ExternalLink,
   MessageSquare
 } from 'lucide-react';
@@ -47,7 +45,7 @@ export default function ContactSection({ preselectedService }: ContactSectionPro
   });
 
   const [submitted, setSubmitted] = useState(false);
-  const [whatsappUrl, setWhatsappUrl] = useState<string | null>(null);
+  const [whatsappUrl] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

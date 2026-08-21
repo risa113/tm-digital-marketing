@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8" />
@@ -9,9 +9,6 @@
   <link rel="icon" type="image/svg+xml" href="https://tmdigitalgrow.com/favicon.svg" />
   <link rel="apple-touch-icon" href="https://tmdigitalgrow.com/apple-touch-icon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
 
   <!-- Primary SEO Title & Meta Tags -->
   <title>TM Digital Marketing | Best Digital Marketing Agency in Tirunelveli</title>
@@ -23,9 +20,7 @@
   <meta name="author" content="TM Digital Marketing - Mohamed Thariq & Muja" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <meta name="google-adsense-account" content="ca-pub-3244084350504443" />
-  <!-- Google AdSense Script -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3244084350504443"
-       crossorigin="anonymous"></script>
+  
   <!-- Hreflang Tags for Multi-Region Search -->
   <link rel="alternate" hreflang="en" href="https://tmdigitalgrow.com/" />
   <link rel="alternate" hreflang="x-default" href="https://tmdigitalgrow.com/" />
@@ -74,7 +69,7 @@
       "url": "https://tmdigitalgrow.com",
       "logo": "https://tmdigitalgrow.com/favicon.svg"
     }
-    </script>
+  </script>
 
   <!-- Asynchronous Non-Blocking Google Fonts & Preconnects -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -93,11 +88,18 @@
     >
   </noscript>
 
-  <!-- Deferred Non-Critical Analytics (GTM & Meta Pixel) to eliminate TBT & Main Thread Blocking -->
+  <!-- Non-Critical Analytics & AdSense Initialization on Idle -->
   <script>
     window.addEventListener('load', function() {
       var requestIdle = window.requestIdleCallback || function(cb) { setTimeout(cb, 1500); };
       requestIdle(function() {
+        // Load AdSense Script
+        var adScript = document.createElement('script');
+        adScript.async = true;
+        adScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3244084350504443';
+        adScript.crossOrigin = 'anonymous';
+        document.head.appendChild(adScript);
+
         // Load Google Analytics (gtag.js)
         var gtm = document.createElement('script');
         gtm.async = true;
@@ -137,17 +139,6 @@
       src="https://www.facebook.com/tr?id=2999594797059173&ev=PageView&noscript=1" /></noscript>
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3244084350504443"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-format="autorelaxed"
-     data-ad-client="ca-pub-3244084350504443"
-     data-ad-slot="2561148910"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 </body>
 
 </html>

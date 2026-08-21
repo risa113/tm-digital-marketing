@@ -5,27 +5,13 @@ import {
   Sparkles, 
   Phone, 
   MessageSquare, 
-  Mail, 
   CheckCircle2, 
   Zap, 
   Target, 
   Code2, 
   ShieldCheck, 
   ArrowRight,
-  TrendingUp,
-  Layers,
-  Palette,
-  Bot,
-  Activity,
-  Award,
-  Globe,
-  Compass,
-  Cpu,
-  BarChart3,
-  Flame,
-  ChevronRight,
-  UserCheck,
-  ChevronDown
+  Palette
 } from 'lucide-react';
 import { CONTACT_INFO, STATS } from '../data/marketingData';
 

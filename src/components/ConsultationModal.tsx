@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import confetti from 'canvas-confetti';
 import { X, Send, Sparkles, CheckCircle2, MessageSquare } from 'lucide-react';
 import { submitLeadToDatabase } from '../services/apiService';
 
@@ -20,7 +19,7 @@ export default function ConsultationModal({ isOpen, onClose, defaultService }: C
   });
 
   const [submitted, setSubmitted] = useState(false);
-  const [whatsappUrl, setWhatsappUrl] = useState<string | null>(null);
+  const [whatsappUrl] = useState<string | null>(null);
 
   // Prevent background scrolling when modal is open
   React.useEffect(() => {

@@ -15,8 +15,7 @@ import {
   Mail, 
   Bot, 
   ArrowRight, 
-  X,
-  CheckCircle2
+  X
 } from 'lucide-react';
 import { fadeInUp, fadeInDown, slideInLeft, slideInRight, staggerContainer, defaultViewport } from '../utils/animations';
 

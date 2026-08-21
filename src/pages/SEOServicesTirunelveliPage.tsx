@@ -1,16 +1,9 @@
 import { Link } from 'react-router-dom';
 import { 
   Search, 
-  CheckCircle2, 
   Sparkles, 
   ArrowRight, 
-  MapPin, 
-  Globe, 
-  TrendingUp, 
-  BarChart3, 
-  ShieldCheck, 
-  PhoneCall, 
-  Layers 
+  PhoneCall
 } from 'lucide-react';
 import { CONTACT_INFO } from '../data/marketingData';
 

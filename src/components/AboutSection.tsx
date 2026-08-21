@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, CheckCircle2, Target, ShieldCheck, TrendingUp, Award } from 'lucide-react';
+import { Sparkles, CheckCircle2, Award } from 'lucide-react';
 import { fadeInUp, fadeInDown, slideInLeft, slideInRight, defaultViewport } from '../utils/animations';
 
 export default function AboutSection() {

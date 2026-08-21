@@ -20,20 +20,20 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
-              return 'vendor-react';
-            }
             if (id.includes('three') || id.includes('@react-three')) {
               return 'vendor-three';
             }
-            if (id.includes('framer-motion') || id.includes('gsap') || id.includes('lenis')) {
+            if (id.includes('firebase') || id.includes('@supabase') || id.includes('mongoose') || id.includes('pg')) {
+              return 'vendor-backend';
+            }
+            if (id.includes('framer-motion') || id.includes('gsap') || id.includes('lenis') || id.includes('canvas-confetti')) {
               return 'vendor-animation';
             }
             if (id.includes('lucide-react')) {
               return 'vendor-icons';
             }
-            if (id.includes('firebase') || id.includes('@supabase')) {
-              return 'vendor-backend';
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom') || id.includes('clsx') || id.includes('tailwind-merge')) {
+              return 'vendor-react';
             }
           }
         }

@@ -3,12 +3,7 @@ import {
   Palette, 
   Sparkles, 
   ArrowRight, 
-  Layers, 
-  ShieldCheck, 
-  PhoneCall, 
-  CheckCircle2, 
-  Eye, 
-  Award 
+  PhoneCall
 } from 'lucide-react';
 import { CONTACT_INFO } from '../data/marketingData';
 

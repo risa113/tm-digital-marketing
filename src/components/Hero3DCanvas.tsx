@@ -3,7 +3,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Float, RoundedBox, OrbitControls, Sphere } from '@react-three/drei';
 import * as THREE from 'three';
 
-function Laptop3DModel() {
+function Laptop3DModel({ isVisible }: { isVisible: boolean }) {
   const laptopGroup = useRef<THREE.Group>(null);
   const [lidBackTexture, setLidBackTexture] = useState<THREE.CanvasTexture | null>(null);
 
@@ -137,60 +137,57 @@ function Laptop3DModel() {
     img.crossOrigin = 'Anonymous';
     img.src = logoUrl;
     img.onload = () => {
-      const tempCanvas = document.createElement('canvas');
-      tempCanvas.width = img.width;
-      tempCanvas.height = img.height;
-      const tempCtx = tempCanvas.getContext('2d');
+      // Draw glowing cyan-blue aura behind the TM emblem
+      ctx.save();
+      ctx.shadowColor = '#00A3FF';
+      ctx.shadowBlur = 40;
 
-      if (tempCtx) {
-        tempCtx.drawImage(img, 0, 0);
-        const imgData = tempCtx.getImageData(0, 0, img.width, img.height);
-        const data = imgData.data;
+      const drawSize = 310;
+      const dx = (1024 - drawSize) / 2;
+      const dy = 95;
 
-        // Remove white background so exact TM logo blends seamlessly onto laptop lid
-        for (let i = 0; i < data.length; i += 4) {
-          const r = data[i];
-          const g = data[i + 1];
-          const b = data[i + 2];
-          if (r > 225 && g > 225 && b > 225) {
-            data[i + 3] = 0; // Set Alpha to transparent
-          }
-        }
-        tempCtx.putImageData(imgData, 0, 0);
+      ctx.drawImage(img, dx, dy, drawSize, drawSize);
+      ctx.restore();
 
-        // Draw glowing cyan-blue aura behind the exact TM logo
-        ctx.shadowColor = '#00A3FF';
-        ctx.shadowBlur = 50;
+      // Brand Title under illuminated logo emblem
+      ctx.save();
+      ctx.shadowColor = '#38BDF8';
+      ctx.shadowBlur = 20;
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '900 36px Sora, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('TM DIGITAL MARKETING', 512, dy + drawSize + 55);
 
-        const drawWidth = 540;
-        const drawHeight = (img.height / img.width) * drawWidth;
-        const dx = (1024 - drawWidth) / 2;
-        const dy = (680 - drawHeight) / 2 - 20;
+      // Tagline Subtitle
+      ctx.shadowBlur = 10;
+      ctx.fillStyle = '#38BDF8';
+      ctx.font = '700 15px Sora, sans-serif';
+      ctx.fillText('CONNECT • ENGAGE • GROW', 512, dy + drawSize + 92);
+      ctx.restore();
 
-        ctx.drawImage(tempCanvas, dx, dy, drawWidth, drawHeight);
-
-        // Brand Subtitle under exact logo image on laptop lid
-        ctx.shadowColor = '#38BDF8';
-        ctx.shadowBlur = 25;
-        ctx.fillStyle = '#FFFFFF';
-        ctx.font = '900 38px Sora, sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText('TM DIGITAL MARKETING', 512, dy + drawHeight + 52);
-
-        const tex = new THREE.CanvasTexture(canvas);
-        tex.needsUpdate = true;
-        setLidBackTexture(tex);
-      }
+      const tex = new THREE.CanvasTexture(canvas);
+      tex.needsUpdate = true;
+      setLidBackTexture(tex);
     };
   }, []);
 
   useFrame((state) => {
+    if (!isVisible) return; // Skip frame calculation if canvas is scrolled out of viewport
     if (laptopGroup.current) {
-      // Smooth 360-degree rotation animation to show off both front screen and back lid TM logo
-      laptopGroup.current.rotation.y = state.clock.elapsedTime * 0.4;
-      laptopGroup.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.3) * 0.08;
+      laptopGroup.current.rotation.y = state.clock.elapsedTime * 0.35;
+      laptopGroup.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.25) * 0.06;
     }
   });
+
+  // Pre-calculated particle positions for instant render
+  const particles = useMemo(() => [
+    { x: -2.8, y: 1.8, z: 1.2, color: '#3B82F6', speed: 1.8 },
+    { x: 2.9, y: 1.5, z: -1.0, color: '#60A5FA', speed: 2.1 },
+    { x: -1.8, y: -2.0, z: 0.8, color: '#38BDF8', speed: 1.6 },
+    { x: 2.2, y: -1.8, z: 1.4, color: '#3B82F6', speed: 2.3 },
+    { x: 0.5, y: 2.5, z: -1.5, color: '#60A5FA', speed: 1.9 },
+    { x: -3.2, y: 0.2, z: -0.8, color: '#38BDF8', speed: 2.0 },
+  ], []);
 
   return (
     <group ref={laptopGroup} position={[0, -0.5, 0]}>
@@ -229,70 +226,67 @@ function Laptop3DModel() {
 
       {/* Floating 3D Marketing Badges around Laptop */}
       {/* 1. Instagram */}
-      <Float speed={2.5} rotationIntensity={1.2} floatIntensity={1.8}>
+      <Float speed={2} rotationIntensity={1} floatIntensity={1.5}>
         <mesh position={[-2.6, 2.2, 0.8]}>
-          <sphereGeometry args={[0.5, 32, 32]} />
-          <meshStandardMaterial color="#E1306C" roughness={0.2} metalness={0.6} />
+          <sphereGeometry args={[0.48, 24, 24]} />
+          <meshStandardMaterial color="#E1306C" roughness={0.25} metalness={0.5} />
         </mesh>
       </Float>
 
       {/* 2. Facebook */}
-      <Float speed={2} rotationIntensity={1} floatIntensity={1.5}>
-        <RoundedBox args={[0.8, 0.8, 0.8]} radius={0.15} position={[2.6, 2.0, 0.5]}>
-          <meshStandardMaterial color="#1877F2" roughness={0.2} metalness={0.7} />
+      <Float speed={1.8} rotationIntensity={0.9} floatIntensity={1.4}>
+        <RoundedBox args={[0.75, 0.75, 0.75]} radius={0.12} position={[2.6, 2.0, 0.5]}>
+          <meshStandardMaterial color="#1877F2" roughness={0.25} metalness={0.6} />
         </RoundedBox>
       </Float>
 
       {/* 3. Google Ads */}
-      <Float speed={3} rotationIntensity={1.4} floatIntensity={2}>
+      <Float speed={2.2} rotationIntensity={1.1} floatIntensity={1.6}>
         <mesh position={[-2.4, -0.5, 1]}>
-          <octahedronGeometry args={[0.6, 0]} />
-          <meshStandardMaterial color="#F4B400" roughness={0.2} metalness={0.8} />
+          <octahedronGeometry args={[0.55, 0]} />
+          <meshStandardMaterial color="#F4B400" roughness={0.25} metalness={0.7} />
         </mesh>
       </Float>
 
       {/* 4. Analytics */}
-      <Float speed={2.2} rotationIntensity={1.1} floatIntensity={1.6}>
-        <RoundedBox args={[0.9, 0.9, 0.9]} radius={0.1} position={[2.5, -0.6, -0.5]}>
+      <Float speed={1.9} rotationIntensity={1} floatIntensity={1.5}>
+        <RoundedBox args={[0.8, 0.8, 0.8]} radius={0.1} position={[2.5, -0.6, -0.5]}>
           <meshStandardMaterial color="#F97316" roughness={0.3} metalness={0.5} />
         </RoundedBox>
       </Float>
 
       {/* 5. WhatsApp */}
-      <Float speed={2.4} rotationIntensity={1.3} floatIntensity={1.7}>
+      <Float speed={2} rotationIntensity={1} floatIntensity={1.5}>
         <mesh position={[-3.0, 0.8, -1.0]}>
-          <sphereGeometry args={[0.45, 32, 32]} />
-          <meshStandardMaterial color="#25D366" roughness={0.2} metalness={0.5} />
+          <sphereGeometry args={[0.42, 24, 24]} />
+          <meshStandardMaterial color="#25D366" roughness={0.25} metalness={0.5} />
         </mesh>
       </Float>
 
       {/* 6. SEO Node */}
-      <Float speed={2.8} rotationIntensity={1.3} floatIntensity={1.9}>
+      <Float speed={2.2} rotationIntensity={1} floatIntensity={1.6}>
         <mesh position={[0, 2.6, -0.5]}>
-          <octahedronGeometry args={[0.55, 0]} />
-          <meshStandardMaterial color="#3B82F6" roughness={0.1} metalness={0.8} />
+          <octahedronGeometry args={[0.5, 0]} />
+          <meshStandardMaterial color="#3B82F6" roughness={0.15} metalness={0.7} />
         </mesh>
       </Float>
 
-      {/* Ambient Glowing Particles */}
-      {Array.from({ length: 16 }).map((_, i) => {
-        const x = (Math.random() - 0.5) * 8;
-        const y = (Math.random() - 0.5) * 6;
-        const z = (Math.random() - 0.5) * 6;
-        return (
-          <Float key={i} speed={1.5 + Math.random()} floatIntensity={1 + Math.random()}>
-            <Sphere position={[x, y, z]} args={[0.07, 16, 16]}>
-              <meshBasicMaterial color={i % 2 === 0 ? '#3B82F6' : '#60A5FA'} transparent opacity={0.7} />
-            </Sphere>
-          </Float>
-        );
-      })}
+      {/* Optimized Ambient Glowing Particles */}
+      {particles.map((p, i) => (
+        <Float key={i} speed={p.speed} floatIntensity={1.2}>
+          <Sphere position={[p.x, p.y, p.z]} args={[0.06, 12, 12]}>
+            <meshBasicMaterial color={p.color} transparent opacity={0.65} />
+          </Sphere>
+        </Float>
+      ))}
     </group>
   );
 }
 
 export default function Hero3DCanvas() {
   const [isMobile, setIsMobile] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -303,19 +297,44 @@ export default function Hero3DCanvas() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // Pause 3D rendering when scrolled out of view
+  useEffect(() => {
+    if (!containerRef.current || !('IntersectionObserver' in window)) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { rootMargin: '100px', threshold: 0 }
+    );
+
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="w-full h-full min-h-[320px] sm:min-h-[420px] relative pointer-events-none md:pointer-events-auto touch-pan-y">
+    <div 
+      ref={containerRef}
+      className="w-full h-full min-h-[320px] sm:min-h-[420px] relative pointer-events-none md:pointer-events-auto touch-pan-y"
+    >
       <Canvas
         camera={{ position: [0, 0, 6.5], fov: 50 }}
         className="w-full h-full"
-        dpr={isMobile ? [1, 1] : [1, 1.5]}
-        gl={{ antialias: !isMobile, alpha: true, powerPreference: 'high-performance' }}
+        frameloop={isVisible ? 'always' : 'never'}
+        dpr={isMobile ? [1, 1] : [1, 1.25]}
+        gl={{ 
+          antialias: !isMobile, 
+          alpha: true, 
+          powerPreference: 'high-performance',
+          stencil: false,
+          depth: true
+        }}
       >
         <ambientLight intensity={0.8} />
-        <directionalLight position={[10, 10, 5]} intensity={1.6} color="#ffffff" />
-        <pointLight position={[-10, -10, -5]} intensity={1.2} color="#2563EB" />
-        <Laptop3DModel />
-        {!isMobile && <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.6} />}
+        <directionalLight position={[10, 10, 5]} intensity={1.5} color="#ffffff" />
+        <pointLight position={[-10, -10, -5]} intensity={1.1} color="#2563EB" />
+        <Laptop3DModel isVisible={isVisible} />
+        {!isMobile && isVisible && <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.5} />}
       </Canvas>
     </div>
   );

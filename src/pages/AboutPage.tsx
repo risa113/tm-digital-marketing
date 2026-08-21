@@ -5,17 +5,14 @@ import {
   UserCheck, 
   Target, 
   Eye, 
-  Award, 
   ShieldCheck, 
   Zap, 
   CheckCircle2, 
   PhoneCall, 
   Globe, 
   ArrowRight,
-  Sparkles,
-  Users
+  Sparkles
 } from 'lucide-react';
-import { CONTACT_INFO } from '../data/marketingData';
 import AmbientBackground from '../components/AmbientBackground';
 import { fadeInUp, fadeInDown, slideInLeft, slideInRight, staggerContainer, defaultViewport } from '../utils/animations';
 

@@ -1,11 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { 
   Clock, 
   Calendar, 
-  User, 
   ArrowLeft, 
-  ArrowRight, 
   Share2, 
   CheckCircle2, 
   HelpCircle, 
@@ -14,8 +12,7 @@ import {
   ChevronRight,
   BookOpen
 } from 'lucide-react';
-import { BLOG_ARTICLES, BlogArticle } from '../data/blogData';
-import { CONTACT_INFO } from '../data/marketingData';
+import { BLOG_ARTICLES } from '../data/blogData';
 
 interface BlogPostPageProps {
   onOpenConsultation: () => void;

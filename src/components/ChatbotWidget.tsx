@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bot, X, Send, Sparkles, Phone, Mail, ChevronRight } from 'lucide-react';
-import { CONTACT_INFO } from '../data/marketingData';
+import { Bot, X, Send, Sparkles, ChevronRight } from 'lucide-react';
 
 interface Message {
   id: string;

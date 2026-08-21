@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Phone, MessageSquare, User, ArrowUp } from 'lucide-react';
+import { Phone, MessageSquare, ArrowUp } from 'lucide-react';
 import { CONTACT_INFO } from '../data/marketingData';
 
 export default function StickyButtons() {

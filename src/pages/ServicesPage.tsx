@@ -18,8 +18,6 @@ import {
   CheckCircle2, 
   ArrowRight, 
   Sparkles,
-  Layers,
-  HelpCircle,
   Clock
 } from 'lucide-react';
 import { SERVICES, ServiceItem, WEBSITE_PACKAGES } from '../data/marketingData';

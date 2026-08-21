@@ -1,16 +1,12 @@
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { 
   ShieldCheck, 
   Zap, 
   UserCheck, 
   Target, 
-  Clock, 
-  TrendingUp, 
   Check, 
   X, 
   Sparkles, 
-  ArrowRight,
   MessageSquare,
   Lock,
   Code,

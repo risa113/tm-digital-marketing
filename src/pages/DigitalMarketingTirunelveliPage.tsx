@@ -2,17 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
-  Zap, 
   CheckCircle2, 
   Sparkles, 
   ArrowRight, 
-  Target, 
-  TrendingUp, 
-  ShieldCheck, 
   PhoneCall, 
   HelpCircle, 
-  Users, 
-  BarChart3, 
   MapPin 
 } from 'lucide-react';
 import { CONTACT_INFO } from '../data/marketingData';

@@ -65,35 +65,101 @@
   }
 }
 
-/* Glassmorphism & High-Energy Glow Utilities */
+/* Glassmorphism & High-Energy Glow Utilities (GPU Optimized) */
 .glass-card {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(226, 232, 240, 0.8);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.85);
   box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.05);
+  transform: translateZ(0);
 }
 
 .dark .glass-card {
-  background: rgba(15, 23, 42, 0.85);
+  background: rgba(15, 23, 42, 0.88);
   border-color: rgba(255, 255, 255, 0.08);
   box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.4);
+}
+
+/* Hardware Accelerated Ambient Orbs */
+.ambient-orb {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  filter: blur(60px);
+  opacity: 0.85;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+.ambient-orb-1 {
+  animation: orbDrift1 18s ease-in-out infinite alternate;
+}
+
+.ambient-orb-2 {
+  animation: orbDrift2 22s ease-in-out infinite alternate;
+}
+
+.ambient-orb-3 {
+  animation: orbDrift3 20s ease-in-out infinite alternate;
+}
+
+@keyframes orbDrift1 {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(50px, -30px, 0) scale(1.15); }
+  100% { transform: translate3d(-30px, 40px, 0) scale(0.95); }
+}
+
+@keyframes orbDrift2 {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-60px, 40px, 0) scale(1.1); }
+  100% { transform: translate3d(40px, -50px, 0) scale(0.92); }
+}
+
+@keyframes orbDrift3 {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(40px, 40px, 0) scale(1.2); }
+  100% { transform: translate3d(-40px, -30px, 0) scale(0.9); }
+}
+
+/* Ambient Stardust (CSS Only, GPU Accelerated) */
+.ambient-star {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 9999px;
+  background: #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
+  opacity: 0.5;
+  animation: starPulse 6s ease-in-out infinite alternate;
+  will-change: opacity, transform;
+}
+
+.star-1 { animation-delay: 0s; }
+.star-2 { animation-delay: 1.5s; width: 6px; height: 6px; background: #60a5fa; }
+.star-3 { animation-delay: 3s; width: 3px; height: 3px; }
+.star-4 { animation-delay: 4.5s; width: 5px; height: 5px; background: #818cf8; }
+
+@keyframes starPulse {
+  0% { opacity: 0.2; transform: scale(0.8); }
+  100% { opacity: 0.8; transform: scale(1.4); }
 }
 
 /* Heavy High-Energy Glow & Shimmer Effects */
 .heavy-card-glow {
   position: relative;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+  will-change: transform;
 }
 
 .heavy-card-glow:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 25px 50px -12px rgba(37, 99, 235, 0.3), 0 0 25px rgba(56, 189, 248, 0.25);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px -12px rgba(37, 99, 235, 0.25), 0 0 20px rgba(56, 189, 248, 0.2);
   border-color: rgba(37, 99, 235, 0.6);
 }
 
 .dark .heavy-card-glow:hover {
-  box-shadow: 0 25px 50px -12px rgba(37, 99, 235, 0.5), 0 0 35px rgba(56, 189, 248, 0.35);
+  box-shadow: 0 20px 40px -12px rgba(37, 99, 235, 0.4), 0 0 25px rgba(56, 189, 248, 0.3);
   border-color: rgba(56, 189, 248, 0.7);
 }
 
@@ -128,11 +194,11 @@
 /* Continuous Glowing Pulse Keyframes */
 @keyframes neonPulse {
   0%, 100% {
-    box-shadow: 0 0 15px rgba(37, 99, 235, 0.4), 0 0 30px rgba(56, 189, 248, 0.2);
+    box-shadow: 0 0 12px rgba(37, 99, 235, 0.3), 0 0 24px rgba(56, 189, 248, 0.15);
     border-color: rgba(37, 99, 235, 0.6);
   }
   50% {
-    box-shadow: 0 0 30px rgba(37, 99, 235, 0.8), 0 0 55px rgba(56, 189, 248, 0.5);
+    box-shadow: 0 0 24px rgba(37, 99, 235, 0.6), 0 0 40px rgba(56, 189, 248, 0.35);
     border-color: rgba(56, 189, 248, 0.9);
   }
 }
@@ -144,10 +210,10 @@
 /* Continuous Subtle Floating Animation */
 @keyframes continuousFloat {
   0%, 100% {
-    transform: translateY(0px) rotate(0deg);
+    transform: translateY(0px);
   }
   50% {
-    transform: translateY(-8px) rotate(1deg);
+    transform: translateY(-6px);
   }
 }
 
@@ -178,3 +244,37 @@
   touch-action: pan-y !important;
   -webkit-overflow-scrolling: touch !important;
 }
+
+/* Content Visibility Optimization for offscreen sections */
+.content-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 600px;
+}
+
+/* Mobile Ultra-High-Speed Performance Rules (Zero Touch/Scroll Lag on Phones) */
+@media (max-width: 768px) {
+  .ambient-orb {
+    animation: none !important;
+    filter: blur(40px) !important;
+    opacity: 0.5 !important;
+  }
+  .ambient-star {
+    display: none !important;
+  }
+  .animate-continuous-float,
+  .animate-neon-pulse {
+    animation: none !important;
+  }
+  .glass-card {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: #ffffff !important;
+  }
+  .dark .glass-card {
+    background: #1e293b !important;
+  }
+  .shimmer-sweep::after {
+    display: none !important;
+  }
+}
+

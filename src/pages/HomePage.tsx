@@ -26,7 +26,7 @@ export default function HomePage({ onOpenConsultation, onSelectService }: HomePa
       <ServicesSection onSelectService={onSelectService} />
 
       {/* Founder Direct Access Banner */}
-      <section className="py-16 bg-gradient-to-r from-blue-600 to-sky-600 text-white relative overflow-hidden">
+      <section className="py-16 bg-gradient-to-r from-blue-600 to-sky-600 text-white relative overflow-hidden content-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
             <div className="space-y-3 text-center lg:text-left">

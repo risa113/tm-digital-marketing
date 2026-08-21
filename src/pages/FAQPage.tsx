@@ -1,17 +1,13 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { 
   HelpCircle, 
   Search, 
   ChevronDown, 
   MessageSquare, 
-  PhoneCall, 
-  Sparkles, 
-  ArrowRight,
-  ShieldCheck
+  Sparkles
 } from 'lucide-react';
-import { FAQS, CONTACT_INFO } from '../data/marketingData';
+import { FAQS } from '../data/marketingData';
 import AmbientBackground from '../components/AmbientBackground';
 import { fadeInUp, fadeInDown, staggerContainer, defaultViewport } from '../utils/animations';
 

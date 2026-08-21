@@ -3,12 +3,7 @@ import {
   TrendingUp, 
   Sparkles, 
   ArrowRight, 
-  Target, 
-  BarChart3, 
-  ShieldCheck, 
-  PhoneCall, 
-  CheckCircle2, 
-  Search 
+  PhoneCall
 } from 'lucide-react';
 import { CONTACT_INFO } from '../data/marketingData';
 

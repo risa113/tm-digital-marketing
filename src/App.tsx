@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Lenis from 'lenis';
@@ -10,34 +10,46 @@ import Breadcrumbs from './components/Breadcrumbs';
 import Footer from './components/Footer';
 import AdSenseBanner from './components/AdSenseBanner';
 import StickyButtons from './components/StickyButtons';
-import ChatbotWidget from './components/ChatbotWidget';
-import ConsultationModal from './components/ConsultationModal';
 
-import HomePage from './pages/HomePage';
-import AboutPage from './pages/AboutPage';
-import ServicesPage from './pages/ServicesPage';
-import DigitalMarketingTirunelveliPage from './pages/DigitalMarketingTirunelveliPage';
-import SEOServicesTirunelveliPage from './pages/SEOServicesTirunelveliPage';
-import SocialMediaMarketingTirunelveliPage from './pages/SocialMediaMarketingTirunelveliPage';
-import GoogleAdsTirunelveliPage from './pages/GoogleAdsTirunelveliPage';
-import MetaAdsTirunelveliPage from './pages/MetaAdsTirunelveliPage';
-import WebDevelopmentTirunelveliPage from './pages/WebDevelopmentTirunelveliPage';
-import BrandingTirunelveliPage from './pages/BrandingTirunelveliPage';
-import LeadGenerationTirunelveliPage from './pages/LeadGenerationTirunelveliPage';
-import BlogIndexPage from './pages/BlogIndexPage';
-import BlogPostPage from './pages/BlogPostPage';
-import ProcessPage from './pages/ProcessPage';
-import DeliverablesPage from './pages/DeliverablesPage';
-import WhyUsPage from './pages/WhyUsPage';
-import FAQPage from './pages/FAQPage';
-import ContactPage from './pages/ContactPage';
-import TestimonialsPage from './pages/TestimonialsPage';
-import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
-import TermsPage from './pages/TermsPage';
-import FoundersPage from './pages/FoundersPage';
-import NotFoundPage from './pages/NotFoundPage';
+// Lazy load interactive modal dialogs
+const ChatbotWidget = lazy(() => import('./components/ChatbotWidget'));
+const ConsultationModal = lazy(() => import('./components/ConsultationModal'));
+
+// Lazy load route pages for maximum initial load performance
+const HomePage = lazy(() => import('./pages/HomePage'));
+const AboutPage = lazy(() => import('./pages/AboutPage'));
+const ServicesPage = lazy(() => import('./pages/ServicesPage'));
+const DigitalMarketingTirunelveliPage = lazy(() => import('./pages/DigitalMarketingTirunelveliPage'));
+const SEOServicesTirunelveliPage = lazy(() => import('./pages/SEOServicesTirunelveliPage'));
+const SocialMediaMarketingTirunelveliPage = lazy(() => import('./pages/SocialMediaMarketingTirunelveliPage'));
+const GoogleAdsTirunelveliPage = lazy(() => import('./pages/GoogleAdsTirunelveliPage'));
+const MetaAdsTirunelveliPage = lazy(() => import('./pages/MetaAdsTirunelveliPage'));
+const WebDevelopmentTirunelveliPage = lazy(() => import('./pages/WebDevelopmentTirunelveliPage'));
+const BrandingTirunelveliPage = lazy(() => import('./pages/BrandingTirunelveliPage'));
+const LeadGenerationTirunelveliPage = lazy(() => import('./pages/LeadGenerationTirunelveliPage'));
+const BlogIndexPage = lazy(() => import('./pages/BlogIndexPage'));
+const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
+const ProcessPage = lazy(() => import('./pages/ProcessPage'));
+const DeliverablesPage = lazy(() => import('./pages/DeliverablesPage'));
+const WhyUsPage = lazy(() => import('./pages/WhyUsPage'));
+const FAQPage = lazy(() => import('./pages/FAQPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+const TestimonialsPage = lazy(() => import('./pages/TestimonialsPage'));
+const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
+const TermsPage = lazy(() => import('./pages/TermsPage'));
+const FoundersPage = lazy(() => import('./pages/FoundersPage'));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
 import { ServiceItem } from './data/marketingData';
+
+// Lightweight route transition spinner
+function PageLoadingFallback() {
+  return (
+    <div className="w-full min-h-[60vh] flex items-center justify-center py-24">
+      <div className="w-9 h-9 rounded-full border-3 border-blue-600/20 border-t-[#2563EB] animate-spin" />
+    </div>
+  );
+}
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -47,13 +59,13 @@ export default function App() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Lenis Smooth Scroll Initialization (Desktop Only for Maximum Mobile Performance)
+  // Lenis Smooth Scroll Initialization (Desktop Only for Maximum Performance)
   useEffect(() => {
     const isMobile = window.innerWidth < 768 || ('ontouchstart' in window && window.innerWidth < 1024);
     if (isMobile) return;
 
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.0,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       prevent: (node: HTMLElement) => {
         return (
@@ -123,7 +135,7 @@ export default function App() {
       {/* Visual Breadcrumb Navigation */}
       <Breadcrumbs />
 
-      {/* Route Content Area */}
+      {/* Route Content Area with Code-Splitting Suspense */}
       <main className="w-full max-w-[100vw] overflow-x-hidden min-h-[70vh]">
         <AnimatePresence mode="wait">
           <motion.div
@@ -131,113 +143,115 @@ export default function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15, ease: 'easeOut' }}
+            transition={{ duration: 0.12, ease: 'easeOut' }}
           >
-            <Routes location={location}>
-              {/* Home Page Routes */}
-              <Route path="/" element={renderHomePage()} />
-              <Route path="/tm-digital-marketing" element={renderHomePage()} />
-              <Route path="/dTM-digital-marketing" element={renderHomePage()} />
-              <Route path="/tm-digital-marketing/" element={renderHomePage()} />
-              <Route path="/dTM-digital-marketing/" element={renderHomePage()} />
+            <Suspense fallback={<PageLoadingFallback />}>
+              <Routes location={location}>
+                {/* Home Page Routes */}
+                <Route path="/" element={renderHomePage()} />
+                <Route path="/tm-digital-marketing" element={renderHomePage()} />
+                <Route path="/dTM-digital-marketing" element={renderHomePage()} />
+                <Route path="/tm-digital-marketing/" element={renderHomePage()} />
+                <Route path="/dTM-digital-marketing/" element={renderHomePage()} />
 
-              {/* Dedicated Core Pages */}
-              <Route
-                path="/about"
-                element={<AboutPage onOpenConsultation={handleOpenConsultation} />}
-              />
-              <Route
-                path="/services"
-                element={
-                  <ServicesPage
-                    onOpenConsultation={handleOpenConsultation}
-                    onSelectService={handleSelectService}
-                  />
-                }
-              />
+                {/* Dedicated Core Pages */}
+                <Route
+                  path="/about"
+                  element={<AboutPage onOpenConsultation={handleOpenConsultation} />}
+                />
+                <Route
+                  path="/services"
+                  element={
+                    <ServicesPage
+                      onOpenConsultation={handleOpenConsultation}
+                      onSelectService={handleSelectService}
+                    />
+                  }
+                />
 
-              {/* Dedicated High-Intent Local Service Landing Pages */}
-              <Route
-                path="/digital-marketing-agency-tirunelveli"
-                element={<DigitalMarketingTirunelveliPage onOpenConsultation={handleOpenConsultation} />}
-              />
-              <Route
-                path="/seo-services-tirunelveli"
-                element={<SEOServicesTirunelveliPage onOpenConsultation={handleOpenConsultation} />}
-              />
-              <Route
-                path="/social-media-marketing-tirunelveli"
-                element={<SocialMediaMarketingTirunelveliPage onOpenConsultation={handleOpenConsultation} />}
-              />
-              <Route
-                path="/google-ads-tirunelveli"
-                element={<GoogleAdsTirunelveliPage onOpenConsultation={handleOpenConsultation} />}
-              />
-              <Route
-                path="/meta-ads-tirunelveli"
-                element={<MetaAdsTirunelveliPage onOpenConsultation={handleOpenConsultation} />}
-              />
-              <Route
-                path="/web-development-tirunelveli"
-                element={<WebDevelopmentTirunelveliPage onOpenConsultation={handleOpenConsultation} />}
-              />
-              <Route
-                path="/branding-tirunelveli"
-                element={<BrandingTirunelveliPage onOpenConsultation={handleOpenConsultation} />}
-              />
-              <Route
-                path="/lead-generation-tirunelveli"
-                element={<LeadGenerationTirunelveliPage onOpenConsultation={handleOpenConsultation} />}
-              />
+                {/* Dedicated High-Intent Local Service Landing Pages */}
+                <Route
+                  path="/digital-marketing-agency-tirunelveli"
+                  element={<DigitalMarketingTirunelveliPage onOpenConsultation={handleOpenConsultation} />}
+                />
+                <Route
+                  path="/seo-services-tirunelveli"
+                  element={<SEOServicesTirunelveliPage onOpenConsultation={handleOpenConsultation} />}
+                />
+                <Route
+                  path="/social-media-marketing-tirunelveli"
+                  element={<SocialMediaMarketingTirunelveliPage onOpenConsultation={handleOpenConsultation} />}
+                />
+                <Route
+                  path="/google-ads-tirunelveli"
+                  element={<GoogleAdsTirunelveliPage onOpenConsultation={handleOpenConsultation} />}
+                />
+                <Route
+                  path="/meta-ads-tirunelveli"
+                  element={<MetaAdsTirunelveliPage onOpenConsultation={handleOpenConsultation} />}
+                />
+                <Route
+                  path="/web-development-tirunelveli"
+                  element={<WebDevelopmentTirunelveliPage onOpenConsultation={handleOpenConsultation} />}
+                />
+                <Route
+                  path="/branding-tirunelveli"
+                  element={<BrandingTirunelveliPage onOpenConsultation={handleOpenConsultation} />}
+                />
+                <Route
+                  path="/lead-generation-tirunelveli"
+                  element={<LeadGenerationTirunelveliPage onOpenConsultation={handleOpenConsultation} />}
+                />
 
-              {/* Blog System */}
-              <Route
-                path="/blog"
-                element={<BlogIndexPage onOpenConsultation={handleOpenConsultation} />}
-              />
-              <Route
-                path="/blog/:slug"
-                element={<BlogPostPage onOpenConsultation={handleOpenConsultation} />}
-              />
+                {/* Blog System */}
+                <Route
+                  path="/blog"
+                  element={<BlogIndexPage onOpenConsultation={handleOpenConsultation} />}
+                />
+                <Route
+                  path="/blog/:slug"
+                  element={<BlogPostPage onOpenConsultation={handleOpenConsultation} />}
+                />
 
-              {/* Supporting Agency Navigation Pages */}
-              <Route
-                path="/process"
-                element={<ProcessPage onOpenConsultation={handleOpenConsultation} />}
-              />
-              <Route
-                path="/deliverables"
-                element={<DeliverablesPage onOpenConsultation={handleOpenConsultation} />}
-              />
-              <Route
-                path="/why-us"
-                element={<WhyUsPage onOpenConsultation={handleOpenConsultation} />}
-              />
-              <Route
-                path="/testimonials"
-                element={<TestimonialsPage onOpenConsultation={handleOpenConsultation} />}
-              />
-              <Route
-                path="/faq"
-                element={<FAQPage onOpenConsultation={handleOpenConsultation} />}
-              />
-              <Route
-                path="/founders"
-                element={<FoundersPage onOpenConsultation={handleOpenConsultation} />}
-              />
-              <Route
-                path="/leadership"
-                element={<FoundersPage onOpenConsultation={handleOpenConsultation} />}
-              />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/privacy" element={<PrivacyPolicyPage />} />
-              <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-              <Route path="/terms" element={<TermsPage />} />
-              <Route path="/terms-of-service" element={<TermsPage />} />
+                {/* Supporting Agency Navigation Pages */}
+                <Route
+                  path="/process"
+                  element={<ProcessPage onOpenConsultation={handleOpenConsultation} />}
+                />
+                <Route
+                  path="/deliverables"
+                  element={<DeliverablesPage onOpenConsultation={handleOpenConsultation} />}
+                />
+                <Route
+                  path="/why-us"
+                  element={<WhyUsPage onOpenConsultation={handleOpenConsultation} />}
+                />
+                <Route
+                  path="/testimonials"
+                  element={<TestimonialsPage onOpenConsultation={handleOpenConsultation} />}
+                />
+                <Route
+                  path="/faq"
+                  element={<FAQPage onOpenConsultation={handleOpenConsultation} />}
+                />
+                <Route
+                  path="/founders"
+                  element={<FoundersPage onOpenConsultation={handleOpenConsultation} />}
+                />
+                <Route
+                  path="/leadership"
+                  element={<FoundersPage onOpenConsultation={handleOpenConsultation} />}
+                />
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="/privacy" element={<PrivacyPolicyPage />} />
+                <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+                <Route path="/terms" element={<TermsPage />} />
+                <Route path="/terms-of-service" element={<TermsPage />} />
 
-              {/* 404 Fallback */}
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
+                {/* 404 Fallback */}
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </Suspense>
           </motion.div>
         </AnimatePresence>
       </main>
@@ -250,14 +264,18 @@ export default function App() {
 
       {/* Floating Action Utilities */}
       <StickyButtons />
-      <ChatbotWidget onOpenConsultation={handleOpenConsultation} />
-
-      {/* Interactive Consultation Modal */}
-      <ConsultationModal
-        isOpen={isConsultationOpen}
-        onClose={() => setIsConsultationOpen(false)}
-        defaultService={selectedServiceForForm}
-      />
+      
+      <Suspense fallback={null}>
+        <ChatbotWidget onOpenConsultation={handleOpenConsultation} />
+        {isConsultationOpen && (
+          <ConsultationModal
+            isOpen={isConsultationOpen}
+            onClose={() => setIsConsultationOpen(false)}
+            defaultService={selectedServiceForForm}
+          />
+        )}
+      </Suspense>
     </div>
   );
 }
+

@@ -3,12 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { 
   Layers, 
-  ExternalLink, 
   Sparkles, 
-  CheckCircle2, 
   ArrowRight, 
   TrendingUp,
-  Filter,
   Eye
 } from 'lucide-react';
 import { PORTFOLIO, PortfolioItem } from '../data/marketingData';

@@ -12,11 +12,8 @@ import {
   CheckCircle2, 
   Sparkles, 
   ArrowRight, 
-  ShieldCheck,
-  Cpu,
   Clock
 } from 'lucide-react';
-import { PROCESS_STEPS } from '../data/marketingData';
 import AmbientBackground from '../components/AmbientBackground';
 import { fadeInUp, fadeInDown, slideInLeft, slideInRight, staggerContainer, defaultViewport } from '../utils/animations';
 

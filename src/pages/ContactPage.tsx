@@ -2,8 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useSearchParams } from 'react-router-dom';
 import ContactSection from '../components/ContactSection';
-import { PhoneCall, MessageSquare, MapPin, Sparkles } from 'lucide-react';
-import { CONTACT_INFO } from '../data/marketingData';
+import { Sparkles } from 'lucide-react';
 import AmbientBackground from '../components/AmbientBackground';
 import { fadeInUp, fadeInDown, defaultViewport } from '../utils/animations';
 
