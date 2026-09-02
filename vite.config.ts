@@ -5,7 +5,7 @@ import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: './', // Enable relative paths for GitHub Pages hosting
+  base: '/', // Root absolute paths for custom domain routing
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
