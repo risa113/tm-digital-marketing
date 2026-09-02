@@ -179,12 +179,54 @@ const STATIC_ROUTE_SEO_MAP: Record<string, RouteSEO> = {
     canonical: 'https://tmdigitalgrow.com/privacy',
     name: 'Privacy Policy'
   },
+  '/privacy-policy': {
+    title: 'Privacy Policy | TM Digital Marketing Agency',
+    description: 'TM Digital Marketing Privacy Policy. Google AdSense compliant details on cookies, DART cookies, user data protection, GDPR rights & founder contacts.',
+    keywords: 'TM digital marketing privacy policy, data privacy, Google AdSense policy, GDPR policy',
+    canonical: 'https://tmdigitalgrow.com/privacy',
+    name: 'Privacy Policy'
+  },
   '/terms': {
     title: 'Terms of Service & Original Content Policy | TM Digital Marketing',
     description: 'TM Digital Marketing Terms of Service, original content guarantee, intellectual property rights, and client service agreement terms.',
     keywords: 'TM digital marketing terms, terms of service, content policy, original content guarantee',
     canonical: 'https://tmdigitalgrow.com/terms',
     name: 'Terms of Service'
+  },
+  '/terms-of-service': {
+    title: 'Terms of Service & Original Content Policy | TM Digital Marketing',
+    description: 'TM Digital Marketing Terms of Service, original content guarantee, intellectual property rights, and client service agreement terms.',
+    keywords: 'TM digital marketing terms, terms of service, content policy, original content guarantee',
+    canonical: 'https://tmdigitalgrow.com/terms',
+    name: 'Terms of Service'
+  },
+  '/cookies': {
+    title: 'Cookie Policy | TM Digital Marketing Agency',
+    description: 'TM Digital Marketing Cookie Policy. Details on essential cookies, Google Analytics, Google AdSense DART cookies, and browser management instructions.',
+    keywords: 'TM digital marketing cookie policy, DART cookies, Google AdSense cookies, cookie preferences',
+    canonical: 'https://tmdigitalgrow.com/cookies',
+    name: 'Cookie Policy'
+  },
+  '/cookie-policy': {
+    title: 'Cookie Policy | TM Digital Marketing Agency',
+    description: 'TM Digital Marketing Cookie Policy. Details on essential cookies, Google Analytics, Google AdSense DART cookies, and browser management instructions.',
+    keywords: 'TM digital marketing cookie policy, DART cookies, Google AdSense cookies, cookie preferences',
+    canonical: 'https://tmdigitalgrow.com/cookies',
+    name: 'Cookie Policy'
+  },
+  '/disclaimer': {
+    title: 'Disclaimer & Advertising Disclosure | TM Digital Marketing Agency',
+    description: 'TM Digital Marketing Legal Disclaimer and Google AdSense Advertising Disclosures. Earnings disclaimer, FTC notices, and professional advice terms.',
+    keywords: 'TM digital marketing disclaimer, AdSense advertising disclosure, earnings disclaimer, FTC disclosure',
+    canonical: 'https://tmdigitalgrow.com/disclaimer',
+    name: 'Disclaimer'
+  },
+  '/ad-disclosure': {
+    title: 'Disclaimer & Advertising Disclosure | TM Digital Marketing Agency',
+    description: 'TM Digital Marketing Legal Disclaimer and Google AdSense Advertising Disclosures. Earnings disclaimer, FTC notices, and professional advice terms.',
+    keywords: 'TM digital marketing disclaimer, AdSense advertising disclosure, earnings disclaimer, FTC disclosure',
+    canonical: 'https://tmdigitalgrow.com/disclaimer',
+    name: 'Disclaimer'
   }
 };
 

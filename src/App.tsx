@@ -8,7 +8,7 @@ import ScrollToTop from './components/ScrollToTop';
 import Navbar from './components/Navbar';
 import Breadcrumbs from './components/Breadcrumbs';
 import Footer from './components/Footer';
-import AdSenseBanner from './components/AdSenseBanner';
+import CookieConsent from './components/CookieConsent';
 import StickyButtons from './components/StickyButtons';
 
 // Lazy load interactive modal dialogs
@@ -37,6 +37,8 @@ const ContactPage = lazy(() => import('./pages/ContactPage'));
 const TestimonialsPage = lazy(() => import('./pages/TestimonialsPage'));
 const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
 const TermsPage = lazy(() => import('./pages/TermsPage'));
+const CookiePolicyPage = lazy(() => import('./pages/CookiePolicyPage'));
+const DisclaimerPage = lazy(() => import('./pages/DisclaimerPage'));
 const FoundersPage = lazy(() => import('./pages/FoundersPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
@@ -247,6 +249,10 @@ export default function App() {
                 <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
                 <Route path="/terms" element={<TermsPage />} />
                 <Route path="/terms-of-service" element={<TermsPage />} />
+                <Route path="/cookies" element={<CookiePolicyPage />} />
+                <Route path="/cookie-policy" element={<CookiePolicyPage />} />
+                <Route path="/disclaimer" element={<DisclaimerPage />} />
+                <Route path="/ad-disclosure" element={<DisclaimerPage />} />
 
                 {/* 404 Fallback */}
                 <Route path="*" element={<NotFoundPage />} />
@@ -256,15 +262,15 @@ export default function App() {
         </AnimatePresence>
       </main>
 
-      {/* Google AdSense Ad Unit Banner */}
-      <AdSenseBanner slot="4970893672" />
-
       {/* Persistent Footer */}
       <Footer />
 
       {/* Floating Action Utilities */}
       <StickyButtons />
       
+      {/* Interactive GDPR & Google AdSense Compliant Cookie Consent Banner */}
+      <CookieConsent />
+
       <Suspense fallback={null}>
         <ChatbotWidget onOpenConsultation={handleOpenConsultation} />
         {isConsultationOpen && (

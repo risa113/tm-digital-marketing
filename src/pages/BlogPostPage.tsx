@@ -13,6 +13,7 @@ import {
   BookOpen
 } from 'lucide-react';
 import { BLOG_ARTICLES } from '../data/blogData';
+import AdSenseBanner from '../components/AdSenseBanner';
 
 interface BlogPostPageProps {
   onOpenConsultation: () => void;
@@ -138,37 +139,47 @@ export default function BlogPostPage({ onOpenConsultation }: BlogPostPageProps) 
 
         {/* Main Article Content Body */}
         <div className="space-y-10 py-6 text-slate-800 dark:text-slate-200 text-sm sm:text-base leading-relaxed">
-          {article.content.map((sec) => (
-            <section key={sec.sectionId} id={sec.sectionId} className="space-y-4 scroll-mt-28">
-              <h2 className="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 dark:text-white tracking-tight border-b border-slate-100 dark:border-slate-800 pb-2">
-                {sec.heading}
-              </h2>
+          {article.content.map((sec, secIdx) => (
+            <div key={sec.sectionId} className="space-y-8">
+              <section id={sec.sectionId} className="space-y-4 scroll-mt-28">
+                <h2 className="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 dark:text-white tracking-tight border-b border-slate-100 dark:border-slate-800 pb-2">
+                  {sec.heading}
+                </h2>
 
-              {sec.paragraphs.map((p, idx) => (
-                <p key={idx} className="leading-relaxed text-slate-700 dark:text-slate-300 text-justify sm:text-left">
-                  {p}
-                </p>
-              ))}
+                {sec.paragraphs.map((p, idx) => (
+                  <p key={idx} className="leading-relaxed text-slate-700 dark:text-slate-300 text-justify sm:text-left">
+                    {p}
+                  </p>
+                ))}
 
-              {sec.callout && (
-                <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-xs sm:text-sm font-semibold text-amber-900 dark:text-amber-200">
-                  {sec.callout}
-                </div>
+                {sec.callout && (
+                  <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-xs sm:text-sm font-semibold text-amber-900 dark:text-amber-200">
+                    {sec.callout}
+                  </div>
+                )}
+
+                {sec.bulletPoints && sec.bulletPoints.length > 0 && (
+                  <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2.5">
+                    {sec.bulletPoints.map((bp, bidx) => (
+                      <div key={bidx} className="flex items-start gap-2.5 text-xs sm:text-sm">
+                        <CheckCircle2 className="w-4 h-4 text-[#2563EB] shrink-0 mt-0.5" />
+                        <span>{bp}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </section>
+
+              {/* Mid-Article Contextual AdSense Ad Unit (Compliant Placement on Long Editorial Articles) */}
+              {secIdx === 1 && (
+                <AdSenseBanner slot="4970893672" className="my-6" />
               )}
-
-              {sec.bulletPoints && sec.bulletPoints.length > 0 && (
-                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2.5">
-                  {sec.bulletPoints.map((bp, bidx) => (
-                    <div key={bidx} className="flex items-start gap-2.5 text-xs sm:text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-[#2563EB] shrink-0 mt-0.5" />
-                      <span>{bp}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </section>
+            </div>
           ))}
         </div>
+
+        {/* AdSense Unit Before FAQs */}
+        <AdSenseBanner slot="4970893672" className="my-4" />
 
         {/* FAQ Section */}
         {article.faqs && article.faqs.length > 0 && (

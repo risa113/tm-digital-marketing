@@ -16,11 +16,20 @@ Allow: /site.webmanifest
 # Crawl-delay for optimal server bandwidth
 Crawl-delay: 1
 
-# Major Search Engine Web Crawlers
+# Major Search Engine & AdSense Web Crawlers
 User-agent: Googlebot
 Allow: /
 
 User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: AdsBot-Google-Mobile
 Allow: /
 
 User-agent: Bingbot

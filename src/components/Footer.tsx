@@ -192,6 +192,8 @@ export default function Footer() {
                     <li><Link to="/contact" className="hover:text-[#2563EB] transition-colors block py-0.5">Contact Founders</Link></li>
                     <li><Link to="/privacy" className="hover:text-[#2563EB] transition-colors block py-0.5 font-semibold">Privacy Policy</Link></li>
                     <li><Link to="/terms" className="hover:text-[#2563EB] transition-colors block py-0.5 font-semibold">Terms of Service</Link></li>
+                    <li><Link to="/cookies" className="hover:text-[#2563EB] transition-colors block py-0.5 font-semibold">Cookie Policy</Link></li>
+                    <li><Link to="/disclaimer" className="hover:text-[#2563EB] transition-colors block py-0.5 font-semibold">Disclaimer &amp; Ad Disclosure</Link></li>
                   </ul>
                 </div>
 
@@ -225,6 +227,8 @@ export default function Footer() {
                     <li><Link to="/blog/google-ads-vs-meta-ads-tirunelveli-roi" className="hover:text-[#2563EB] transition-colors block py-0.5">Google Ads vs Meta Ads</Link></li>
                     <li><Link to="/blog/website-development-cost-in-tirunelveli" className="hover:text-[#2563EB] transition-colors block py-0.5">Website Cost Breakdown</Link></li>
                     <li><Link to="/blog/instagram-marketing-strategy-local-brands-tamil-nadu" className="hover:text-[#2563EB] transition-colors block py-0.5">Instagram Reels Strategy</Link></li>
+                    <li><Link to="/blog/ai-marketing-automation-business-guide-2026" className="hover:text-[#2563EB] transition-colors block py-0.5">AI Automation Playbook</Link></li>
+                    <li><Link to="/blog/conversion-rate-optimization-funnel-guide-2026" className="hover:text-[#2563EB] transition-colors block py-0.5">CRO Funnel Guide</Link></li>
                   </ul>
                 </div>
 
@@ -262,19 +266,33 @@ export default function Footer() {
         <div className="pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row items-center justify-between text-xs text-[#64748B] dark:text-slate-400 gap-3 text-center md:text-left">
           <p>© {new Date().getFullYear()} TM Digital Marketing. All rights reserved.</p>
           
-          <div className="flex items-center justify-center gap-2.5 font-semibold">
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 font-semibold">
             <Link
               to="/privacy"
-              className="px-3.5 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-950/80 border border-blue-200 dark:border-blue-800 text-[#2563EB] dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors shadow-sm"
+              className="px-3 py-1 rounded-xl bg-blue-50 dark:bg-blue-950/80 border border-blue-200 dark:border-blue-800 text-[#2563EB] dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors shadow-sm"
             >
               Privacy Policy
             </Link>
             <span className="text-slate-300 dark:text-slate-700">•</span>
             <Link
               to="/terms"
-              className="px-3.5 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-950/80 border border-blue-200 dark:border-blue-800 text-[#2563EB] dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors shadow-sm"
+              className="px-3 py-1 rounded-xl bg-blue-50 dark:bg-blue-950/80 border border-blue-200 dark:border-blue-800 text-[#2563EB] dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors shadow-sm"
             >
-              Terms of Service
+              Terms
+            </Link>
+            <span className="text-slate-300 dark:text-slate-700">•</span>
+            <Link
+              to="/cookies"
+              className="px-3 py-1 rounded-xl bg-blue-50 dark:bg-blue-950/80 border border-blue-200 dark:border-blue-800 text-[#2563EB] dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors shadow-sm"
+            >
+              Cookie Policy
+            </Link>
+            <span className="text-slate-300 dark:text-slate-700">•</span>
+            <Link
+              to="/disclaimer"
+              className="px-3 py-1 rounded-xl bg-blue-50 dark:bg-blue-950/80 border border-blue-200 dark:border-blue-800 text-[#2563EB] dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors shadow-sm"
+            >
+              Disclaimer
             </Link>
           </div>
 

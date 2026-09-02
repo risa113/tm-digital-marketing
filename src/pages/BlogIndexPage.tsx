@@ -9,6 +9,7 @@ import {
   Sparkles 
 } from 'lucide-react';
 import { BLOG_ARTICLES } from '../data/blogData';
+import AdSenseBanner from '../components/AdSenseBanner';
 import AmbientBackground from '../components/AmbientBackground';
 import { fadeInUp, fadeInDown, slideInLeft, slideInRight, staggerContainer, defaultViewport } from '../utils/animations';
 
@@ -187,6 +188,9 @@ export default function BlogIndexPage({ onOpenConsultation }: BlogIndexPageProps
           </Link>
         </motion.section>
       )}
+
+      {/* Google AdSense Compliant Banner on Content-Rich Publisher Directory */}
+      <AdSenseBanner slot="4970893672" className="my-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" />
 
       {/* Articles Grid (Staggered Directional Entrances) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
