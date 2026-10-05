@@ -3,19 +3,20 @@ import React from 'react';
 interface LogoProps {
   className?: string;
   showTagline?: boolean;
+  taglineClassName?: string;
   size?: 'sm' | 'md' | 'lg' | 'xl';
 }
 
-export default function Logo({ className = '', showTagline = true, size = 'md' }: LogoProps) {
+export default function Logo({ className = '', showTagline = true, taglineClassName, size = 'md' }: LogoProps) {
   const sizeClasses = {
-    sm: 'h-8 sm:h-10',
+    sm: 'h-8 sm:h-9 2xl:h-10',
     md: 'h-11 sm:h-14',
     lg: 'h-20 sm:h-24',
     xl: 'h-28 sm:h-36'
   };
 
   const textSizes = {
-    sm: 'text-xs sm:text-base',
+    sm: 'text-xs sm:text-sm 2xl:text-base',
     md: 'text-base sm:text-xl',
     lg: 'text-2xl sm:text-3xl',
     xl: 'text-3xl sm:text-4xl'
@@ -54,7 +55,7 @@ export default function Logo({ className = '', showTagline = true, size = 'md' }
 
         {/* Tagline: CONNECT • ENGAGE • GROW */}
         {showTagline && (
-          <div className="hidden sm:flex items-center gap-1.5 sm:gap-2 mt-1 w-full">
+          <div className={`items-center gap-1.5 sm:gap-2 mt-1 w-full ${taglineClassName !== undefined ? taglineClassName : 'hidden sm:flex'}`}>
             <span className="h-[1.5px] flex-1 bg-gradient-to-r from-transparent via-[#2563EB] to-[#2563EB]" />
             <p className={`font-heading font-bold text-[#2563EB] uppercase tracking-widest leading-none ${taglineSizes[size]}`}>
               CONNECT • ENGAGE • GROW
