@@ -1,11 +1,11 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
   <!-- Home Page -->
   <url>
     <loc>https://tmdigitalgrow.com/</loc>
-    <lastmod>2026-09-02</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -267,9 +267,27 @@
 
   <url>
     <loc>https://tmdigitalgrow.com/why-us</loc>
-    <lastmod>2026-09-02</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
+  </url>
+
+  <!-- Completed Client Projects & Portfolio Case Studies -->
+  <url>
+    <loc>https://tmdigitalgrow.com/completed-projects</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://tmdigitalgrow.com/projects/alhayath-logo.png</image:loc>
+      <image:title>Al-Hayath Haj &amp; Umrah Service - Production Client Case Study</image:title>
+      <image:caption>Official digital infrastructure, booking funnel, and SEO for Al-Hayath</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://tmdigitalgrow.com/projects/hyzin-hero.png</image:loc>
+      <image:title>Hyzin Interior - Luxury Modular Interior Design Platform</image:title>
+      <image:caption>High-converting portfolio and lead capture system for Hyzin Interior</image:caption>
+    </image:image>
   </url>
 
   <url>
