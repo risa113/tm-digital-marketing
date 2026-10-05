@@ -773,10 +773,9 @@ export default function CompletedProjectsPage({ onOpenConsultation }: CompletedP
                 ))}
               </div>
 
-              {/* Client Testimonial & Tech Stack Bar */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-                {/* Verified Testimonial Quote */}
-                <div className="lg:col-span-8 glass-card p-6 sm:p-8 rounded-3xl border border-blue-200 dark:border-blue-900/60 bg-gradient-to-r from-blue-500/5 via-sky-500/5 to-transparent flex flex-col justify-between shadow-lg">
+              {/* Client Testimonial Bar (Full Width) */}
+              <div className="w-full">
+                <div className="glass-card p-6 sm:p-8 rounded-3xl border border-blue-200 dark:border-blue-900/60 bg-gradient-to-r from-blue-500/5 via-sky-500/5 to-transparent flex flex-col justify-between shadow-lg">
                   <div className="space-y-4">
                     <div className="flex items-center gap-1 text-yellow-400">
                       {[...Array(5)].map((_, i) => (
@@ -789,7 +788,7 @@ export default function CompletedProjectsPage({ onOpenConsultation }: CompletedP
                     </blockquote>
                   </div>
 
-                  <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                  <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between mt-4">
                     <div>
                       <div className="font-heading font-extrabold text-sm text-[#111827] dark:text-white">
                         {project.testimonial.author}
@@ -808,34 +807,6 @@ export default function CompletedProjectsPage({ onOpenConsultation }: CompletedP
                       <span>Visit Live Site</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
-                  </div>
-                </div>
-
-                {/* Tech Stack Pills Container */}
-                <div className="lg:col-span-4 glass-card p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between space-y-4 shadow-md">
-                  <div>
-                    <h4 className="font-heading font-extrabold text-sm text-[#111827] dark:text-white uppercase tracking-wider flex items-center gap-2 mb-3">
-                      <Zap className="w-4 h-4 text-[#2563EB]" />
-                      <span>Production Tech Stack</span>
-                    </h4>
-                    <p className="text-xs text-[#64748B] dark:text-slate-400 mb-4">
-                      Engineered with modern frameworks for zero lag, SEO indexing, and sub-second Core Web Vitals.
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.techStack.map((tech, i) => (
-                        <span 
-                          key={i} 
-                          className="px-3 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold border border-slate-200 dark:border-slate-700"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] text-slate-400 flex items-center gap-1">
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
-                    <span>SSL Secured • Google Maps Local Schema</span>
                   </div>
                 </div>
               </div>
