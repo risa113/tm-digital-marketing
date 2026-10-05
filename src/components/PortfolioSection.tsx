@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, ArrowUpRight, CheckCircle2, Zap, Image as ImageIcon } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Sparkles, ArrowUpRight, CheckCircle2, Zap, Image as ImageIcon, ExternalLink, ArrowRight } from 'lucide-react';
 import { PORTFOLIO, PortfolioItem } from '../data/marketingData';
 import { fadeInUp, fadeInDown, slideInLeft, slideInRight, staggerContainer, defaultViewport } from '../utils/animations';
 
@@ -57,6 +58,23 @@ export default function PortfolioSection() {
           >
             Explore our client results and core marketing deliverables engineered to elevate brand identity, scale acquisition, and drive revenue in Tirunelveli.
           </motion.p>
+
+          <motion.div
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            custom={2.5}
+            className="pt-2"
+          >
+            <Link
+              to="/completed-projects"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold shadow-lg shadow-blue-600/25 transition-all hover:scale-105"
+            >
+              <span>Explore Finished Client Websites (Live Frames &amp; Case Studies)</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </motion.div>
         </div>
 
         {/* Filter Category Tabs (Staggered Down to Up) */}
@@ -223,15 +241,28 @@ export default function PortfolioSection() {
                 <p className="text-sm text-[#64748B] dark:text-slate-300 leading-relaxed">
                   {selectedItem.summary}
                 </p>
-                <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3">
                   <span className="text-xs font-bold text-[#10B981]">✓ {selectedItem.result}</span>
-                  <a
-                    href="#contact"
-                    onClick={() => setSelectedItem(null)}
-                    className="font-btn font-semibold px-6 py-2.5 rounded-xl bg-[#2563EB] text-white text-xs shadow-md"
-                  >
-                    Request Similar Deliverable
-                  </a>
+                  <div className="flex items-center gap-2">
+                    {selectedItem.liveUrl && (
+                      <a
+                        href={selectedItem.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 font-btn font-semibold px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-[#111827] dark:text-white text-xs transition-colors"
+                      >
+                        <span>Visit Live Site</span>
+                        <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
+                    )}
+                    <a
+                      href="#contact"
+                      onClick={() => setSelectedItem(null)}
+                      className="font-btn font-semibold px-6 py-2.5 rounded-xl bg-[#2563EB] text-white text-xs shadow-md"
+                    >
+                      Request Similar Deliverable
+                    </a>
+                  </div>
                 </div>
               </div>
             </motion.div>

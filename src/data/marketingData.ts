@@ -17,7 +17,51 @@ export interface PortfolioItem {
   result: string;
   image: string;
   summary: string;
+  liveUrl?: string;
 }
+
+export interface CompletedProject {
+  id: string;
+  slug: string;
+  name: string;
+  client: string;
+  category: string;
+  tagline: string;
+  liveUrl: string;
+  displayUrl: string;
+  logo: string;
+  heroImage: string;
+  previewType: 'umrah' | 'interior';
+  themeColors: {
+    primary: string;
+    secondary: string;
+    accent: string;
+    bgDark: string;
+  };
+  location: string;
+  completedDate: string;
+  overview: string;
+  theChallenge: string;
+  ourSolution: string;
+  deliverablesList: string[];
+  features: {
+    title: string;
+    description: string;
+    icon: string;
+  }[];
+  techStack: string[];
+  metrics: {
+    value: string;
+    label: string;
+    sublabel: string;
+  }[];
+  testimonial: {
+    quote: string;
+    author: string;
+    role: string;
+  };
+}
+
 
 export interface Testimonial {
   id: string;
@@ -322,8 +366,186 @@ export const PROCESS_STEPS: ProcessStep[] = [
   { step: '06', title: 'Scale & Dominate', desc: 'Scale winning ad creatives aggressively to build market leadership.' }
 ];
 
+// Verified Completed Client Projects by TM Digital Marketing
+export const COMPLETED_PROJECTS: CompletedProject[] = [
+  {
+    id: 'alhayath-umrah',
+    slug: 'al-hayath-haj-umrah-service',
+    name: 'Al-Hayath Haj & Umrah Service',
+    client: 'Al-Hayath Haj & Umrah Service',
+    category: 'Sacred Pilgrimage & Luxury Travel Web Platform',
+    tagline: 'Sacred Journeys Guided with Trust, Aalims & Royal Comfort',
+    liveUrl: 'https://alhayathhajumrahservice.co.in',
+    displayUrl: 'alhayathhajumrahservice.co.in',
+    logo: '/projects/alhayath-logo.png',
+    heroImage: 'https://images.unsplash.com/photo-1513072064285-240f87fa81e8?auto=format&fit=crop&w=1200&q=80',
+    previewType: 'umrah',
+    themeColors: {
+      primary: '#D4AF37',     // Gold
+      secondary: '#1E704C',   // Emerald
+      accent: '#FFD700',      // Bright Gold
+      bgDark: '#06110C'       // Royal Emerald Dark Base
+    },
+    location: 'Melapalayam, Tirunelveli, Tamil Nadu',
+    completedDate: 'Completed & Live in 2026',
+    overview: 'An end-to-end luxury web application engineered for South India\'s premier Haj and Umrah travel service from Melapalayam, Tirunelveli. Features high-touch Aalims spiritual guidance, transparent Makkah & Madinah star-hotel packages, 4-way dynamic luxury theme switching, dynamic booking funnels, and automated WhatsApp routing.',
+    theChallenge: 'Al-Hayath required an authoritative, visually transcendent digital presence that would distinguish them from ordinary tour operators. They needed to instill profound trust, present star hotels within walking distance of the Haram in Makkah & Madinah, accommodate multi-generational pilgrims with Arabic and English typography, and streamline lead capture without cumbersome multi-step registration forms.',
+    ourSolution: 'TM Digital Marketing architected a bespoke Islamic luxury digital experience featuring a real-time 4-Way Theme Switcher (Royal Emerald, Obsidian Midnight, Champagne Bronze, Pearl Ivory Light), a 3D kinetic hero arch visual layer, transparent hotel package matrices, Aalims spiritual credibility profiles, and instant one-tap WhatsApp founder routing.',
+    deliverablesList: [
+      '4-Way Dynamic Theme Switcher System (Emerald, Obsidian, Bronze, Ivory)',
+      '3D Floating Hero Arch Visuals with Kinetic Word Switcher',
+      'Makkah Clock Tower & Madinah Luxury Star-Hotel Package Grids',
+      'Aalims Religious Guidance & Spiritual Itinerary Roadmap',
+      '1-Click WhatsApp Direct Lead Routing Funnel with Custom Inquiries',
+      'Schema.org TravelAgency Structured Data & Local Melapalayam SEO'
+    ],
+    features: [
+      {
+        title: '4-Way Luxury Theme Switcher',
+        description: 'Pilgrims can personalize their viewing experience between Royal Emerald, Obsidian Midnight, Champagne Bronze, and Pearl Ivory Light themes.',
+        icon: 'Palette'
+      },
+      {
+        title: 'Aalims Spiritual Guidance Hub',
+        description: 'Dedicated guidance section featuring respected Islamic scholars ensuring every ritual follows Sunnah with step-by-step clarity.',
+        icon: 'ShieldCheck'
+      },
+      {
+        title: 'Proximity Hotel Packages',
+        description: 'Interactive cards detailing walking distances, star ratings, buffet meal plans, and luxury Saudi transportation services.',
+        icon: 'Building2'
+      },
+      {
+        title: 'Instant WhatsApp Booking Funnel',
+        description: 'Pre-formatted messages automatically categorize pilgrim inquiries by preferred dates and hotel grade directly to founders.',
+        icon: 'MessageSquare'
+      }
+    ],
+    techStack: ['React', 'Vite', 'Tailwind CSS', 'CSS Variables Theming', 'Framer Motion', 'Netlify Edge', 'Amiri & Cinzel Typography'],
+    metrics: [
+      {
+        value: '+340%',
+        label: 'Pilgrim WhatsApp Inquiries',
+        sublabel: 'Surge in verified package booking leads within first 30 days'
+      },
+      {
+        value: '#1 Rank',
+        label: 'Melapalayam Umrah Search',
+        sublabel: 'Dominated Google Search & Local 3-Pack rankings'
+      },
+      {
+        value: '98/100',
+        label: 'Core Web Vitals Score',
+        sublabel: 'Sub-second mobile speed score across Tamil Nadu & Gulf network'
+      }
+    ],
+    testimonial: {
+      quote: 'TM Digital Marketing delivered beyond our highest expectations! The 4 luxury themes and Arabic typography reflect the sacred dignity of our Haj & Umrah packages. Pilgrim bookings from Tirunelveli and the Gulf have increased by over 340%. Direct founder support was unmatched.',
+      author: 'Al-Hayath Management Desk',
+      role: 'Founder & Managing Director, Al-Hayath Haj & Umrah Service'
+    }
+  },
+  {
+    id: 'hyzin-interior',
+    slug: 'hyzin-interior-studio',
+    name: 'HYZIN INTERIOR',
+    client: 'HYZIN INTERIOR',
+    category: 'Turnkey Residential Interiors & Specialized Metal Fabrication',
+    tagline: 'Sculpted Spaces, Modular Cabinetry & Specialized Metal Fabrication',
+    liveUrl: 'https://hyzininterior.in',
+    displayUrl: 'hyzininterior.in',
+    logo: '/projects/hyzin-logo.png',
+    heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+    previewType: 'interior',
+    themeColors: {
+      primary: '#C4A174',     // Warm Sand Gold
+      secondary: '#3A2117',   // Atelier Espresso Brown
+      accent: '#EDE3D2',      // Ivory Warm White
+      bgDark: '#20150C'       // Deep Roasted Cocoa
+    },
+    location: 'Kerala • Tamil Nadu • Karnataka (Studio Desk: Kochi & Calicut)',
+    completedDate: 'Completed & Live in 2026',
+    overview: 'An architectural atelier monograph digital experience crafted for South India’s leading turnkey interior design and metal fabrication studio. Showcases luxury modular kitchens, wall drop wardrobes, fluted paneling, aluminium interior cabinets, steel doors, and stainless steel balustrades across Kerala, Tamil Nadu, and Karnataka.',
+    theChallenge: 'HYZIN operates across three South Indian states with high demand for turnkey villas and luxury residences. They needed an architectural monograph website that conveyed bespoke European atelier craftsmanship rather than a generic interior contractor, with multi-state city SEO, 3D spatial models, and frictionless quotation estimation.',
+    ourSolution: 'We engineered a warm monograph aesthetic combining Playfair Display editorial typography with modern Plus Jakarta Sans, interactive 3D spatial cards, structured 10-service visual catalogs, multi-region LocalBusiness JSON-LD schema, and direct dual-action consultation channels (WhatsApp + Instagram DM).',
+    deliverablesList: [
+      'Architectural Monograph UI in Atelier Espresso & Sand Gold',
+      'Interactive 3D Spatial House Layout Cards & Room Visualizer',
+      '10-Service Technical Showcase (Aluminium, SS, Wood, False Ceilings)',
+      'Multi-State Geo-Targeting SEO (Kochi, Calicut, Trivandrum, Bengaluru, Coimbatore)',
+      'Interactive Project Cost Estimator & Floor Plan Upload Flow',
+      'High-CTR WhatsApp & Instagram DM Conversion Integration'
+    ],
+    features: [
+      {
+        title: 'Architectural Monograph Layout',
+        description: 'Editorial layout inspired by European design houses, blending Atelier Espresso with warm sand gold tones.',
+        icon: 'Sparkles'
+      },
+      {
+        title: 'Interactive 3D Spatial Model',
+        description: 'Homeowners can explore 3D architectural house layouts room by room before committing to construction.',
+        icon: 'Layers'
+      },
+      {
+        title: '10 Core Service Showcases',
+        description: 'Comprehensive galleries covering modular kitchens, fluted paneling, aluminium interiors, and SS balustrades.',
+        icon: 'LayoutGrid'
+      },
+      {
+        title: 'Multi-State Local SEO Architecture',
+        description: 'Programmatic schema and geo-coordinates positioning HYZIN as the #1 interior studio across 7 South Indian hubs.',
+        icon: 'MapPin'
+      }
+    ],
+    techStack: ['React 19', 'Vite', 'Tailwind CSS', 'Framer Motion', 'Lucide React', 'Schema.org Geo-Targeting', 'Vercel Edge'],
+    metrics: [
+      {
+        value: '4.9 ★',
+        label: 'Client Satisfaction Rating',
+        sublabel: 'Across 180+ verified homeowner reviews'
+      },
+      {
+        value: '5.4x',
+        label: 'High-Ticket Villa Leads',
+        sublabel: 'Significant jump in turnkey luxury residence bookings'
+      },
+      {
+        value: '< 1.2s',
+        label: 'Sub-Second Page Load',
+        sublabel: 'Lightning fast rendering across mobile & desktop devices'
+      }
+    ],
+    testimonial: {
+      quote: 'Mohamed Thariq and the TM Digital Marketing team understood the soul of HYZIN INTERIOR immediately. The website looks like an international architectural monograph and has established us as South India\'s top choice for turnkey luxury interiors. The 3D model and WhatsApp leads have exploded our client roster.',
+      author: 'Muhammed Ashad',
+      role: 'Principal Architect & Founder, HYZIN INTERIOR'
+    }
+  }
+];
+
 // Verified 100% reliable HTTPS Unsplash URLs for GitHub Pages hosting!
 export const PORTFOLIO: PortfolioItem[] = [
+  {
+    id: 'p-alhayath',
+    title: 'Al-Hayath Haj & Umrah Service | Sacred Pilgrimage Luxury Web Architecture',
+    category: 'Websites',
+    client: 'Al-Hayath Haj & Umrah Service',
+    result: '+340% Pilgrim Bookings',
+    image: 'https://images.unsplash.com/photo-1513072064285-240f87fa81e8?auto=format&fit=crop&w=800&q=80',
+    summary: 'Custom Islamic luxury web architecture featuring a 4-way dynamic theme switcher, Arabic typography, 3D hero arch, and automated WhatsApp booking routing in Melapalayam & Tirunelveli.',
+    liveUrl: 'https://alhayathhajumrahservice.co.in'
+  },
+  {
+    id: 'p-hyzin',
+    title: 'HYZIN INTERIOR | Turnkey Interior Design & Metal Fabrication Platform',
+    category: 'Websites',
+    client: 'HYZIN INTERIOR',
+    result: '5.4x Lead Inquiries & 4.9★',
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+    summary: 'Architectural atelier monograph web platform in espresso brown and sand gold, featuring 3D house models, 10 core service showcases, and multi-state SEO across Kerala, Tamil Nadu & Karnataka.',
+    liveUrl: 'https://hyzininterior.in'
+  },
   {
     id: 'p1',
     title: '3D Glassmorphic Corporate & E-Commerce Web Platforms',
@@ -379,6 +601,7 @@ export const PORTFOLIO: PortfolioItem[] = [
     summary: 'Automated catalog messaging, broadcasting flows, and instant lead capture routed directly to your sales executives.'
   }
 ];
+
 
 export const WHY_CHOOSE_US = {
   others: [

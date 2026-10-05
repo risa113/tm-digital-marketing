@@ -1,4 +1,4 @@
-﻿const fs = require('fs');
+const fs = require('fs');
 const path = require('path');
 
 const distDir = path.resolve(__dirname, '../dist');
@@ -34,6 +34,9 @@ const routes = [
   'blog/conversion-rate-optimization-funnel-guide-2026',
   'process',
   'deliverables',
+  'completed-projects',
+  'completed-work',
+  'our-work',
   'why-us',
   'testimonials',
   'faq',

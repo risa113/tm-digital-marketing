@@ -31,6 +31,7 @@ const BlogIndexPage = lazy(() => import('./pages/BlogIndexPage'));
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
 const ProcessPage = lazy(() => import('./pages/ProcessPage'));
 const DeliverablesPage = lazy(() => import('./pages/DeliverablesPage'));
+const CompletedProjectsPage = lazy(() => import('./pages/CompletedProjectsPage'));
 const WhyUsPage = lazy(() => import('./pages/WhyUsPage'));
 const FAQPage = lazy(() => import('./pages/FAQPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
@@ -223,6 +224,18 @@ export default function App() {
                 <Route
                   path="/deliverables"
                   element={<DeliverablesPage onOpenConsultation={handleOpenConsultation} />}
+                />
+                <Route
+                  path="/completed-projects"
+                  element={<CompletedProjectsPage onOpenConsultation={handleOpenConsultation} />}
+                />
+                <Route
+                  path="/completed-work"
+                  element={<CompletedProjectsPage onOpenConsultation={handleOpenConsultation} />}
+                />
+                <Route
+                  path="/our-work"
+                  element={<CompletedProjectsPage onOpenConsultation={handleOpenConsultation} />}
                 />
                 <Route
                   path="/why-us"

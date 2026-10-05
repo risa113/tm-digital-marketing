@@ -20,7 +20,8 @@ import {
   Target,
   TrendingUp,
   Code,
-  Palette
+  Palette,
+  CheckCircle2
 } from 'lucide-react';
 import Logo from './Logo';
 
@@ -61,6 +62,7 @@ export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
     { label: 'Services', path: '/services', icon: Zap, hasDropdown: true },
     { label: 'Blog', path: '/blog', icon: BookOpen },
     { label: 'Process', path: '/process', icon: RefreshCw },
+    { label: 'Completed Work', path: '/completed-projects', icon: CheckCircle2 },
     { label: 'Deliverables', path: '/deliverables', icon: Layers },
     { label: 'Why Us', path: '/why-us', icon: ShieldCheck },
     { label: 'Reviews', path: '/testimonials', icon: MessageSquare },

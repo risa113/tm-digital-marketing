@@ -185,6 +185,7 @@ export default function Footer() {
                     <li><Link to="/services" className="hover:text-[#2563EB] transition-colors block py-0.5">Services Hub</Link></li>
                     <li><Link to="/blog" className="hover:text-[#2563EB] transition-colors block py-0.5 font-bold text-[#2563EB]">Growth &amp; SEO Blog</Link></li>
                     <li><Link to="/process" className="hover:text-[#2563EB] transition-colors block py-0.5">6-Step Growth Process</Link></li>
+                    <li><Link to="/completed-projects" className="hover:text-[#2563EB] transition-colors block py-0.5 font-bold text-[#2563EB]">Completed Client Projects</Link></li>
                     <li><Link to="/deliverables" className="hover:text-[#2563EB] transition-colors block py-0.5">Deliverables &amp; Portfolio</Link></li>
                     <li><Link to="/why-us" className="hover:text-[#2563EB] transition-colors block py-0.5">Why Choose Us</Link></li>
                     <li><Link to="/testimonials" className="hover:text-[#2563EB] transition-colors block py-0.5">Client Reviews</Link></li>

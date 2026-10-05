@@ -6,7 +6,8 @@ import {
   Sparkles, 
   ArrowRight, 
   TrendingUp,
-  Eye
+  Eye,
+  ExternalLink
 } from 'lucide-react';
 import { PORTFOLIO, PortfolioItem } from '../data/marketingData';
 import AmbientBackground from '../components/AmbientBackground';
@@ -67,6 +68,24 @@ export default function DeliverablesPage({ onOpenConsultation }: DeliverablesPag
           >
             Explore our custom vector branding systems, 3D glassmorphic web apps, viral Reel edits, and high-ROAS Meta & Google ad funnels.
           </motion.p>
+
+          <motion.div
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            custom={2.5}
+            className="pt-2"
+          >
+            <Link
+              to="/completed-projects"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold shadow-xl shadow-blue-600/30 transition-all hover:scale-105"
+            >
+              <Sparkles className="w-4 h-4 text-amber-300" />
+              <span>Explore Finished Client Projects (Live Frames &amp; Case Studies)</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </motion.div>
 
           {/* Filter Bar (Down to Up) */}
           <motion.div 
@@ -201,13 +220,24 @@ export default function DeliverablesPage({ onOpenConsultation }: DeliverablesPag
                 </p>
               </div>
 
-              <div className="pt-2 flex justify-end gap-3">
+              <div className="pt-2 flex flex-wrap items-center justify-end gap-3">
+                {selectedItem.liveUrl && (
+                  <a
+                    href={selectedItem.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 py-3.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-[#111827] dark:text-white font-btn font-bold text-xs flex items-center justify-center gap-2 transition-colors"
+                  >
+                    <span>Visit Live Client Site</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                )}
                 <button
                   onClick={() => {
                     setSelectedItem(null);
                     onOpenConsultation();
                   }}
-                  className="w-full py-3.5 rounded-xl bg-[#2563EB] text-white font-btn font-bold text-xs shadow-lg shadow-blue-600/30 cursor-pointer"
+                  className={`${selectedItem.liveUrl ? 'flex-1' : 'w-full'} py-3.5 px-4 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-btn font-bold text-xs shadow-lg shadow-blue-600/30 cursor-pointer transition-all`}
                 >
                   Request Custom Deliverable
                 </button>

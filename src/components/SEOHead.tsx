@@ -144,6 +144,27 @@ const STATIC_ROUTE_SEO_MAP: Record<string, RouteSEO> = {
     canonical: 'https://tmdigitalgrow.com/deliverables',
     name: 'Deliverables'
   },
+  '/completed-projects': {
+    title: 'Completed Client Projects & Live Case Studies | TM Digital Marketing',
+    description: 'Explore our finished client web platforms including Al-Hayath Haj & Umrah Service and HYZIN INTERIOR. Bespoke 3D web architecture, luxury branding & high-converting lead funnels in Tamil Nadu & Kerala.',
+    keywords: 'completed client projects, Al-Hayath Umrah website, HYZIN Interior website, web development case studies, TM Digital Marketing client work, Tirunelveli agency results',
+    canonical: 'https://tmdigitalgrow.com/completed-projects',
+    name: 'Completed Projects'
+  },
+  '/completed-work': {
+    title: 'Completed Client Projects & Live Case Studies | TM Digital Marketing',
+    description: 'Explore our finished client web platforms including Al-Hayath Haj & Umrah Service and HYZIN INTERIOR. Bespoke 3D web architecture, luxury branding & high-converting lead funnels in Tamil Nadu & Kerala.',
+    keywords: 'completed client projects, client work showcase, TM Digital Marketing finished websites',
+    canonical: 'https://tmdigitalgrow.com/completed-projects',
+    name: 'Completed Work'
+  },
+  '/our-work': {
+    title: 'Our Work & Finished Client Web Platforms | TM Digital Marketing',
+    description: 'Explore our completed client projects with live simulated browser frames and interactive case studies.',
+    keywords: 'our work, portfolio of client projects, TM Digital Marketing',
+    canonical: 'https://tmdigitalgrow.com/completed-projects',
+    name: 'Our Work'
+  },
   '/why-us': {
     title: 'Why Choose Us | TM Digital Marketing Differentiators',
     description: 'Why top brands choose TM Digital Marketing in Tirunelveli: direct founder access, 7-day launch velocity, transparent real-time GA4 analytics, and 100% ROI-driven strategy.',
