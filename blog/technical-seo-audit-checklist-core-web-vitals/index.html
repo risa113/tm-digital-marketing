@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" sizes="48x48" href="https://tmdigitalgrow.com/favicon-48x48.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tmdigitalgrow.com/favicon-32x32.png" />
+  <link rel="shortcut icon" href="https://tmdigitalgrow.com/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="https://tmdigitalgrow.com/favicon.svg" />
+  <link rel="apple-touch-icon" href="https://tmdigitalgrow.com/apple-touch-icon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Suppress Three.js Clock deprecation warning caused by @react-three/fiber internal store -->
+  <script>
+    (function () {
+      var origWarn = console.warn;
+      console.warn = function () {
+        if (arguments[0] && typeof arguments[0] === 'string' && arguments[0].indexOf('THREE.Clock: This module has been deprecated') !== -1) {
+          return;
+        }
+        origWarn.apply(console, arguments);
+      };
+    })();
+  </script>
+
+  <!-- Primary SEO Title & Meta Tags -->
+  <title>Technical SEO Audit Checklist (2026): Core Web Vitals & INP Guide</title>
+  <meta name="title" content="Technical SEO Audit Checklist (2026): Core Web Vitals & INP Guide" />
+  <meta name="description" content="Step-by-step technical SEO audit guide for developers and marketers. Master Interaction to Next Paint (INP), solve crawl budget waste, structured data schema, and canonical errors." />
+  <meta name="keywords" content="seo, the technical seo audit checklist (2026): core web vitals, inp & crawl budget mastery, TM digital marketing, Tirunelveli" />
+  <meta name="author" content="TM Digital Marketing - Mohamed Thariq & Muja" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="google-adsense-account" content="ca-pub-3244084350504443" />
+  
+  <!-- Hreflang Tags for Multi-Region Search -->
+  <link rel="alternate" hreflang="en" href="https://tmdigitalgrow.com/" />
+  <link rel="alternate" hreflang="x-default" href="https://tmdigitalgrow.com/" />
+
+  <!-- Mobile Web App & Theme Preferences -->
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="TM Digital" />
+  <meta name="theme-color" content="#0F172A" />
+
+  <link rel="canonical" href="https://tmdigitalgrow.com/blog/technical-seo-audit-checklist-core-web-vitals" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- Local SEO Geo Meta Tags -->
+  <meta name="geo.region" content="IN-TN" />
+  <meta name="geo.placename" content="Tirunelveli" />
+  <meta name="geo.position" content="8.7139;77.7567" />
+  <meta name="ICBM" content="8.7139, 77.7567" />
+
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Technical SEO Audit Checklist (2026): Core Web Vitals & INP Guide" />
+  <meta property="og:description" content="Step-by-step technical SEO audit guide for developers and marketers. Master Interaction to Next Paint (INP), solve crawl budget waste, structured data schema, and canonical errors." />
+  <meta property="og:image"
+    content="https://tmdigitalgrow.com/growth_dashboard.jpg" />
+  <meta property="og:url" content="https://tmdigitalgrow.com/blog/technical-seo-audit-checklist-core-web-vitals" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="TM Digital Marketing" />
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://tmdigitalgrow.com/blog/technical-seo-audit-checklist-core-web-vitals" />
+  <meta name="twitter:title" content="Technical SEO Audit Checklist (2026): Core Web Vitals & INP Guide" />
+  <meta name="twitter:description" content="Step-by-step technical SEO audit guide for developers and marketers. Master Interaction to Next Paint (INP), solve crawl budget waste, structured data schema, and canonical errors." />
+  <meta name="twitter:image"
+    content="https://tmdigitalgrow.com/growth_dashboard.jpg" />
+
+  <!-- Structured Data (Organization Schema) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "TM Digital Marketing",
+      "url": "https://tmdigitalgrow.com",
+      "logo": "https://tmdigitalgrow.com/favicon.svg"
+    }
+  </script>
+
+  <!-- Asynchronous Non-Blocking Google Fonts & Preconnects -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap"
+    media="print"
+    onload="this.media='all'"
+  >
+  <noscript>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap"
+    >
+  </noscript>
+
+  <!-- Non-Critical Analytics Initialization on Idle -->
+  <script>
+    window.addEventListener('load', function() {
+      var requestIdle = window.requestIdleCallback || function(cb) { setTimeout(cb, 1500); };
+      requestIdle(function() {
+        // Load Google Analytics (gtag.js)
+        var gtm = document.createElement('script');
+        gtm.async = true;
+        gtm.src = 'https://www.googletagmanager.com/gtag/js?id=G-LJBCYEDNG7';
+        document.head.appendChild(gtm);
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', 'G-LJBCYEDNG7');
+
+        // Load Meta Pixel Code
+        !function (f, b, e, v, n, t, s) {
+          if (f.fbq) return; n = f.fbq = function () {
+            n.callMethod ?
+            n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+          };
+          if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+          n.queue = []; t = b.createElement(e); t.async = !0;
+          t.src = v; s = b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+        if (window.fbq) {
+          fbq('init', '2999594797059173');
+          fbq('track', 'PageView');
+        }
+      });
+    });
+  </script>
+  <script type="module" crossorigin src="/assets/index-BnymQnfS.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/rolldown-runtime-CNC7AqOf.js">
+  <link rel="modulepreload" crossorigin href="/assets/vendor-animation-DbeWFavu.js">
+  <link rel="modulepreload" crossorigin href="/assets/vendor-react-R5ehxaGB.js">
+  <link rel="modulepreload" crossorigin href="/assets/vendor-three-BSYFBCNI.js">
+  <link rel="modulepreload" crossorigin href="/assets/vendor-icons-DiBvPFW-.js">
+  <link rel="modulepreload" crossorigin href="/assets/vendor-backend-DgyezgU0.js">
+  <link rel="stylesheet" crossorigin href="/assets/index-AHzrHdcX.css">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://tmdigitalgrow.com/blog/technical-seo-audit-checklist-core-web-vitals"
+  },
+  "headline": "The Technical SEO Audit Checklist (2026): Core Web Vitals, INP & Crawl Budget Mastery",
+  "description": "Step-by-step technical SEO audit guide for developers and marketers. Master Interaction to Next Paint (INP), solve crawl budget waste, structured data schema, and canonical errors.",
+  "image": "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=1000&auto=format&fit=crop",
+  "author": {
+    "@type": "Person",
+    "name": "Mohamed Thariq",
+    "jobTitle": "Co-Founder & Creative Director at TM Digital Marketing",
+    "telephone": "+91 86087 24931"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "TM Digital Marketing",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://tmdigitalgrow.com/favicon.svg"
+    }
+  },
+  "datePublished": "2026-08-18",
+  "dateModified": "2026-09-08"
+}
+  </script>
+</head>
+
+<body
+  class="bg-[#F8FAFC] dark:bg-[#0F172A] text-[#111827] dark:text-slate-100 font-poppins antialiased selection:bg-[#2563EB] selection:text-white overflow-x-hidden transition-colors duration-300">
+  <!-- Meta Pixel Fallback (noscript) -->
+  <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=2999594797059173&ev=PageView&noscript=1" /></noscript>
+  <div id="root">
+    <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 prose dark:prose-invert">
+      <nav class="text-xs text-slate-500 mb-4" aria-label="Breadcrumb">
+        <a href="/" class="hover:underline">Home</a> &gt; 
+        <a href="/blog" class="hover:underline">Blog</a> &gt; 
+        <span class="text-slate-800 dark:text-slate-200">SEO</span>
+      </nav>
+
+      <span class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-700 dark:bg-blue-900/60 dark:text-blue-300">
+        SEO • 11 min read
+      </span>
+
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white mt-4 leading-tight">
+        The Technical SEO Audit Checklist (2026): Core Web Vitals, INP & Crawl Budget Mastery
+      </h1>
+
+      <div class="flex items-center gap-4 py-4 border-b border-slate-200 dark:border-slate-800 text-xs sm:text-sm text-slate-500">
+        <span>By <strong>Mohamed Thariq</strong> (Co-Founder & Creative Director at TM Digital Marketing)</span>
+        <span>•</span>
+        <span>Published: 2026-08-18 (Updated: 2026-09-08)</span>
+      </div>
+
+      <div class="p-6 my-6 rounded-2xl bg-blue-50/50 dark:bg-slate-900/40 border border-blue-200 dark:border-blue-900">
+        <p class="text-base text-slate-700 dark:text-slate-300 italic font-medium leading-relaxed">
+          A deep technical breakdown of the modern SEO architecture required to secure #1 search rankings. Learn how to debug Core Web Vitals, diagnose canonical loops, optimize JavaScript rendering, and pass Google indexing audits.
+        </p>
+      </div>
+
+      <div class="space-y-8 mt-8">
+        
+          <section id="why-technical-seo" class="space-y-4">
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Why Technical SEO is the Bedrock of Organic Rankings</h2>
+            <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Even the most brilliant, authoritative editorial content will fail to achieve organic rankings if search engine spiders cannot discover, parse, render, and index your pages seamlessly.</p><p class="text-slate-700 dark:text-slate-300 leading-relaxed">Technical SEO represents the architectural foundation of digital discovery. In 2026, Google's evaluation systems operate on strict performance budgets. Slow render times, unresolved script errors, or broken internal link graphs penalize your entire domain across all search queries.</p>
+            
+            
+          </section>
+        
+          <section id="core-web-vitals-inp" class="space-y-4">
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white">1. Mastering Interaction to Next Paint (INP) & LCP</h2>
+            <p class="text-slate-700 dark:text-slate-300 leading-relaxed">With Google formally replacing First Input Delay (FID) with Interaction to Next Paint (INP), page responsiveness during ongoing user interaction is a primary search ranking factor. INP measures how quickly a page visually updates after a user clicks a button, navigates a dropdown, or opens an accordion.</p><p class="text-slate-700 dark:text-slate-300 leading-relaxed">To optimize INP, break up long JavaScript tasks into smaller micro-tasks, debounce event listeners, and avoid expensive DOM mutations during user scroll events. For Largest Contentful Paint (LCP), ensure primary hero graphics use fetchpriority="high" and load from low-latency CDN edge nodes.</p>
+            
+              <ul class="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+                <li>Aim for INP under 200 milliseconds across both mobile and desktop viewports.</li><li>Compress hero media assets using modern WebP/AVIF containers with explicit aspect-ratio attributes.</li><li>Eliminate render-blocking CSS stylesheets and external scripts in the critical render path.</li>
+              </ul>
+            
+            
+              <div class="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/40 border-l-4 border-amber-500 text-amber-900 dark:text-amber-200 text-sm font-medium">
+                Developer Tip: Always verify performance using Google PageSpeed Insights field data (real user monitoring) rather than simulated lab data alone.
+              </div>
+            
+          </section>
+        
+          <section id="crawlability-indexation" class="space-y-4">
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white">2. Crawl Budget Efficiency & robots.txt Best Practices</h2>
+            <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Large domains frequently squander crawl budget by allowing Googlebot to crawl redundant URL parameters, session IDs, internal search filters, and duplicate category paths.</p><p class="text-slate-700 dark:text-slate-300 leading-relaxed">Maintain a lean, clean robots.txt that grants full access to vital CSS, JS, and image assets while restricting endless pagination and administrative staging routes. Ensure your XML sitemap contains only self-canonical, 200 HTTP status URLs with fresh lastmod timestamps.</p>
+            
+            
+          </section>
+        
+          <section id="canonicalization-hierarchy" class="space-y-4">
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white">3. Preventing Canonical Duplication & Redirect Chains</h2>
+            <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Conflicting canonical tags confuse search engines and dilute link equity across competing URL variations. Ensure that every single page declares a clean, absolute canonical URL matching its exact protocol (https) and canonical domain format.</p><p class="text-slate-700 dark:text-slate-300 leading-relaxed">Audit your site for 301/302 redirect hops. Chaining redirects (e.g., http to https, then non-www to www, then non-slash to trailing slash) introduces severe latency and wastes crawl equity.</p>
+            
+            
+          </section>
+        
+          <section id="structured-data-schema" class="space-y-4">
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white">4. Advanced JSON-LD Semantic Schemas</h2>
+            <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Structured data enables Googlebot to build rich entity relationships in the Knowledge Graph. Deploy structured schemas including Organization, LocalBusiness, FAQPage, Article, and BreadcrumbList schemas.</p><p class="text-slate-700 dark:text-slate-300 leading-relaxed">Always validate your schemas using the official Google Rich Results Test to verify that zero schema warnings or syntax syntax errors exist.</p>
+            
+            
+          </section>
+        
+          <section id="spa-ssr-prerendering" class="space-y-4">
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white">5. Single-Page Application (SPA) SEO & Pre-Rendering</h2>
+            <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Client-side rendered React and Vue SPAs often serve blank index.html shells containing empty root div containers. While Googlebot can execute JavaScript, two-wave indexing delays content indexing by days or weeks.</p><p class="text-slate-700 dark:text-slate-300 leading-relaxed">At TM Digital Marketing, we implement static pre-rendering pipelines during deployment. Every route generates full semantic HTML with unique titles, meta descriptions, and article body text, guaranteeing instant discovery by search bots and compliance review teams.</p>
+            
+            
+          </section>
+        
+      </div>
+
+      
+        <section id="faqs" class="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800">
+          <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Frequently Asked Questions</h2>
+          <div class="space-y-4">
+            
+              <details class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                <summary class="font-bold text-slate-900 dark:text-white cursor-pointer">What is the acceptable benchmark for Google Core Web Vitals?</summary>
+                <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">LCP under 2.5s, INP under 200ms, and CLS under 0.1 for at least 75% of page visits across mobile and desktop.</p>
+              </details>
+            
+              <details class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                <summary class="font-bold text-slate-900 dark:text-white cursor-pointer">How do 301 redirect chains hurt SEO performance?</summary>
+                <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">Redirect chains increase page load time, waste Googlebot crawl budget, and can cause search crawlers to abandon following links before reaching the destination page.</p>
+              </details>
+            
+          </div>
+        </section>
+      
+
+      <div class="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-400 text-center">
+        <p>Published by TM Digital Marketing Agency, Tirunelveli, Tamil Nadu. Direct founder inquiries: Mohamed Thariq (+91 86087 24931) & Muja (+91 63694 80812).</p>
+      </div>
+    </article>
+  </div>
+</body>
+
+</html>
