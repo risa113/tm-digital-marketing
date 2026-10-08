@@ -24,6 +24,15 @@ export default function AdSenseBanner({
 
     try {
       if (typeof window !== 'undefined') {
+        const existingScript = document.querySelector('script[src*="pagead2.googlesyndication.com"]');
+        if (!existingScript) {
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3244084350504443';
+          script.crossOrigin = 'anonymous';
+          document.head.appendChild(script);
+        }
+
         // @ts-ignore
         (window.adsbygoogle = window.adsbygoogle || []).push({});
         isLoaded.current = true;

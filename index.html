@@ -101,18 +101,11 @@
     >
   </noscript>
 
-  <!-- Non-Critical Analytics & AdSense Initialization on Idle -->
+  <!-- Non-Critical Analytics Initialization on Idle -->
   <script>
     window.addEventListener('load', function() {
       var requestIdle = window.requestIdleCallback || function(cb) { setTimeout(cb, 1500); };
       requestIdle(function() {
-        // Load AdSense Script
-        var adScript = document.createElement('script');
-        adScript.async = true;
-        adScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3244084350504443';
-        adScript.crossOrigin = 'anonymous';
-        document.head.appendChild(adScript);
-
         // Load Google Analytics (gtag.js)
         var gtm = document.createElement('script');
         gtm.async = true;

@@ -9,7 +9,6 @@ import {
   FileText, 
   Layers, 
   Palette, 
-  ShieldCheck, 
   MessageSquare, 
   ArrowRight, 
   Lock, 
