@@ -145,23 +145,23 @@ const STATIC_ROUTE_SEO_MAP: Record<string, RouteSEO> = {
     name: 'Deliverables'
   },
   '/completed-projects': {
-    title: 'Completed Client Projects & Live Case Studies | TM Digital Marketing',
-    description: 'Explore our finished client web platforms including Al-Hayath Haj & Umrah Service and HYZIN INTERIOR. Bespoke 3D web architecture, luxury branding & high-converting lead funnels in Tamil Nadu & Kerala.',
-    keywords: 'completed client projects, Al-Hayath Umrah website, HYZIN Interior website, web development case studies, TM Digital Marketing client work, Tirunelveli agency results',
+    title: 'Completed Client Projects & Creative Work Portfolio | TM Digital Marketing',
+    description: 'Explore completed client projects by TM Digital Marketing: professional branding & logo design, promotional banner designing, newspaper advertisements, visiting cards, and live web platforms in Tirunelveli.',
+    keywords: 'Digital Marketing Agency, Branding Services, Banner Designing, Advertisement Designing, Visiting Card Designing, Graphic Design Services, completed client projects, Crescent Construction, Crescent Roofing, Al Tamam Furniture, Masha Catering',
     canonical: 'https://tmdigitalgrow.com/completed-projects',
     name: 'Completed Projects'
   },
   '/completed-work': {
-    title: 'Completed Client Projects & Live Case Studies | TM Digital Marketing',
-    description: 'Explore our finished client web platforms including Al-Hayath Haj & Umrah Service and HYZIN INTERIOR. Bespoke 3D web architecture, luxury branding & high-converting lead funnels in Tamil Nadu & Kerala.',
-    keywords: 'completed client projects, client work showcase, TM Digital Marketing finished websites',
+    title: 'Completed Client Projects & Creative Work Portfolio | TM Digital Marketing',
+    description: 'Explore completed branding, banners, advertisements, and web development deliverables for clients across Tamil Nadu by TM Digital Marketing.',
+    keywords: 'Digital Marketing Agency, Branding Services, Banner Designing, Advertisement Designing, Visiting Card Designing, Graphic Design Services',
     canonical: 'https://tmdigitalgrow.com/completed-projects',
     name: 'Completed Work'
   },
   '/our-work': {
-    title: 'Our Work & Finished Client Web Platforms | TM Digital Marketing',
-    description: 'Explore our completed client projects with live simulated browser frames and interactive case studies.',
-    keywords: 'our work, portfolio of client projects, TM Digital Marketing',
+    title: 'Our Creative Work & Completed Portfolio | TM Digital Marketing',
+    description: 'Explore our completed branding, advertising, banner designing, visiting cards, and corporate design projects at TM Digital Marketing.',
+    keywords: 'Digital Marketing Agency, Branding Services, Banner Designing, Advertisement Designing, Visiting Card Designing, Graphic Design Services',
     canonical: 'https://tmdigitalgrow.com/completed-projects',
     name: 'Our Work'
   },

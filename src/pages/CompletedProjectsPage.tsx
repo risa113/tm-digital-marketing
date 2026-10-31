@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { COMPLETED_PROJECTS } from '../data/marketingData';
 import AmbientBackground from '../components/AmbientBackground';
+import PortfolioSection from '../components/PortfolioSection';
 import { fadeInUp, fadeInDown, staggerContainer, defaultViewport } from '../utils/animations';
 
 interface CompletedProjectsPageProps {
@@ -813,6 +814,9 @@ export default function CompletedProjectsPage({ onOpenConsultation }: CompletedP
           );
         })}
       </div>
+
+      {/* Creative Design Portfolio Showcase */}
+      <PortfolioSection onOpenConsultation={onOpenConsultation} />
 
       {/* Conversion Callout Banner */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24">

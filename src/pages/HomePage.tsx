@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import HeroSection from '../components/HeroSection';
 import ServicesSection from '../components/ServicesSection';
+import PortfolioSection from '../components/PortfolioSection';
 import { CONTACT_INFO } from '../data/marketingData';
 import { ServiceItem } from '../data/marketingData';
 
@@ -24,6 +25,9 @@ export default function HomePage({ onOpenConsultation, onSelectService }: HomePa
 
       {/* Core Services Section */}
       <ServicesSection onSelectService={onSelectService} />
+
+      {/* Premium Creative Portfolio Section */}
+      <PortfolioSection onOpenConsultation={onOpenConsultation} />
 
       {/* Founder Direct Access Banner */}
       <section className="py-16 bg-gradient-to-r from-blue-600 to-sky-600 text-white relative overflow-hidden content-auto">

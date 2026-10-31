@@ -45,6 +45,13 @@ const STATIC_ROUTES_INFO = {
             <p class="text-sm text-slate-600 dark:text-slate-300 mt-2">Ultra-fast React websites with 99+ Core Web Vitals, custom 3D visuals, and seamless lead conversion funnels.</p>
           </div>
         </div>
+        <div class="mt-12 p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+          <h2 class="text-2xl font-bold text-slate-900 dark:text-white">OUR CREATIVE WORK</h2>
+          <p class="text-blue-600 font-semibold mt-1">Turning Business Ideas Into Powerful Visual Identities.</p>
+          <p class="text-sm text-slate-600 dark:text-slate-300 mt-2">
+            Explore our completed branding, advertising, banner designing, and corporate design projects. Every project represents our commitment to professional business presentation. Featuring real client work for Crescent Construction, Crescent Roofing, Al Tamam Furniture Manufacturing LLC, and Masha Catering Service.
+          </p>
+        </div>
       </section>
     `
   },
@@ -291,35 +298,54 @@ const STATIC_ROUTES_INFO = {
     `
   },
   'completed-projects': {
-    title: 'Completed Client Projects & Live Case Studies | TM Digital Marketing',
-    description: 'Explore live client projects delivered by TM Digital Marketing: Al-Hayath Umrah Services (340+ verified bookings, 5.8x ROAS) and HYZIN Interior (62+ premium turnkey inquiries).',
-    keywords: 'digital marketing case studies, completed client projects, Tirunelveli marketing results',
+    title: 'Completed Client Projects & Creative Portfolio | TM Digital Marketing',
+    description: 'Explore completed client projects by TM Digital Marketing: branding & logo design, promotional banner designing, newspaper advertisement designing, visiting cards, and live web platforms in Tirunelveli.',
+    keywords: 'Digital Marketing Agency, Branding Services, Banner Designing, Advertisement Designing, Visiting Card Designing, Graphic Design Services, completed client projects, Tirunelveli marketing results',
     canonical: 'https://tmdigitalgrow.com/completed-projects',
-    heading: 'Completed Client Projects & Live Case Studies',
+    heading: 'OUR CREATIVE WORK - Completed Client Projects & Portfolio',
     contentHtml: `
       <section class="max-w-4xl mx-auto px-4 py-12">
-        <h1 class="text-3xl font-extrabold text-slate-900 dark:text-white">Completed Client Projects & Case Studies</h1>
+        <h1 class="text-3xl font-extrabold text-slate-900 dark:text-white">OUR CREATIVE WORK - Completed Client Projects & Portfolio</h1>
+        <p class="mt-2 text-xl font-semibold text-blue-600">Turning Business Ideas Into Powerful Visual Identities.</p>
         <p class="mt-4 text-base text-slate-600 dark:text-slate-300 leading-relaxed">
-          Verifiable client results across tourism, healthcare, architecture, and retail. Review our live deliverables for Al-Hayath Umrah Services and HYZIN Interior Architecture.
+          Explore our completed branding, advertising, banner designing, and corporate design projects. Every project represents our commitment to professional business presentation. Verified completed work for Crescent Construction, Crescent Roofing, Al Tamam Furniture Manufacturing LLC, and Masha Catering Service in Tirunelveli and Tamil Nadu.
         </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+          <div class="p-5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+            <h3 class="font-bold text-lg text-slate-900 dark:text-white">Branding & Identity</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Professional Branding & Logo Design for Crescent Construction and Crescent Roofing.</p>
+          </div>
+          <div class="p-5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+            <h3 class="font-bold text-lg text-slate-900 dark:text-white">Banner Designing</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Professional Promotional Banner Design for Crescent Construction and Crescent Roofing.</p>
+          </div>
+          <div class="p-5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+            <h3 class="font-bold text-lg text-slate-900 dark:text-white">Advertisement Designing</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Newspaper & Commercial Advertisement Design for Al Tamam Furniture and Masha Catering Service.</p>
+          </div>
+          <div class="p-5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+            <h3 class="font-bold text-lg text-slate-900 dark:text-white">Visiting Card Designing</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Corporate Visiting Card Design for Al Tamam Furniture & Properties.</p>
+          </div>
+        </div>
       </section>
     `
   },
   'completed-work': {
-    title: 'Completed Client Projects | TM Digital Marketing',
-    description: 'Explore live client projects delivered by TM Digital Marketing.',
-    keywords: 'marketing case studies, completed work',
+    title: 'Completed Client Projects & Creative Work | TM Digital Marketing',
+    description: 'Explore completed branding, banners, newspaper advertisements, and web platforms delivered by TM Digital Marketing.',
+    keywords: 'Digital Marketing Agency, Branding Services, Banner Designing, Advertisement Designing, Visiting Card Designing, Graphic Design Services',
     canonical: 'https://tmdigitalgrow.com/completed-projects',
     heading: 'Completed Projects',
     contentHtml: '<p>Explore our client results and completed projects.</p>'
   },
   'our-work': {
-    title: 'Our Work & Portfolio | TM Digital Marketing',
-    description: 'Review our client portfolio, creative ad designs, websites and ROI results.',
-    keywords: 'agency portfolio, marketing work',
+    title: 'Our Creative Work & Portfolio | TM Digital Marketing',
+    description: 'Explore our completed branding, advertising, banner designing, and corporate design projects.',
+    keywords: 'Digital Marketing Agency, Branding Services, Banner Designing, Advertisement Designing, Visiting Card Designing, Graphic Design Services',
     canonical: 'https://tmdigitalgrow.com/completed-projects',
-    heading: 'Our Work',
-    contentHtml: '<p>Review our client portfolio and deliverables.</p>'
+    heading: 'Our Creative Work',
+    contentHtml: '<p>Explore our completed branding, advertising, banner designing, and corporate design projects.</p>'
   },
   'why-us': {
     title: 'Why Choose TM Digital Marketing | Founders vs Trainees',
