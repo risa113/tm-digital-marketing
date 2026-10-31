@@ -21,7 +21,11 @@ import {
   TrendingUp,
   Code,
   Palette,
-  CheckCircle2
+  CheckCircle2,
+  Globe,
+  FileImage,
+  CreditCard,
+  Megaphone
 } from 'lucide-react';
 import Logo from './Logo';
 
@@ -35,6 +39,7 @@ export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
+  const [workDropdownOpen, setWorkDropdownOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -49,11 +54,12 @@ export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile drawer & dropdown when location changes
+  // Close mobile drawer & dropdowns when location changes
   useEffect(() => {
     setMobileMenuOpen(false);
     setServicesDropdownOpen(false);
-  }, [location.pathname]);
+    setWorkDropdownOpen(false);
+  }, [location.pathname, location.search]);
 
   const navLinks = [
     { label: 'Home', path: '/', icon: Home },
@@ -62,12 +68,57 @@ export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
     { label: 'Services', path: '/services', icon: Zap, hasDropdown: true },
     { label: 'Blog', path: '/blog', icon: BookOpen },
     { label: 'Process', path: '/process', icon: RefreshCw },
-    { label: 'Completed Work', path: '/completed-projects', icon: CheckCircle2 },
+    { label: 'Completed Work', path: '/completed-projects', icon: CheckCircle2, hasWorkDropdown: true },
     { label: 'Deliverables', path: '/deliverables', icon: Layers },
     { label: 'Why Us', path: '/why-us', icon: ShieldCheck },
     { label: 'Reviews', path: '/testimonials', icon: MessageSquare },
     { label: 'FAQ', path: '/faq', icon: HelpCircle },
     { label: 'Contact', path: '/contact', icon: PhoneCall }
+  ];
+
+  const completedWorkCategories = [
+    {
+      label: 'All Completed Projects',
+      path: '/completed-projects',
+      desc: 'Master showcase of live web architecture & creative design work',
+      icon: CheckCircle2,
+      badge: 'All 7+'
+    },
+    {
+      label: 'Web Platforms & Live Sites',
+      path: '/completed-projects#web-platforms',
+      desc: 'Al-Hayath Umrah & HYZIN Interior 3D platforms',
+      icon: Globe,
+      badge: 'Live'
+    },
+    {
+      label: 'Branding & Logo Design',
+      path: '/completed-projects?category=Branding%20%26%20Identity#portfolio',
+      desc: 'Crescent Construction & Crescent Roofing vector logo suites',
+      icon: Palette,
+      badge: 'Logos'
+    },
+    {
+      label: 'Banner Designing',
+      path: '/completed-projects?category=Banner%20Designing#portfolio',
+      desc: 'Large format outdoor hoardings & industrial workshop banners',
+      icon: FileImage,
+      badge: 'Banners'
+    },
+    {
+      label: 'Advertisement Designing',
+      path: '/completed-projects?category=Advertisement%20Designing#portfolio',
+      desc: 'Newspaper print ads & commercial festive food flyers',
+      icon: Megaphone,
+      badge: 'Print Ads'
+    },
+    {
+      label: 'Visiting Card Designing',
+      path: '/completed-projects?category=Visiting%20Card%20Designing#portfolio',
+      desc: 'Executive double-sided corporate matte & gold visiting cards',
+      icon: CreditCard,
+      badge: 'Cards'
+    }
   ];
 
   const dedicatedServices = [
@@ -175,20 +226,81 @@ export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
 
             if (isCompletedWork) {
               return (
-                <NavLink
+                <div
                   key={link.label}
-                  to={link.path}
-                  className={({ isActive }) =>
-                    `text-[11px] xl:text-xs 2xl:text-[13px] font-bold px-2 xl:px-2.5 py-1 rounded-full whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 shrink-0 ${
-                      isActive
-                        ? 'bg-[#2563EB] text-white shadow-xs font-extrabold'
-                        : 'text-[#2563EB] bg-blue-50/90 hover:bg-blue-100 border border-blue-200/90 dark:bg-blue-950/70 dark:hover:bg-blue-900/60 dark:text-blue-300 dark:border-blue-800/80'
-                    }`
-                  }
+                  className="relative group shrink-0"
+                  onMouseEnter={() => setWorkDropdownOpen(true)}
+                  onMouseLeave={() => setWorkDropdownOpen(false)}
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] dark:bg-blue-400 animate-pulse shrink-0" />
-                  <span>{link.label}</span>
-                </NavLink>
+                  <NavLink
+                    to={link.path}
+                    className={({ isActive }) =>
+                      `text-[11px] xl:text-xs 2xl:text-[13px] font-bold px-2 xl:px-2.5 py-1 rounded-full whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 shrink-0 cursor-pointer ${
+                        isActive
+                          ? 'bg-[#2563EB] text-white shadow-xs font-extrabold'
+                          : 'text-[#2563EB] bg-blue-50/90 hover:bg-blue-100 border border-blue-200/90 dark:bg-blue-950/70 dark:hover:bg-blue-900/60 dark:text-blue-300 dark:border-blue-800/80'
+                      }`
+                    }
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] dark:bg-blue-400 animate-pulse shrink-0" />
+                    <span>{link.label}</span>
+                    <ChevronDown className="w-3 h-3 opacity-70 group-hover:rotate-180 transition-transform shrink-0" />
+                  </NavLink>
+
+                  {/* Completed Work Mega Dropdown */}
+                  <div
+                    className={`absolute top-full left-1/2 -translate-x-1/2 mt-1 w-[560px] p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl transition-all duration-200 z-50 ${
+                      workDropdownOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible pointer-events-none -translate-y-2'
+                    }`}
+                  >
+                    {/* Header */}
+                    <div className="flex items-center justify-between pb-3 mb-2 border-b border-slate-100 dark:border-slate-800 px-1">
+                      <div className="flex items-center gap-1.5 text-xs font-extrabold text-[#2563EB] dark:text-blue-400 uppercase tracking-wider">
+                        <Sparkles className="w-3.5 h-3.5" />
+                        <span>Completed Work by Category</span>
+                      </div>
+                      <Link
+                        to="/completed-projects"
+                        onClick={() => setWorkDropdownOpen(false)}
+                        className="text-[11px] font-bold text-slate-500 hover:text-[#2563EB] transition-colors"
+                      >
+                        View All Completed Projects &rarr;
+                      </Link>
+                    </div>
+
+                    {/* Category Grid */}
+                    <div className="grid grid-cols-2 gap-2">
+                      {completedWorkCategories.map((item) => {
+                        const IconComp = item.icon;
+                        return (
+                          <Link
+                            key={item.label}
+                            to={item.path}
+                            onClick={() => setWorkDropdownOpen(false)}
+                            className="p-2.5 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-950/60 border border-transparent hover:border-blue-200 dark:hover:border-blue-800 transition-all flex items-start gap-2.5 text-left group/item"
+                          >
+                            <div className="w-7 h-7 rounded-lg bg-blue-50 dark:bg-blue-950 text-[#2563EB] dark:text-blue-400 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:scale-110 transition-transform">
+                              <IconComp className="w-3.5 h-3.5" />
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <div className="flex items-center justify-between gap-1">
+                                <p className="text-xs font-bold text-slate-900 dark:text-white group-hover/item:text-[#2563EB] dark:group-hover/item:text-blue-400 transition-colors leading-tight truncate">
+                                  {item.label}
+                                </p>
+                                <span className="text-[9px] px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold shrink-0">
+                                  {item.badge}
+                                </span>
+                              </div>
+                              <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-tight pt-1 line-clamp-1">
+                                {item.desc}
+                              </p>
+                            </div>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
               );
             }
 
@@ -284,6 +396,53 @@ export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
                     </NavLink>
                   );
                 })}
+              </div>
+
+              {/* Mobile Completed Work Links by Category */}
+              <div className="pt-2 border-t border-slate-200 dark:border-slate-800 space-y-2">
+                <div className="flex items-center justify-between px-1">
+                  <span className="text-[10px] font-extrabold text-[#2563EB] uppercase tracking-widest flex items-center gap-1.5">
+                    <Sparkles className="w-3 h-3 text-[#2563EB]" />
+                    <span>Completed Work ({completedWorkCategories.length})</span>
+                  </span>
+                  <Link 
+                    to="/completed-projects" 
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-[10px] text-[#2563EB] font-bold hover:underline"
+                  >
+                    View All &rarr;
+                  </Link>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs">
+                  {completedWorkCategories.map((item) => {
+                    const IconComp = item.icon;
+                    return (
+                      <Link
+                        key={item.label}
+                        to={item.path}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/40 hover:bg-blue-50 dark:hover:bg-blue-950/60 border border-slate-200/60 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-[#2563EB] flex items-start gap-2 font-medium transition-all group"
+                      >
+                        <div className="w-5 h-5 rounded-md bg-blue-50 dark:bg-blue-950 text-[#2563EB] flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-105 transition-transform">
+                          <IconComp className="w-3 h-3" />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center justify-between gap-1">
+                            <p className="text-[11px] font-bold text-slate-900 dark:text-white truncate leading-tight group-hover:text-[#2563EB] transition-colors">
+                              {item.label}
+                            </p>
+                            <span className="text-[8px] px-1 py-0.2 rounded bg-slate-200/60 dark:bg-slate-800 text-slate-500 font-semibold shrink-0">
+                              {item.badge}
+                            </span>
+                          </div>
+                          <p className="text-[9px] text-slate-500 dark:text-slate-400 truncate leading-tight pt-0.5">
+                            {item.desc}
+                          </p>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
               </div>
 
               {/* Mobile Dedicated Service Links (All 8 Services) */}

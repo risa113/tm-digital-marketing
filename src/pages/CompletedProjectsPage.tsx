@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Sparkles, 
@@ -31,6 +32,21 @@ interface CompletedProjectsPageProps {
 }
 
 export default function CompletedProjectsPage({ onOpenConsultation }: CompletedProjectsPageProps) {
+  const location = useLocation();
+
+  // Scroll to hash target on anchor change
+  useEffect(() => {
+    if (location.hash) {
+      const targetId = location.hash.replace('#', '');
+      const el = document.getElementById(targetId);
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 150);
+      }
+    }
+  }, [location.hash, location.search]);
+
   // Device view state for each project: 'desktop' | 'mobile' | 'study'
   const [deviceViews, setDeviceViews] = useState<Record<string, 'desktop' | 'mobile' | 'study'>>({
     'alhayath-umrah': 'desktop',
@@ -182,7 +198,7 @@ export default function CompletedProjectsPage({ onOpenConsultation }: CompletedP
       </section>
 
       {/* Projects Showcase Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-32 my-12">
+      <div id="web-platforms" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-32 my-12 scroll-mt-28">
         {COMPLETED_PROJECTS.map((project) => {
           const currentView = deviceViews[project.id] || 'desktop';
           const isUmrah = project.previewType === 'umrah';

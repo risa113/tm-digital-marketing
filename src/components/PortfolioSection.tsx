@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Sparkles, 
@@ -29,9 +30,31 @@ interface PortfolioSectionProps {
 }
 
 export default function PortfolioSection({ onOpenConsultation }: PortfolioSectionProps) {
+  const [searchParams] = useSearchParams();
+  const location = useLocation();
   const [activeCategory, setActiveCategory] = useState<PortfolioCategory>('All Projects');
   const [selectedProject, setSelectedProject] = useState<CreativeProject | null>(null);
   const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
+
+  // Sync category with URL query param if present (?category=...)
+  useEffect(() => {
+    const categoryParam = searchParams.get('category') as PortfolioCategory | null;
+    if (categoryParam && PORTFOLIO_CATEGORIES.includes(categoryParam)) {
+      setActiveCategory(categoryParam);
+    }
+  }, [searchParams]);
+
+  // Handle smooth scroll to portfolio on anchor link
+  useEffect(() => {
+    if (location.hash === '#portfolio') {
+      const el = document.getElementById('portfolio');
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 150);
+      }
+    }
+  }, [location.hash, location.search]);
 
   // Filter projects by active category
   const filteredProjects = activeCategory === 'All Projects'
