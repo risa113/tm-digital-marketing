@@ -47,19 +47,8 @@ function StatCounter({ value, suffix }: { value: number; suffix: string }) {
 }
 
 export default function HeroSection({ onOpenConsultation }: HeroSectionProps) {
-  const [isMobileDevice, setIsMobileDevice] = useState(true);
-
-  useEffect(() => {
-    const check = () => {
-      setIsMobileDevice(window.innerWidth < 1024 || ('ontouchstart' in window && window.innerWidth < 1280));
-    };
-    check();
-    window.addEventListener('resize', check, { passive: true });
-    return () => window.removeEventListener('resize', check);
-  }, []);
-
   return (
-    <section className="relative pt-24 sm:pt-32 pb-16 sm:pb-24 overflow-hidden bg-[#F8FAFC] dark:bg-[#0F172A]">
+    <section className="relative pt-20 sm:pt-32 pb-12 sm:pb-24 overflow-hidden bg-[#F8FAFC] dark:bg-[#0F172A]">
       <AmbientBackground />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -145,67 +134,21 @@ export default function HeroSection({ onOpenConsultation }: HeroSectionProps) {
             </motion.div>
           </motion.div>
 
-          {/* Right Column: Mobile-Optimized Fast Graphic vs Desktop 3D Canvas */}
+          {/* Right Column: 3D Growth Showcase Canvas (Active across Mobile & Desktop) */}
           <motion.div
             variants={slideInRight}
             initial="hidden"
             whileInView="visible"
             viewport={defaultViewport}
-            className="lg:col-span-5 relative min-h-[280px] sm:min-h-[380px] flex items-center justify-center"
+            className="lg:col-span-5 relative w-full h-[320px] sm:h-[400px] lg:h-[460px] flex items-center justify-center overflow-hidden"
           >
-            {isMobileDevice ? (
-              /* Ultra-Fast 0ms-Load Mobile Growth Showcase Card */
-              <div className="w-full max-w-md rounded-3xl p-6 bg-gradient-to-br from-slate-900 via-slate-800 to-blue-950 text-white border border-blue-500/30 shadow-2xl relative overflow-hidden space-y-4">
-                <div className="flex items-center justify-between border-b border-slate-700/60 pb-3">
-                  <div className="flex items-center gap-2">
-                    <span className="font-heading font-black text-base text-[#2563EB]">TM</span>
-                    <span className="font-heading font-bold text-xs tracking-wider text-slate-200">DIGITAL MARKETING</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-[10px] font-bold text-emerald-400">
-                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                    <span>100% ROI</span>
-                  </div>
-                </div>
-
-                <div className="text-center py-2">
-                  <p className="text-[10px] font-extrabold tracking-widest text-[#38BDF8] uppercase">CONNECT • ENGAGE • GROW</p>
-                  <p className="font-heading font-extrabold text-2xl text-white pt-1">Growth Dashboard</p>
-                </div>
-
-                {/* Lightweight CSS Bar Chart */}
-                <div className="h-28 flex items-end justify-between gap-2 px-2 pt-2 border-b border-slate-700/50 pb-2">
-                  {[
-                    { month: 'SEO', height: '40%', val: '+180%' },
-                    { month: 'Meta', height: '65%', val: '+320%' },
-                    { month: 'Google', height: '85%', val: '+450%' },
-                    { month: 'Leads', height: '100%', val: '+620%' }
-                  ].map((bar) => (
-                    <div key={bar.month} className="flex-1 flex flex-col items-center gap-1 h-full justify-end">
-                      <span className="text-[9px] font-bold text-cyan-300">{bar.val}</span>
-                      <div 
-                        className="w-full rounded-t-lg bg-gradient-to-t from-blue-600 to-cyan-400"
-                        style={{ height: bar.height }}
-                      />
-                      <span className="text-[10px] text-slate-400 font-semibold">{bar.month}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="flex items-center justify-between text-[11px] font-bold text-slate-300 pt-1">
-                  <span>⚡ 7-Day Sprint Deploy</span>
-                  <span className="text-[#38BDF8]">Direct Founder Support</span>
-                </div>
+            <Suspense fallback={
+              <div className="w-full h-72 sm:h-80 rounded-3xl bg-blue-50/50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 animate-pulse flex items-center justify-center">
+                <Zap className="w-8 h-8 text-[#2563EB]/40 animate-spin" />
               </div>
-            ) : (
-              /* Desktop 3D Canvas */
-              <Suspense fallback={
-                <div className="w-full h-64 rounded-3xl bg-blue-50/50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 animate-pulse flex items-center justify-center">
-                  <Zap className="w-8 h-8 text-[#2563EB]/40 animate-spin" />
-                </div>
-              }>
-                <Hero3DCanvas />
-              </Suspense>
-            )}
+            }>
+              <Hero3DCanvas />
+            </Suspense>
           </motion.div>
 
         </div>

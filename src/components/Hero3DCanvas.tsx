@@ -4,7 +4,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Float, RoundedBox, OrbitControls, Sphere } from '@react-three/drei';
 import * as THREE from 'three';
 
-function Laptop3DModel({ isVisible }: { isVisible: boolean }) {
+function Laptop3DModel({ isVisible, isMobile }: { isVisible: boolean; isMobile: boolean }) {
   const laptopGroup = useRef<THREE.Group>(null);
   const [lidBackTexture, setLidBackTexture] = useState<THREE.CanvasTexture | null>(null);
 
@@ -191,7 +191,7 @@ function Laptop3DModel({ isVisible }: { isVisible: boolean }) {
   ], []);
 
   return (
-    <group ref={laptopGroup} position={[0, -0.5, 0]}>
+    <group ref={laptopGroup} scale={isMobile ? 0.72 : 1.0} position={[0, isMobile ? -0.2 : -0.5, 0]}>
       {/* Laptop Base Keyboard */}
       <RoundedBox args={[3.6, 0.15, 2.4]} radius={0.06} position={[0, 0, 0]}>
         <meshStandardMaterial color="#334155" metalness={0.8} roughness={0.2} />
@@ -319,7 +319,7 @@ export default function Hero3DCanvas() {
       className="w-full h-full min-h-[320px] sm:min-h-[420px] relative pointer-events-none md:pointer-events-auto touch-pan-y"
     >
       <Canvas
-        camera={{ position: [0, 0, 6.5], fov: 50 }}
+        camera={{ position: [0, 0, isMobile ? 8.4 : 6.5], fov: isMobile ? 48 : 50 }}
         className="w-full h-full"
         frameloop={isVisible ? 'always' : 'never'}
         dpr={isMobile ? [1, 1] : [1, 1.25]}
@@ -334,7 +334,7 @@ export default function Hero3DCanvas() {
         <ambientLight intensity={0.8} />
         <directionalLight position={[10, 10, 5]} intensity={1.5} color="#ffffff" />
         <pointLight position={[-10, -10, -5]} intensity={1.1} color="#2563EB" />
-        <Laptop3DModel isVisible={isVisible} />
+        <Laptop3DModel isVisible={isVisible} isMobile={isMobile} />
         {!isMobile && isVisible && <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.5} />}
       </Canvas>
     </div>

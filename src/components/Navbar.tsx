@@ -40,6 +40,8 @@ export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const [workDropdownOpen, setWorkDropdownOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [mobileWorkOpen, setMobileWorkOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -59,6 +61,8 @@ export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
     setMobileMenuOpen(false);
     setServicesDropdownOpen(false);
     setWorkDropdownOpen(false);
+    setMobileServicesOpen(false);
+    setMobileWorkOpen(false);
   }, [location.pathname, location.search]);
 
   const navLinks = [
@@ -154,7 +158,7 @@ export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
           : 'bg-white/90 dark:bg-[#0F172A]/90 backdrop-blur-md border-b border-slate-200/60 dark:border-slate-800/60'
       }`}
     >
-      <div className="w-full max-w-[1720px] mx-auto px-3 sm:px-5 lg:px-4 xl:px-6 2xl:px-8 h-16 sm:h-20 flex items-center justify-between gap-1.5 sm:gap-2 xl:gap-4">
+      <div className="w-full max-w-[1720px] mx-auto px-3 sm:px-5 lg:px-4 xl:px-6 2xl:px-8 h-14 sm:h-16 lg:h-20 flex items-center justify-between gap-1.5 sm:gap-2 xl:gap-4">
         
         {/* Brand Logo */}
         <Link to="/" className="shrink-0 flex items-center pr-1 xl:pr-2 2xl:pr-4">
@@ -352,7 +356,7 @@ export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
       {mobileMenuOpen && (
         <>
           <div
-            className="fixed inset-0 top-16 sm:top-20 bg-slate-950/60 backdrop-blur-xs z-40 lg:hidden"
+            className="fixed inset-0 top-14 sm:top-16 lg:top-20 bg-slate-950/60 backdrop-blur-xs z-40 lg:hidden"
             onClick={() => setMobileMenuOpen(false)}
             aria-hidden="true"
           />
@@ -360,141 +364,142 @@ export default function Navbar({ darkMode, onOpenConsultation }: NavbarProps) {
           <div
             data-lenis-prevent="true"
             data-lenis-prevent-touch="true"
-            className="relative z-50 lg:hidden border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-[#0F172A]/95 backdrop-blur-md px-3 sm:px-4 py-3.5 shadow-2xl overflow-y-auto modal-scrollable overscroll-contain touch-pan-y max-h-[85vh] w-full rounded-b-3xl"
+            className="relative z-50 lg:hidden border-b border-slate-200 dark:border-slate-800 bg-white/98 dark:bg-[#0F172A]/98 backdrop-blur-md px-3 py-3 shadow-2xl overflow-y-auto modal-scrollable overscroll-contain touch-pan-y max-h-[72vh] w-full rounded-b-2xl text-xs"
           >
-            <div className="space-y-3">
-              <div className="flex items-center justify-between px-1">
-                <span className="text-[10px] font-extrabold text-[#2563EB] uppercase tracking-widest">
-                  Quick Navigation
-                </span>
-                <span className="text-[10px] text-slate-400 font-semibold">
-                  Tap link to navigate
-                </span>
-              </div>
-
-              {/* 2-Column Grid Layout */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                {navLinks.map((link) => {
-                  const IconComponent = link.icon;
+            <div className="space-y-2.5">
+              
+              {/* 1. Primary 6 Main Destinations Grid (Clean, Large Touch Targets) */}
+              <div className="grid grid-cols-3 gap-1.5">
+                {[
+                  { label: 'Home', path: '/', icon: Home },
+                  { label: 'Services', path: '/services', icon: Zap },
+                  { label: 'Portfolio', path: '/completed-projects', icon: CheckCircle2 },
+                  { label: 'About', path: '/about', icon: UserCheck },
+                  { label: 'Blog', path: '/blog', icon: BookOpen },
+                  { label: 'Contact', path: '/contact', icon: PhoneCall }
+                ].map((item) => {
+                  const Icon = item.icon;
                   return (
                     <NavLink
-                      key={link.label}
-                      to={link.path}
+                      key={item.label}
+                      to={item.path}
                       onClick={() => setMobileMenuOpen(false)}
                       className={({ isActive }) =>
-                        `text-xs font-bold py-2.5 px-3 rounded-xl border flex items-center gap-2.5 transition-all ${
+                        `py-2 px-1.5 rounded-xl border flex flex-col items-center justify-center gap-1 font-bold text-center transition-all ${
                           isActive
-                            ? 'bg-blue-50 dark:bg-blue-950/80 border-blue-300 dark:border-blue-700 text-[#2563EB] dark:text-blue-400 font-extrabold shadow-xs'
-                            : 'bg-slate-50 dark:bg-slate-800/60 border-slate-200/70 dark:border-slate-800 text-slate-800 dark:text-slate-200 hover:text-[#2563EB]'
+                            ? 'bg-blue-50 dark:bg-blue-950/80 border-blue-300 dark:border-blue-700 text-[#2563EB] dark:text-blue-400 shadow-xs'
+                            : 'bg-slate-50 dark:bg-slate-800/60 border-slate-200/80 dark:border-slate-800 text-slate-800 dark:text-slate-200 hover:text-[#2563EB]'
                         }`
                       }
                     >
-                      <div className="w-6 h-6 rounded-lg bg-blue-50 dark:bg-blue-950/80 text-[#2563EB] flex items-center justify-center shrink-0">
-                        <IconComponent className="w-3.5 h-3.5" />
-                      </div>
-                      <span className="truncate">{link.label}</span>
+                      <Icon className="w-4 h-4 text-[#2563EB]" />
+                      <span className="text-[11px] font-bold leading-tight">{item.label}</span>
                     </NavLink>
                   );
                 })}
               </div>
 
-              {/* Mobile Completed Work Links by Category */}
-              <div className="pt-2 border-t border-slate-200 dark:border-slate-800 space-y-2">
-                <div className="flex items-center justify-between px-1">
-                  <span className="text-[10px] font-extrabold text-[#2563EB] uppercase tracking-widest flex items-center gap-1.5">
-                    <Sparkles className="w-3 h-3 text-[#2563EB]" />
-                    <span>Completed Work ({completedWorkCategories.length})</span>
-                  </span>
-                  <Link 
-                    to="/completed-projects" 
+              {/* 2. Secondary Quick Pill Links (Compact Single Line Wrap) */}
+              <div className="flex flex-wrap items-center justify-center gap-1.5 py-1 px-1 border-t border-slate-100 dark:border-slate-800/80">
+                {[
+                  { label: 'Founders', path: '/founders' },
+                  { label: 'Deliverables', path: '/deliverables' },
+                  { label: 'Process', path: '/process' },
+                  { label: 'Reviews', path: '/testimonials' },
+                  { label: 'Why Us', path: '/why-us' },
+                  { label: 'FAQ', path: '/faq' }
+                ].map((sub) => (
+                  <NavLink
+                    key={sub.label}
+                    to={sub.path}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="text-[10px] text-[#2563EB] font-bold hover:underline"
+                    className={({ isActive }) =>
+                      `px-2.5 py-1 rounded-lg text-[10px] font-bold border transition-colors ${
+                        isActive
+                          ? 'bg-blue-50 border-blue-200 text-[#2563EB] dark:bg-blue-950 dark:border-blue-800'
+                          : 'bg-slate-100/80 dark:bg-slate-800/80 border-slate-200/60 dark:border-slate-700 text-slate-600 dark:text-slate-300'
+                      }`
+                    }
                   >
-                    View All &rarr;
-                  </Link>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs">
-                  {completedWorkCategories.map((item) => {
-                    const IconComp = item.icon;
-                    return (
-                      <Link
-                        key={item.label}
-                        to={item.path}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/40 hover:bg-blue-50 dark:hover:bg-blue-950/60 border border-slate-200/60 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-[#2563EB] flex items-start gap-2 font-medium transition-all group"
-                      >
-                        <div className="w-5 h-5 rounded-md bg-blue-50 dark:bg-blue-950 text-[#2563EB] flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-105 transition-transform">
-                          <IconComp className="w-3 h-3" />
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <div className="flex items-center justify-between gap-1">
-                            <p className="text-[11px] font-bold text-slate-900 dark:text-white truncate leading-tight group-hover:text-[#2563EB] transition-colors">
-                              {item.label}
-                            </p>
-                            <span className="text-[8px] px-1 py-0.2 rounded bg-slate-200/60 dark:bg-slate-800 text-slate-500 font-semibold shrink-0">
-                              {item.badge}
-                            </span>
-                          </div>
-                          <p className="text-[9px] text-slate-500 dark:text-slate-400 truncate leading-tight pt-0.5">
-                            {item.desc}
-                          </p>
-                        </div>
-                      </Link>
-                    );
-                  })}
-                </div>
+                    {sub.label}
+                  </NavLink>
+                ))}
               </div>
 
-              {/* Mobile Dedicated Service Links (All 8 Services) */}
-              <div className="pt-2 border-t border-slate-200 dark:border-slate-800 space-y-2">
-                <div className="flex items-center justify-between px-1">
-                  <span className="text-[10px] font-extrabold text-[#2563EB] uppercase tracking-widest">
-                    Local Services ({dedicatedServices.length})
+              {/* 3. Collapsible Services Accordion (Hidden by default to keep menu short) */}
+              <div className="border-t border-slate-100 dark:border-slate-800/80 pt-1">
+                <button
+                  type="button"
+                  onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                  className="w-full flex items-center justify-between py-1.5 px-2 rounded-lg bg-slate-50 dark:bg-slate-800/50 text-[11px] font-bold text-slate-700 dark:text-slate-300"
+                >
+                  <span className="flex items-center gap-1.5">
+                    <Zap className="w-3.5 h-3.5 text-[#2563EB]" />
+                    <span>Explore 8 Growth Services</span>
                   </span>
-                  <span className="text-[10px] text-slate-400 font-medium">
-                    All 8 Growth Services
-                  </span>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs">
-                  {dedicatedServices.map((ds) => {
-                    const IconComp = ds.icon;
-                    return (
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${mobileServicesOpen ? 'rotate-180 text-[#2563EB]' : ''}`} />
+                </button>
+                {mobileServicesOpen && (
+                  <div className="grid grid-cols-2 gap-1 pt-1.5">
+                    {dedicatedServices.map((ds) => (
                       <Link
                         key={ds.path}
                         to={ds.path}
                         onClick={() => setMobileMenuOpen(false)}
-                        className="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/40 hover:bg-blue-50 dark:hover:bg-blue-950/60 border border-slate-200/60 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-[#2563EB] flex items-start gap-2 font-medium transition-all group"
+                        className="p-1.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 text-[10px] font-semibold text-slate-700 dark:text-slate-300 hover:text-[#2563EB] truncate flex items-center gap-1.5"
                       >
-                        <div className="w-5 h-5 rounded-md bg-blue-50 dark:bg-blue-950 text-[#2563EB] flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-105 transition-transform">
-                          <IconComp className="w-3 h-3" />
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <p className="text-[11px] font-bold text-slate-900 dark:text-white truncate leading-tight group-hover:text-[#2563EB] transition-colors">
-                            {ds.label}
-                          </p>
-                          <p className="text-[9px] text-slate-500 dark:text-slate-400 truncate leading-tight pt-0.5">
-                            {ds.desc}
-                          </p>
-                        </div>
+                        <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
+                        <span className="truncate">{ds.label}</span>
                       </Link>
-                    );
-                  })}
-                </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
-              {/* Compact CTA Button */}
-              <div className="pt-2 border-t border-slate-200 dark:border-slate-800">
+              {/* 4. Collapsible Completed Work Accordion (Hidden by default) */}
+              <div className="border-t border-slate-100 dark:border-slate-800/80 pt-1">
+                <button
+                  type="button"
+                  onClick={() => setMobileWorkOpen(!mobileWorkOpen)}
+                  className="w-full flex items-center justify-between py-1.5 px-2 rounded-lg bg-slate-50 dark:bg-slate-800/50 text-[11px] font-bold text-slate-700 dark:text-slate-300"
+                >
+                  <span className="flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-[#2563EB]" />
+                    <span>Creative Work Categories</span>
+                  </span>
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${mobileWorkOpen ? 'rotate-180 text-[#2563EB]' : ''}`} />
+                </button>
+                {mobileWorkOpen && (
+                  <div className="grid grid-cols-2 gap-1 pt-1.5">
+                    {completedWorkCategories.map((item) => (
+                      <Link
+                        key={item.label}
+                        to={item.path}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="p-1.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 text-[10px] font-semibold text-slate-700 dark:text-slate-300 hover:text-[#2563EB] truncate flex items-center gap-1.5"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" />
+                        <span className="truncate">{item.label}</span>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* 5. Primary Action Button */}
+              <div className="pt-1.5 border-t border-slate-100 dark:border-slate-800">
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false);
                     onOpenConsultation();
                   }}
-                  className="w-full py-2.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-btn font-semibold text-xs text-center flex items-center justify-center gap-2 shadow-lg shadow-blue-600/25"
+                  className="w-full py-2.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-btn font-bold text-xs flex items-center justify-center gap-2 shadow-md shadow-blue-600/30 active:scale-98 transition-all"
                 >
                   <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                  <span>Book Free Strategy Call</span>
+                  <span>Book Free Consultation Call</span>
                 </button>
               </div>
+
             </div>
           </div>
         </>
