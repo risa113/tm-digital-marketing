@@ -327,8 +327,19 @@ function getStorage<T>(key: string, defaultValue: T): T {
 function setStorage<T>(key: string, value: T): void {
   try {
     localStorage.setItem(key, JSON.stringify(value));
-    // Dispatch custom event for cross-component reactivity
-    window.dispatchEvent(new CustomEvent('tm_cms_updated', { detail: { key } }));
+    // Dispatch custom event for cross-component reactivity in the same tab
+    window.dispatchEvent(new CustomEvent('tm_cms_updated', { detail: { key, value } }));
+
+    // Instant cross-tab broadcast via BroadcastChannel
+    try {
+      if (typeof BroadcastChannel !== 'undefined') {
+        const bc = new BroadcastChannel('tm_cms_channel');
+        bc.postMessage({ type: 'tm_cms_updated', key, timestamp: Date.now() });
+        bc.close();
+      }
+    } catch {
+      // Ignore fallback if BroadcastChannel is restricted
+    }
   } catch (err) {
     console.warn(`[CMS Storage Write Error ${key}]:`, err);
   }
@@ -339,6 +350,44 @@ function setStorage<T>(key: string, value: T): void {
 // ----------------------------------------------------
 
 export const CMSService = {
+  // Real-time multi-tab and multi-window subscription
+  subscribe(callback: (key?: string) => void): () => void {
+    const handler = (e?: any) => {
+      const key = e?.detail?.key || e?.key;
+      callback(key);
+    };
+
+    window.addEventListener('tm_cms_updated', handler);
+    window.addEventListener('storage', handler);
+    window.addEventListener('focus', handler);
+
+    let bc: BroadcastChannel | null = null;
+    try {
+      if (typeof BroadcastChannel !== 'undefined') {
+        bc = new BroadcastChannel('tm_cms_channel');
+        bc.onmessage = () => handler();
+      }
+    } catch {}
+
+    const handleVisibility = () => {
+      if (document.visibilityState === 'visible') {
+        handler();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+
+    return () => {
+      window.removeEventListener('tm_cms_updated', handler);
+      window.removeEventListener('storage', handler);
+      window.removeEventListener('focus', handler);
+      document.removeEventListener('visibilitychange', handleVisibility);
+      if (bc) {
+        try {
+          bc.close();
+        } catch {}
+      }
+    };
+  },
   // Activity Logging
   logActivity(action: string, target: string, category: CMSActivityLog['category'], details?: string) {
     const logs = getStorage<CMSActivityLog[]>(STORAGE_KEYS.ACTIVITY, initialActivityLogs);

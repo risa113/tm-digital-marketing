@@ -35,11 +35,11 @@ export default function ServicesSection({ onSelectService }: ServicesSectionProp
     const handleUpdate = () => {
       const cmsServices = CMSService.getServices(false);
       if (cmsServices && cmsServices.length > 0) {
-        setServicesList(cmsServices);
+        setServicesList([...cmsServices]);
       }
     };
-    window.addEventListener('tm_cms_updated', handleUpdate);
-    return () => window.removeEventListener('tm_cms_updated', handleUpdate);
+    handleUpdate();
+    return CMSService.subscribe(handleUpdate);
   }, []);
 
   const iconMap: Record<string, any> = {

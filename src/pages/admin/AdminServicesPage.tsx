@@ -171,21 +171,27 @@ export default function AdminServicesPage() {
 
       {/* CREATE / EDIT SERVICE MODAL */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs">
-          <div className="relative w-full max-w-xl bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 space-y-4 shadow-2xl">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
-              <h2 className="font-heading font-extrabold text-base text-slate-900 dark:text-white">
-                {editingService?.id ? 'Edit Service' : 'Add New Service'}
-              </h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/75 backdrop-blur-sm">
+          <div className="relative w-full max-w-xl max-h-[92vh] flex flex-col bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden">
+            
+            {/* Modal Header */}
+            <div className="flex-shrink-0 px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-800/80">
+              <div>
+                <h2 className="font-heading font-extrabold text-base text-slate-900 dark:text-white">
+                  {editingService?.id ? 'Edit Service' : 'Add New Service'}
+                </h2>
+                <p className="text-[11px] text-slate-500">Live service details displayed across public pages</p>
+              </div>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="p-1.5 text-slate-400 hover:text-slate-600"
+                className="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-xl"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <form onSubmit={handleSaveForm} className="space-y-3.5 text-xs">
+            {/* Modal Body Form */}
+            <form id="service-modal-form" onSubmit={handleSaveForm} className="flex-1 overflow-y-auto p-6 space-y-3.5 text-xs">
               <div className="space-y-1">
                 <label className="font-bold text-slate-700 dark:text-slate-300">Service Title *</label>
                 <input
@@ -256,23 +262,29 @@ export default function AdminServicesPage() {
                   <option value="draft">Draft (Hidden)</option>
                 </select>
               </div>
+            </form>
 
-              <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex justify-end gap-2">
+            {/* Modal Footer (ALWAYS VISIBLE) */}
+            <div className="flex-shrink-0 px-6 py-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/90 flex items-center justify-between">
+              <span className="text-[11px] text-emerald-600 font-semibold">✓ Live sync enabled</span>
+              <div className="flex items-center gap-2.5">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300"
+                  className="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-bold"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-[#2563EB] text-white font-bold"
+                  form="service-modal-form"
+                  className="px-6 py-2 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold shadow-md shadow-blue-600/30 cursor-pointer"
                 >
                   Save Service
                 </button>
               </div>
-            </form>
+            </div>
+
           </div>
         </div>
       )}

@@ -30,23 +30,33 @@ export default function AdminHomePage() {
   return (
     <div className="space-y-6">
       
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      {/* Header with Sticky Save Option */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2">
         <div>
           <h1 className="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 dark:text-white">
             Homepage Content Management
           </h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Edit hero headlines, badges, primary and secondary call-to-actions, and statistics counters.
+            Edit hero headlines, badges, call-to-actions, and statistics counters with immediate live updates.
           </p>
         </div>
 
-        {savedMessage && (
-          <div className="px-4 py-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 text-xs font-bold border border-emerald-200 dark:border-emerald-800 flex items-center gap-1.5 animate-fade-in">
-            <CheckCircle2 className="w-4 h-4" />
-            <span>Homepage updated live!</span>
-          </div>
-        )}
+        <div className="flex items-center gap-3">
+          {savedMessage && (
+            <div className="px-3.5 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 text-xs font-bold border border-emerald-200 dark:border-emerald-800 flex items-center gap-1.5 animate-fade-in">
+              <CheckCircle2 className="w-4 h-4" />
+              <span>Saved live!</span>
+            </div>
+          )}
+          <button
+            type="button"
+            onClick={handleSave}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs shadow-md shadow-blue-600/30 cursor-pointer active:scale-95 transition-all"
+          >
+            <Save className="w-4 h-4" />
+            <span>Save Changes</span>
+          </button>
+        </div>
       </div>
 
       <form onSubmit={handleSave} className="space-y-6">

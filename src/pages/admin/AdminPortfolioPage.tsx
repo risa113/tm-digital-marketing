@@ -47,8 +47,7 @@ export default function AdminPortfolioPage() {
 
   useEffect(() => {
     loadProjects();
-    window.addEventListener('tm_cms_updated', loadProjects);
-    return () => window.removeEventListener('tm_cms_updated', loadProjects);
+    return CMSService.subscribe(loadProjects);
   }, []);
 
   // Handle URL query parameters (e.g. ?cat=Branding%20%26%20Identity or ?action=new or ?edit=...)
@@ -121,8 +120,10 @@ export default function AdminPortfolioPage() {
     }
   };
 
-  const handleSaveForm = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSaveForm = (e?: React.FormEvent) => {
+    if (e && e.preventDefault) {
+      e.preventDefault();
+    }
 
     if (!formTitle.trim() || !formClient.trim()) {
       alert('Title and Client name are required.');
@@ -136,13 +137,13 @@ export default function AdminPortfolioPage() {
 
     const projectData: Partial<CMSPortfolioProject> = {
       ...(editingProject?.id ? { id: editingProject.id } : {}),
-      title: formTitle,
-      client: formClient,
-      service: formService,
+      title: formTitle.trim(),
+      client: formClient.trim(),
+      service: formService.trim() || 'Creative Design',
       category: formCategory,
-      description: formDescription,
-      clientLocation: formLocation,
-      deliverableTag: formDeliverableTag,
+      description: formDescription.trim(),
+      clientLocation: formLocation.trim() || 'Melapalayam, Tirunelveli',
+      deliverableTag: formDeliverableTag.trim() || 'Completed Client Delivery',
       image: formImage || formGallery[0] || '/portfolio/branding/crescent-construction-logo-design.jpg',
       galleryImages: formGallery.length > 0 ? formGallery : [formImage],
       status: formStatus,
@@ -153,7 +154,7 @@ export default function AdminPortfolioPage() {
     CMSService.saveProject(projectData);
     loadProjects();
     setIsModalOpen(false);
-    showNotification(editingProject?.id ? 'Project updated successfully.' : 'New project published.');
+    showNotification(editingProject?.id ? '✅ Project updated! Changes are live on your website immediately.' : '🚀 New project published immediately!');
   };
 
   const handleAddGalleryUrl = () => {
@@ -341,24 +342,47 @@ export default function AdminPortfolioPage() {
 
       {/* CREATE / EDIT PROJECT MODAL */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/70 backdrop-blur-xs overflow-y-auto">
-          <div className="relative w-full max-w-3xl bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden my-8">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/75 backdrop-blur-sm">
+          <div className="relative w-full max-w-3xl max-h-[92vh] flex flex-col bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden">
             
-            {/* Modal Header */}
-            <div className="px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-800/60">
-              <h2 className="font-heading font-extrabold text-base text-slate-900 dark:text-white">
-                {editingProject?.id ? 'Edit Portfolio Project' : 'Add New Portfolio Project'}
-              </h2>
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className="p-1.5 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer"
-              >
-                <X className="w-5 h-5" />
-              </button>
+            {/* Modal Header (ALWAYS FIXED AT TOP) */}
+            <div className="flex-shrink-0 px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-800/80">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-xl bg-blue-100 dark:bg-blue-950 flex items-center justify-center text-[#2563EB]">
+                  <Edit className="w-4 h-4" />
+                </div>
+                <div>
+                  <h2 className="font-heading font-extrabold text-base text-slate-900 dark:text-white">
+                    {editingProject?.id ? 'Edit Portfolio Project' : 'Add New Portfolio Project'}
+                  </h2>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                    {editingProject?.id ? `Client: ${editingProject.client}` : 'Publish new completed work to your website'}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => handleSaveForm()}
+                  className="px-4 py-2 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-bold shadow-md shadow-blue-600/30 flex items-center gap-1.5 cursor-pointer active:scale-95 transition-all"
+                  title="Quick Save"
+                >
+                  <Check className="w-3.5 h-3.5 stroke-[3]" />
+                  <span>Save</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                  className="p-2 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-800 cursor-pointer transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
             </div>
 
-            {/* Modal Body Form */}
-            <form onSubmit={handleSaveForm} className="p-6 space-y-4 max-h-[75vh] overflow-y-auto text-xs">
+            {/* Modal Body Form (SCROLLS SMOOTHLY) */}
+            <form id="portfolio-project-form" onSubmit={handleSaveForm} className="flex-1 overflow-y-auto p-6 space-y-4 text-xs">
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
@@ -497,24 +521,33 @@ export default function AdminPortfolioPage() {
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-end gap-2.5">
+            </form>
+
+            {/* Modal Footer (STICKY AT BOTTOM, 100% VISIBLE WITH BRIGHT SAVE BUTTON) */}
+            <div className="flex-shrink-0 px-6 py-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/90 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div className="text-[11px] text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5 font-semibold">
+                <CheckCircle2 className="w-4 h-4" />
+                <span>Edits take effect immediately across all website pages</span>
+              </div>
+              <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 font-bold"
+                  className="px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-slate-800 font-bold text-xs cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold shadow-md shadow-blue-600/30 cursor-pointer"
+                  form="portfolio-project-form"
+                  className="px-8 py-2.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-extrabold text-xs shadow-xl shadow-blue-600/30 hover:shadow-blue-600/50 cursor-pointer flex items-center gap-2 active:scale-95 transition-all"
                 >
-                  {editingProject?.id ? 'Save Changes' : 'Publish Project'}
+                  <Check className="w-4 h-4 stroke-[3]" />
+                  <span>{editingProject?.id ? 'SAVE CHANGES' : 'PUBLISH PROJECT'}</span>
                 </button>
               </div>
+            </div>
 
-            </form>
           </div>
         </div>
       )}

@@ -43,16 +43,19 @@ export default function PortfolioSection({ onOpenConsultation }: PortfolioSectio
     return cmsList && cmsList.length > 0 ? cmsList : CREATIVE_PROJECTS;
   });
 
-  // Listen for realtime CMS updates from admin panel
+  // Listen for realtime CMS updates from admin panel across tabs and windows
   useEffect(() => {
     const handleCMSUpdate = () => {
       const cmsList = CMSService.getProjects(false);
       if (cmsList && cmsList.length > 0) {
-        setProjects(cmsList);
+        setProjects([...cmsList]);
       }
     };
-    window.addEventListener('tm_cms_updated', handleCMSUpdate);
-    return () => window.removeEventListener('tm_cms_updated', handleCMSUpdate);
+
+    // Ensure state is fresh on mount
+    handleCMSUpdate();
+
+    return CMSService.subscribe(handleCMSUpdate);
   }, []);
 
   // Sync category with URL query param if present (?category=...)
