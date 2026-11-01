@@ -686,6 +686,37 @@ for (const article of BLOG_ARTICLES) {
   count++;
 }
 
+// 2.5 Generate Secure Admin Routes (Protected from Search Engine Indexing)
+console.log('Generating secure admin SPA entrypoints with noindex, nofollow protection...');
+const ADMIN_ROUTES = [
+  'admin',
+  'admin/login',
+  'admin/dashboard',
+  'admin/portfolio',
+  'admin/media',
+  'admin/services',
+  'admin/testimonials',
+  'admin/content/home',
+  'admin/content/about',
+  'admin/seo',
+  'admin/contact',
+  'admin/settings',
+  'admin/profile'
+];
+
+for (const adminRoute of ADMIN_ROUTES) {
+  const targetDir = path.join(distDir, adminRoute);
+  if (!fs.existsSync(targetDir)) {
+    fs.mkdirSync(targetDir, { recursive: true });
+  }
+  let adminHtml = baseIndexHtml;
+  adminHtml = adminHtml.replace(/<meta name="google-adsense-account" content=".*?" \/>/g, '');
+  adminHtml = adminHtml.replace(/<title>.*?<\/title>/s, '<title>Admin Portal | TM Digital Marketing</title>');
+  adminHtml = adminHtml.replace(/<meta name="robots" content=".*?" \/>/s, '<meta name="robots" content="noindex, nofollow" />');
+  fs.writeFileSync(path.join(targetDir, 'index.html'), adminHtml, 'utf8');
+  count++;
+}
+
 // 3. Generate Pristine Compliant 404.html (WITHOUT AdSense code!)
 console.log('Generating compliant 404.html (free of AdSense code)...');
 let notFoundHtml = baseIndexHtml;

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SERVICES, ServiceItem } from '../data/marketingData';
+import { CMSService } from '../services/cmsService';
 import { 
   Search, 
   Share2, 
@@ -25,6 +26,21 @@ interface ServicesSectionProps {
 
 export default function ServicesSection({ onSelectService }: ServicesSectionProps) {
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
+  const [servicesList, setServicesList] = useState<ServiceItem[]>(() => {
+    const cmsServices = CMSService.getServices(false);
+    return cmsServices && cmsServices.length > 0 ? cmsServices : SERVICES;
+  });
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      const cmsServices = CMSService.getServices(false);
+      if (cmsServices && cmsServices.length > 0) {
+        setServicesList(cmsServices);
+      }
+    };
+    window.addEventListener('tm_cms_updated', handleUpdate);
+    return () => window.removeEventListener('tm_cms_updated', handleUpdate);
+  }, []);
 
   const iconMap: Record<string, any> = {
     Search,
@@ -55,7 +71,7 @@ export default function ServicesSection({ onSelectService }: ServicesSectionProp
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-xs font-bold text-[#2563EB] border border-blue-200 dark:border-blue-800"
           >
             <Sparkles className="w-3.5 h-3.5 text-[#3B82F6]" />
-            <span>12 PREMIUM SERVICES</span>
+            <span>{servicesList.length} PREMIUM SERVICES</span>
           </motion.div>
 
           <motion.h2 
@@ -89,7 +105,7 @@ export default function ServicesSection({ onSelectService }: ServicesSectionProp
           viewport={defaultViewport}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
         >
-          {SERVICES.map((service, index) => {
+          {servicesList.map((service, index) => {
             const IconComponent = iconMap[service.iconName] || Sparkles;
             const columnVariant = index % 3 === 0 ? slideInLeft : index % 3 === 1 ? fadeInUp : slideInRight;
 

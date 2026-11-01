@@ -43,6 +43,23 @@ const DisclaimerPage = lazy(() => import('./pages/DisclaimerPage'));
 const FoundersPage = lazy(() => import('./pages/FoundersPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
+// Lazy load Admin Portal & CMS Pages
+const AdminLoginPage = lazy(() => import('./pages/admin/AdminLoginPage'));
+const AdminDashboardPage = lazy(() => import('./pages/admin/AdminDashboardPage'));
+const AdminPortfolioPage = lazy(() => import('./pages/admin/AdminPortfolioPage'));
+const AdminMediaPage = lazy(() => import('./pages/admin/AdminMediaPage'));
+const AdminServicesPage = lazy(() => import('./pages/admin/AdminServicesPage'));
+const AdminTestimonialsPage = lazy(() => import('./pages/admin/AdminTestimonialsPage'));
+const AdminHomePage = lazy(() => import('./pages/admin/AdminHomePage'));
+const AdminAboutPage = lazy(() => import('./pages/admin/AdminAboutPage'));
+const AdminSEOPage = lazy(() => import('./pages/admin/AdminSEOPage'));
+const AdminContactPage = lazy(() => import('./pages/admin/AdminContactPage'));
+const AdminSettingsPage = lazy(() => import('./pages/admin/AdminSettingsPage'));
+const AdminProfilePage = lazy(() => import('./pages/admin/AdminProfilePage'));
+
+import AdminAuthGuard from './components/admin/AdminAuthGuard';
+import AdminLayout from './components/admin/AdminLayout';
+
 import { ServiceItem } from './data/marketingData';
 
 // Lightweight route transition spinner
@@ -120,23 +137,27 @@ export default function App() {
     />
   );
 
+  const isAdminRoute = location.pathname.startsWith('/admin');
+
   return (
     <div className="min-h-screen w-full max-w-[100vw] overflow-x-hidden bg-[#F8FAFC] dark:bg-[#0F172A] text-[#111827] dark:text-slate-100 transition-colors duration-300 relative font-poppins">
       {/* Scroll restoration */}
       <ScrollToTop />
 
-      {/* Dynamic Route SEO Head & Structured Data Schemas */}
-      <SEOHead />
+      {/* Dynamic Route SEO Head & Structured Data Schemas (Public Pages Only) */}
+      {!isAdminRoute && <SEOHead />}
 
-      {/* Persistent Header Navbar */}
-      <Navbar
-        darkMode={darkMode}
-        setDarkMode={setDarkMode}
-        onOpenConsultation={handleOpenConsultation}
-      />
+      {/* Persistent Header Navbar (Public Pages Only) */}
+      {!isAdminRoute && (
+        <Navbar
+          darkMode={darkMode}
+          setDarkMode={setDarkMode}
+          onOpenConsultation={handleOpenConsultation}
+        />
+      )}
 
-      {/* Visual Breadcrumb Navigation */}
-      <Breadcrumbs />
+      {/* Visual Breadcrumb Navigation (Public Pages Only) */}
+      {!isAdminRoute && <Breadcrumbs />}
 
       {/* Route Content Area with Code-Splitting Suspense */}
       <main className="w-full max-w-[100vw] overflow-x-hidden min-h-[70vh]">
@@ -267,6 +288,129 @@ export default function App() {
                 <Route path="/disclaimer" element={<DisclaimerPage />} />
                 <Route path="/ad-disclosure" element={<DisclaimerPage />} />
 
+                {/* Admin CMS & Portal Routes */}
+                <Route path="/admin/login" element={<AdminLoginPage />} />
+                <Route
+                  path="/admin"
+                  element={
+                    <AdminAuthGuard>
+                      <AdminLayout>
+                        <AdminDashboardPage />
+                      </AdminLayout>
+                    </AdminAuthGuard>
+                  }
+                />
+                <Route
+                  path="/admin/dashboard"
+                  element={
+                    <AdminAuthGuard>
+                      <AdminLayout>
+                        <AdminDashboardPage />
+                      </AdminLayout>
+                    </AdminAuthGuard>
+                  }
+                />
+                <Route
+                  path="/admin/portfolio"
+                  element={
+                    <AdminAuthGuard>
+                      <AdminLayout>
+                        <AdminPortfolioPage />
+                      </AdminLayout>
+                    </AdminAuthGuard>
+                  }
+                />
+                <Route
+                  path="/admin/media"
+                  element={
+                    <AdminAuthGuard>
+                      <AdminLayout>
+                        <AdminMediaPage />
+                      </AdminLayout>
+                    </AdminAuthGuard>
+                  }
+                />
+                <Route
+                  path="/admin/services"
+                  element={
+                    <AdminAuthGuard>
+                      <AdminLayout>
+                        <AdminServicesPage />
+                      </AdminLayout>
+                    </AdminAuthGuard>
+                  }
+                />
+                <Route
+                  path="/admin/testimonials"
+                  element={
+                    <AdminAuthGuard>
+                      <AdminLayout>
+                        <AdminTestimonialsPage />
+                      </AdminLayout>
+                    </AdminAuthGuard>
+                  }
+                />
+                <Route
+                  path="/admin/content/home"
+                  element={
+                    <AdminAuthGuard>
+                      <AdminLayout>
+                        <AdminHomePage />
+                      </AdminLayout>
+                    </AdminAuthGuard>
+                  }
+                />
+                <Route
+                  path="/admin/content/about"
+                  element={
+                    <AdminAuthGuard>
+                      <AdminLayout>
+                        <AdminAboutPage />
+                      </AdminLayout>
+                    </AdminAuthGuard>
+                  }
+                />
+                <Route
+                  path="/admin/seo"
+                  element={
+                    <AdminAuthGuard>
+                      <AdminLayout>
+                        <AdminSEOPage />
+                      </AdminLayout>
+                    </AdminAuthGuard>
+                  }
+                />
+                <Route
+                  path="/admin/contact"
+                  element={
+                    <AdminAuthGuard>
+                      <AdminLayout>
+                        <AdminContactPage />
+                      </AdminLayout>
+                    </AdminAuthGuard>
+                  }
+                />
+                <Route
+                  path="/admin/settings"
+                  element={
+                    <AdminAuthGuard>
+                      <AdminLayout>
+                        <AdminSettingsPage />
+                      </AdminLayout>
+                    </AdminAuthGuard>
+                  }
+                />
+                <Route
+                  path="/admin/profile"
+                  element={
+                    <AdminAuthGuard>
+                      <AdminLayout>
+                        <AdminProfilePage />
+                      </AdminLayout>
+                    </AdminAuthGuard>
+                  }
+                />
+
                 {/* 404 Fallback */}
                 <Route path="*" element={<NotFoundPage />} />
               </Routes>
@@ -275,25 +419,27 @@ export default function App() {
         </AnimatePresence>
       </main>
 
-      {/* Persistent Footer */}
-      <Footer />
+      {/* Persistent Footer (Public Pages Only) */}
+      {!isAdminRoute && <Footer />}
 
-      {/* Floating Action Utilities */}
-      <StickyButtons />
+      {/* Floating Action Utilities (Public Pages Only) */}
+      {!isAdminRoute && <StickyButtons />}
       
       {/* Interactive GDPR & Google AdSense Compliant Cookie Consent Banner */}
-      <CookieConsent />
+      {!isAdminRoute && <CookieConsent />}
 
-      <Suspense fallback={null}>
-        <ChatbotWidget onOpenConsultation={handleOpenConsultation} />
-        {isConsultationOpen && (
-          <ConsultationModal
-            isOpen={isConsultationOpen}
-            onClose={() => setIsConsultationOpen(false)}
-            defaultService={selectedServiceForForm}
-          />
-        )}
-      </Suspense>
+      {!isAdminRoute && (
+        <Suspense fallback={null}>
+          <ChatbotWidget onOpenConsultation={handleOpenConsultation} />
+          {isConsultationOpen && (
+            <ConsultationModal
+              isOpen={isConsultationOpen}
+              onClose={() => setIsConsultationOpen(false)}
+              defaultService={selectedServiceForForm}
+            />
+          )}
+        </Suspense>
+      )}
     </div>
   );
 }

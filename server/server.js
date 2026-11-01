@@ -247,6 +247,59 @@ app.post('/api/leads/clear', async (req, res) => {
   }
 });
 
+// ----------------------------------------------------
+// CMS Content API Endpoints (Admin & Public Sync)
+// ----------------------------------------------------
+
+const CMS_DB_FILE = path.join(__dirname, 'cms_database.json');
+
+function readCmsDb() {
+  try {
+    if (fs.existsSync(CMS_DB_FILE)) {
+      return JSON.parse(fs.readFileSync(CMS_DB_FILE, 'utf8'));
+    }
+  } catch (err) {
+    console.error('Error reading CMS DB file:', err);
+  }
+  return null;
+}
+
+function writeCmsDb(data) {
+  try {
+    fs.writeFileSync(CMS_DB_FILE, JSON.stringify(data, null, 2), 'utf8');
+    return true;
+  } catch (err) {
+    console.error('Error writing CMS DB file:', err);
+    return false;
+  }
+}
+
+app.get('/api/cms/content', (req, res) => {
+  const data = readCmsDb();
+  if (data) {
+    res.json({ success: true, data });
+  } else {
+    res.status(404).json({ success: false, message: 'No server CMS data found. Defaulting to client store.' });
+  }
+});
+
+app.post('/api/cms/sync', (req, res) => {
+  const cmsPayload = req.body;
+  if (!cmsPayload) {
+    return res.status(400).json({ error: 'Payload is required.' });
+  }
+  const ok = writeCmsDb(cmsPayload);
+  if (ok) {
+    res.json({ success: true, message: 'CMS state persisted to server successfully.' });
+  } else {
+    res.status(500).json({ error: 'Failed to write CMS data to disk.' });
+  }
+});
+
+app.get('/api/cms/health', (req, res) => {
+  res.json({ status: 'ok', service: 'TM Digital Marketing CMS API', timestamp: new Date() });
+});
+
 // Start Server with Recursive Port Finder
 function startServer(portToTry) {
   const server = app.listen(portToTry, () => {

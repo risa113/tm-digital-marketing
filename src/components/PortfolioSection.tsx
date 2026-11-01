@@ -23,6 +23,7 @@ import {
   PortfolioCategory, 
   CreativeProject 
 } from '../data/portfolioData';
+import { CMSService } from '../services/cmsService';
 import { fadeInUp, fadeInDown, defaultViewport } from '../utils/animations';
 
 interface PortfolioSectionProps {
@@ -35,6 +36,24 @@ export default function PortfolioSection({ onOpenConsultation }: PortfolioSectio
   const [activeCategory, setActiveCategory] = useState<PortfolioCategory>('All Projects');
   const [selectedProject, setSelectedProject] = useState<CreativeProject | null>(null);
   const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
+
+  // Dynamic projects loaded from CMS store (with fallback to default seed)
+  const [projects, setProjects] = useState<CreativeProject[]>(() => {
+    const cmsList = CMSService.getProjects(false);
+    return cmsList && cmsList.length > 0 ? cmsList : CREATIVE_PROJECTS;
+  });
+
+  // Listen for realtime CMS updates from admin panel
+  useEffect(() => {
+    const handleCMSUpdate = () => {
+      const cmsList = CMSService.getProjects(false);
+      if (cmsList && cmsList.length > 0) {
+        setProjects(cmsList);
+      }
+    };
+    window.addEventListener('tm_cms_updated', handleCMSUpdate);
+    return () => window.removeEventListener('tm_cms_updated', handleCMSUpdate);
+  }, []);
 
   // Sync category with URL query param if present (?category=...)
   useEffect(() => {
@@ -58,8 +77,8 @@ export default function PortfolioSection({ onOpenConsultation }: PortfolioSectio
 
   // Filter projects by active category
   const filteredProjects = activeCategory === 'All Projects'
-    ? CREATIVE_PROJECTS
-    : CREATIVE_PROJECTS.filter((item) => item.category === activeCategory);
+    ? projects
+    : projects.filter((item) => item.category === activeCategory);
 
   // Open modal
   const handleOpenModal = (project: CreativeProject) => {
@@ -131,8 +150,8 @@ export default function PortfolioSection({ onOpenConsultation }: PortfolioSectio
 
   // Get project count by category
   const getCategoryCount = (category: PortfolioCategory) => {
-    if (category === 'All Projects') return CREATIVE_PROJECTS.length;
-    return CREATIVE_PROJECTS.filter((p) => p.category === category).length;
+    if (category === 'All Projects') return projects.length;
+    return projects.filter((p) => p.category === category).length;
   };
 
   return (
@@ -557,7 +576,7 @@ export default function PortfolioSection({ onOpenConsultation }: PortfolioSectio
               name: 'TM Digital Marketing',
               url: 'https://tmdigitalgrow.com'
             },
-            hasPart: CREATIVE_PROJECTS.map((project) => ({
+            hasPart: projects.map((project) => ({
               '@type': 'CreativeWork',
               name: project.title,
               creator: {
